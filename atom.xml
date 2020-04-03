@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>zhanglimin&#39;s Blog</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://zhangliminabc.github.io/"/>
+  <updated>2020-04-03T13:06:46.570Z</updated>
+  <id>http://zhangliminabc.github.io/</id>
+  
+  <author>
+    <name>zhanglimin</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>demo</title>
+    <link href="http://zhangliminabc.github.io/2020/04/03/demo/"/>
+    <id>http://zhangliminabc.github.io/2020/04/03/demo/</id>
+    <published>2020-04-03T13:06:46.000Z</published>
+    <updated>2020-04-03T13:06:46.570Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>javaScript</title>
+    <link href="http://zhangliminabc.github.io/2020/04/03/index/"/>
+    <id>http://zhangliminabc.github.io/2020/04/03/index/</id>
+    <published>2020-04-03T03:42:16.000Z</published>
+    <updated>2020-04-03T13:11:44.655Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="js-基本概念"><a href="#js-基本概念" class="headerlink" title="js 基本概念"></a>js 基本概念</h3><h4 id="语法，-变量，-数据类型"><a href="#语法，-变量，-数据类型" class="headerlink" title="语法， 变量， 数据类型"></a>语法， 变量， 数据类型</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.区分大小写, a 和A 是两个不同的变量。改变其中一个值不会影响另一个变量的值</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="string">"1"</span>;</span><br><span class="line"><span class="keyword">var</span> A = <span class="string">"1"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a == A); <span class="comment">//true</span></span><br><span class="line"><span class="comment">// 2.标识符： 变量，函数，的名字；字母.数字.下划线.美元符号组成; 第一个字母必须是数字， 下划线， 美元符号组成， 采用驼峰式命名</span></span><br><span class="line"><span class="comment">// 3.注释</span></span><br><span class="line"><span class="comment">// 4.严格模式</span></span><br><span class="line"><span class="comment">// 5.语句</span></span><br></pre></td></tr></table></figure><a id="more"></a><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 变量</span></span><br><span class="line"><span class="comment">// 变量声明未定义</span></span><br><span class="line"><span class="keyword">var</span> message;</span><br><span class="line"><span class="built_in">console</span>.log(message); <span class="comment">//undefind 变量声明未定义</span></span><br><span class="line"><span class="comment">// 变量作用域, 在函数内部使用var声明变量表示该变量只能在函数内访问，不使用var表示该变量属于全局变量</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="string">"this is a functon scope"</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(a);</span><br><span class="line">&#125;</span><br><span class="line">test(); <span class="comment">//this is a functon scope</span></span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">// undefind</span></span><br></pre></td></tr></table></figure><!-- more --><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 数据类型， 基本数据类型： null, undefind, boolean, string, number, 引用类型： object</span></span><br><span class="line"><span class="keyword">var</span> _typeVariable = <span class="string">"1"</span>;</span><br><span class="line"><span class="keyword">typeof</span> _typeVariable == <span class="string">"string"</span>; <span class="comment">//true</span></span><br><span class="line"><span class="comment">// typeof 可能的值： undefind, boolean, string, number, object, function</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;js-基本概念&quot;&gt;&lt;a href=&quot;#js-基本概念&quot; class=&quot;headerlink&quot; title=&quot;js 基本概念&quot;&gt;&lt;/a&gt;js 基本概念&lt;/h3&gt;&lt;h4 id=&quot;语法，-变量，-数据类型&quot;&gt;&lt;a href=&quot;#语法，-变量，-数据类型&quot; class=&quot;headerlink&quot; title=&quot;语法， 变量， 数据类型&quot;&gt;&lt;/a&gt;语法， 变量， 数据类型&lt;/h4&gt;&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 1.区分大小写, a 和A 是两个不同的变量。改变其中一个值不会影响另一个变量的值&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; a = &lt;span class=&quot;string&quot;&gt;&quot;1&quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; A = &lt;span class=&quot;string&quot;&gt;&quot;1&quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(a == A); &lt;span class=&quot;comment&quot;&gt;//true&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 2.标识符： 变量，函数，的名字；字母.数字.下划线.美元符号组成; 第一个字母必须是数字， 下划线， 美元符号组成， 采用驼峰式命名&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 3.注释&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 4.严格模式&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 5.语句&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="jekyll update" scheme="http://zhangliminabc.github.io/categories/jekyll-update/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>这是首页</title>
+    <link href="http://zhangliminabc.github.io/2018/05/02/hemo/"/>
+    <id>http://zhangliminabc.github.io/2018/05/02/hemo/</id>
+    <published>2018-05-02T05:48:09.000Z</published>
+    <updated>2020-04-03T07:14:03.617Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+</feed>
