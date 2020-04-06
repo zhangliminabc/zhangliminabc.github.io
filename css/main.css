@@ -1272,7 +1272,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #b0d999;
+  background: #879fe9;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1916,7 +1916,7 @@ pre .javascript .function {
   color: #999;
   font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 0.75em;
-  margin: 3px 0 60px 0;
+  margin: 3px 0 30px 0;
   text-align: center;
 }
 .posts-expand .post-meta .post-description {
@@ -2329,6 +2329,7 @@ ul.breadcrumb li + li:last-child {
   position: absolute;
   top: 0;
   width: 240px;
+  border-radius: 10px;
 }
 @media (min-width: 1200px) {
   .header-inner {
@@ -2507,6 +2508,7 @@ ul.breadcrumb li + li:last-child {
   box-sizing: border-box;
   color: var(--text-color);
   width: 240px;
+  border-radius: 10px;
   opacity: 0;
 }
 .sidebar-inner.affix {
@@ -2597,9 +2599,10 @@ ul.breadcrumb li + li:last-child {
   border-radius: initial;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);
   padding: 40px;
+  font-size: 12px !important;
+  border-radius: 10px;
 }
 .post-block + .post-block {
-  border-radius: initial;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12), 0 -1px 0.5px 0 rgba(0,0,0,0.09);
   margin-top: 12px;
 }
