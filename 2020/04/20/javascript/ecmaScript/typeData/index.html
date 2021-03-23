@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"zhangliminabc.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":240,"display":"always","offset":18,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="js 对象1. 对象属性数据属性:configurable: 能否通过 delete 删除属性从而重新定义属性，默认值 trueenumerable: 是否可以通过 forin 循环， 默认值 truewritable: 能否修改属性的值， 默认值 truevalue： 获取修改属性的值。 默认值 undifinedObject.defineProperty( 属性所在的对象， 需要修改的属性名，">
+  <meta name="description" content="数据类型  基本数据类型: undefined、 null、 string、 boolean、 number  引用数据类型: object  typeof(类型监测)   12345678910111213141516&#x2F;* * undefined: 这个值未定义 * boolean: 布尔类型 * string: 字符串 * number: 数字 * object: objetc 或者 null">
 <meta property="og:type" content="article">
-<meta property="og:title" content="js对象">
-<meta property="og:url" content="http://zhangliminabc.github.io/2020/04/06/javascript/jsObject/index.html">
+<meta property="og:title" content="function">
+<meta property="og:url" content="http://zhangliminabc.github.io/2020/04/20/javascript/ecmaScript/typeData/index.html">
 <meta property="og:site_name" content="zhanglimin&#39;s Blog">
-<meta property="og:description" content="js 对象1. 对象属性数据属性:configurable: 能否通过 delete 删除属性从而重新定义属性，默认值 trueenumerable: 是否可以通过 forin 循环， 默认值 truewritable: 能否修改属性的值， 默认值 truevalue： 获取修改属性的值。 默认值 undifinedObject.defineProperty( 属性所在的对象， 需要修改的属性名，">
+<meta property="og:description" content="数据类型  基本数据类型: undefined、 null、 string、 boolean、 number  引用数据类型: object  typeof(类型监测)   12345678910111213141516&#x2F;* * undefined: 这个值未定义 * boolean: 布尔类型 * string: 字符串 * number: 数字 * object: objetc 或者 null">
 <meta property="og:locale">
-<meta property="article:published_time" content="2020-04-06T10:41:33.000Z">
-<meta property="article:modified_time" content="2020-04-06T10:41:33.000Z">
+<meta property="article:published_time" content="2020-04-20T02:42:03.000Z">
+<meta property="article:modified_time" content="2020-04-20T02:42:03.000Z">
 <meta property="article:author" content="zhanglimin">
 <meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://zhangliminabc.github.io/2020/04/06/javascript/jsObject/">
+<link rel="canonical" href="http://zhangliminabc.github.io/2020/04/20/javascript/ecmaScript/typeData/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>js对象 | zhanglimin's Blog</title>
+  <title>function | zhanglimin's Blog</title>
   
 
 
@@ -211,7 +211,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/2020/04/06/javascript/jsObject/">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/2020/04/20/javascript/ecmaScript/typeData/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -224,7 +224,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          js对象
+          function
         </h1>
 
         <div class="post-meta">
@@ -234,7 +234,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-04-06 18:41:33" itemprop="dateCreated datePublished" datetime="2020-04-06T18:41:33+08:00">2020-04-06</time>
+              <time title="Created: 2020-04-20 10:42:03" itemprop="dateCreated datePublished" datetime="2020-04-20T10:42:03+08:00">2020-04-20</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -259,7 +259,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.9k</span>
+              <span>2.3k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -278,13 +278,45 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="js-对象"><a href="#js-对象" class="headerlink" title="js 对象"></a>js 对象</h3><h4 id="1-对象属性"><a href="#1-对象属性" class="headerlink" title="1. 对象属性"></a>1. 对象属性</h4><p><em>数据属性:</em><br>configurable: 能否通过 delete 删除属性从而重新定义属性，默认值 true<br>enumerable: 是否可以通过 forin 循环， 默认值 true<br>writable: 能否修改属性的值， 默认值 true<br>value： 获取修改属性的值。 默认值 undifined<br>Object.defineProperty( 属性所在的对象， 需要修改的属性名， 描述符对象)</p>
-<p><em>访问器属性：</em><br>configurable: 能否通过 delete 删除属性从而重新定义属性，默认值 true<br>enumerable: 是否可以通过 forin 循环， 默认值 true<br>get: 获取属性值， 默认值 undifined<br>set：设置属性值。 默认值 undifined<br>访问器属性不能直接定义， 只能通过 Object.defineProperty 来定义<br>Object.defineProperties(target， {})</p>
-<a id="more"></a>
+        <h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><ul>
+<li><p><span style="color: red;"> 基本数据类型: undefined、 null、 string、 boolean、 number</span></p>
+</li>
+<li><p><span style="color: red;">引用数据类型: object</span></p>
+</li>
+<li><p>typeof(类型监测)</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * undefined: 这个值未定义</span></span><br><span class="line"><span class="comment"> * boolean: 布尔类型</span></span><br><span class="line"><span class="comment"> * string: 字符串</span></span><br><span class="line"><span class="comment"> * number: 数字</span></span><br><span class="line"><span class="comment"> * object: objetc 或者 null</span></span><br><span class="line"><span class="comment"> * function: 函数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> message = <span class="string">&quot;这是测试&quot;</span>;</span><br><span class="line"><span class="keyword">typeof</span> message === <span class="string">&quot;string&quot;</span>; <span class="comment">// true</span></span><br><span class="line"><span class="keyword">typeof</span> message === <span class="string">&quot;boolean&quot;</span>; <span class="comment">// false</span></span><br><span class="line"><span class="keyword">typeof</span> message === <span class="string">&quot;number&quot;</span>; <span class="comment">// false</span></span><br><span class="line"><span class="keyword">typeof</span> message === <span class="string">&quot;object&quot;</span>; <span class="comment">// false</span></span><br><span class="line"><span class="keyword">typeof</span> message === <span class="string">&quot;function&quot;</span>; <span class="comment">// false</span></span><br><span class="line"><span class="keyword">typeof</span> message === <span class="string">&quot;undefined&quot;</span>; <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
 
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 最新的定义访问器属性的方法</span></span><br><span class="line"><span class="keyword">var</span> book = &#123;</span><br><span class="line">  year: <span class="number">2004</span>,</span><br><span class="line">  editor: <span class="number">1</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(book, <span class="string">&quot;year&quot;</span>, &#123;</span><br><span class="line">  get: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>._year;</span><br><span class="line">  &#125;,</span><br><span class="line">  set: <span class="function"><span class="keyword">function</span>(<span class="params">newValue</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>._year = newValue + <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">book.year = <span class="number">2005</span>;</span><br><span class="line"><span class="built_in">console</span>.log(book.year); <span class="comment">//2006</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 旧版的定义访问器属性的方法</span></span><br><span class="line"><span class="keyword">var</span> book = &#123;</span><br><span class="line">  year: <span class="number">2004</span>,</span><br><span class="line">  editor: <span class="number">1</span></span><br><span class="line">&#125;;</span><br><span class="line">book.__defineGetter__(<span class="string">&quot;year&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.year;</span><br><span class="line">&#125;);</span><br><span class="line">book.__defineSetter__(<span class="string">&quot;year&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">newValue</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.year = newValue + <span class="number">1</span>;</span><br><span class="line">&#125;);</span><br><span class="line">book.year = <span class="number">2005</span>;</span><br><span class="line"><span class="built_in">console</span>.log(book.year); <span class="comment">//2006</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>undefined: 声明未初始化</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 使用场景：</span></span><br><span class="line"><span class="comment"> * 1. 变量声明但没赋值</span></span><br><span class="line"><span class="comment"> * 2. 调用函数时该传入的参数没传</span></span><br><span class="line"><span class="comment"> * 3. 函数没有返回值时默认返回undefined</span></span><br><span class="line"><span class="comment"> * 4. 对象中属性值没有赋值</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="2-创建对象"><a href="#2-创建对象" class="headerlink" title="2. 创建对象"></a>2. 创建对象</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age, job</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.name = name;</span><br><span class="line">  <span class="built_in">this</span>.age = age;</span><br><span class="line">  <span class="built_in">this</span>.job = job;</span><br><span class="line">  <span class="built_in">this</span>.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person(<span class="string">&quot;校长&quot;</span>, <span class="number">10</span>, <span class="string">&quot;softarea&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> person2 = <span class="keyword">new</span> Person(<span class="string">&quot;Greg&quot;</span>, <span class="number">20</span>, <span class="string">&quot;doctor&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(person2.constructor == Person); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">Person.prototype.name = <span class="string">&quot;nicholas&quot;</span>;</span><br><span class="line">Person.prototype.age = <span class="number">30</span>;</span><br><span class="line">Person.prototype.job = <span class="string">&quot;teacher&quot;</span>;</span><br><span class="line">Person.prototype.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person(<span class="string">&quot;校长&quot;</span>, <span class="number">10</span>, <span class="string">&quot;softarea&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> person2 = <span class="keyword">new</span> Person(<span class="string">&quot;Greg&quot;</span>, <span class="number">20</span>, <span class="string">&quot;doctor&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(Person.prototype.constructor); <span class="comment">//Person</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// isPrototypeOf： 验证对象之间是否存在关系</span></span><br><span class="line"><span class="built_in">console</span>.log(Person.prototype.isPrototypeOf(person2)); <span class="comment">//true</span></span><br><span class="line"><span class="comment">//hasOwnProperty: 验证对象属性是存在于实例中还是原型中</span></span><br><span class="line"><span class="built_in">console</span>.log(person2.hasOwnProperty(<span class="string">&quot;name&quot;</span>)); <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>null: null 是一个空对象指针,代表的是一个空对象</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/* 使用场景：</span></span><br><span class="line"><span class="comment"> *  1. 定义的变量在将来用来保存对象</span></span><br><span class="line"><span class="comment"> *  2. 在一个数据不再使用的时候，我们最好将其值设置为null来释放其引用，以便垃圾回收下一次对其回收</span></span><br><span class="line"><span class="comment"> *  3. 作为对象原型链的终端</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(<span class="built_in">Object</span>.prototype); <span class="comment">// null</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>boolean 布尔类型, 可以对任意类型的数据结构调用 boolean()进行转换</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/* 转换规则：</span></span><br><span class="line"><span class="comment"> * 1. 字符串： 任意非空类型的字符串-&gt;true, 空类型的字符串-&gt;false</span></span><br><span class="line"><span class="comment"> * 2. number: 任何非0数字,包括正(负)的无穷大-&gt; true,</span></span><br><span class="line"><span class="comment"> * 3. object: 任何对象-&gt;true</span></span><br><span class="line"><span class="comment"> * 4. undefined: undefined -&gt;false</span></span><br><span class="line"><span class="comment"> * 5, null: null -&gt; false</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="literal">null</span>); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="literal">undefined</span>); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">Boolean</span>(-<span class="number">0.4774</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Boolean</span>(&#123;&#125;); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="string">&quot;&quot;</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>number: 数值转换(Number, parseInt, parseFloat)</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 转换规则</span></span><br><span class="line"><span class="comment"> * 1. boolean: true -&gt; 1, false -&gt; 0</span></span><br><span class="line"><span class="comment"> * 2. number: 简单的传入和返回</span></span><br><span class="line"><span class="comment"> * 3. null: null -&gt; 0</span></span><br><span class="line"><span class="comment"> * 4. undefined: undefined -&gt; 0</span></span><br><span class="line"><span class="comment"> * 5. 字符串: 字符串为空 -&gt; 0; 字符串包含十六进制 -&gt; 转换为十六进制的值; 字符串包含数字 -&gt; 十进制的数值</span></span><br><span class="line"><span class="comment"> * 6. object: 对象 -&gt; valueOf方法按照上述规则转换</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">&quot;hello wrod&quot;</span>); <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">&quot; &quot;</span>); <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">&quot;000011&quot;</span>); <span class="comment">// 11</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="literal">true</span>); <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  parseInt: 忽略字符串前面的空格，找到第一个非空字符串，如果第一个字符不是数* 字或者负号返回NaN; 如果第一个字符是数字就会继续解析第二个字符，直到字符不是* 数字为止</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">&quot;1266rhfur&quot;</span>); <span class="comment">// 1266</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">&quot;rufgrfr&quot;</span>); <span class="comment">// NaN</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * parseFloat: 从第一个字符开始解析; 解析遇到第一个无效的浮点数字字符或者* 字符串最后为止</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="built_in">parseFloat</span>(<span class="string">&quot;23.38434.8484&quot;</span>); <span class="comment">// 23.38434</span></span><br><span class="line"><span class="built_in">parseFloat</span>(<span class="string">&quot;frfr&quot;</span>); <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>string: 转为字符串</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 将一个值转为字符串</span></span><br><span class="line"><span class="comment"> *  toString方法</span></span><br><span class="line"><span class="comment"> *  number、boolean、Object、 string都有toString方式, 多数情况下调用toString方法不用传* 参数， 但是对于number类型可以传一个参数代表返回的进制, 一般情况下是以十进制返回</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> message = <span class="number">11</span>;</span><br><span class="line">message.toString(); <span class="comment">// &#x27;11&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> num = <span class="number">10</span>;</span><br><span class="line">num.toString(<span class="number">16</span>); <span class="comment">// &#x27;a&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 在不知道转换的值的类型时可以使用String方法转成string类型，然后调用tostring方法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="literal">null</span>;</span><br><span class="line"><span class="built_in">String</span>(a).toString(); <span class="comment">// null</span></span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>object: 一组数据和功能的集合, object 是所有它的实例基础</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** object类型的实例方式</span></span><br><span class="line"><span class="comment"> *  1. hasOwnProperty(propertyName) : 检查给定的属性是否存在当前实例上而不是原型上</span></span><br><span class="line"><span class="comment"> *  2. valueOf: 返回字符串，通常与toString方法返回值相同</span></span><br><span class="line"><span class="comment"> *  3. tostring: 返回对象的字符串标识</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -323,12 +355,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/04/03/javascript/basic/" rel="prev" title="js 基本概念">
-      <i class="fa fa-chevron-left"></i> js 基本概念
+    <a href="/2020/04/20/es6/es-class/" rel="prev" title="es-class">
+      <i class="fa fa-chevron-left"></i> es-class
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/04/06/javascript/js-oop/" rel="next" title="js-面向对象">
-      js-面向对象 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/04/20/javascript/ecmaScript/statement/" rel="next" title="function">
+      function <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -388,7 +420,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#js-%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">js 对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7"><span class="nav-number">1.1.</span> <span class="nav-text">1. 对象属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.2.</span> <span class="nav-text">2. 创建对象</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">数据类型</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

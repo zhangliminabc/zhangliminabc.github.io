@@ -20,18 +20,22 @@
     var CONFIG = {"hostname":"zhangliminabc.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":240,"display":"always","offset":18,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="何以解忧， 唯有暴富">
-<meta property="og:type" content="website">
-<meta property="og:title" content="zhanglimin&#39;s Blog">
-<meta property="og:url" content="http://zhangliminabc.github.io/categories/javascript/index.html">
+  <meta name="description" content="js的内存的数结构   1var obj &#x3D; &amp;#123; a: 1&amp;#125;  将一个对象赋值给obj变量，js引擎会先在队内存中生成一个对象，然将堆内存的地址赋值给变量obj， 所以实际上变量obj指向的是一个堆内存地址  也就是说，变量obj是一个地址（reference）。后面如果要读取obj.a，引擎先从obj拿到内存地址，然后再从该地址读出原始的对象，返回它的a属性   12345">
+<meta property="og:type" content="article">
+<meta property="og:title" content="function">
+<meta property="og:url" content="http://zhangliminabc.github.io/2020/04/20/javascript/ecmaScript/demo/index.html">
 <meta property="og:site_name" content="zhanglimin&#39;s Blog">
-<meta property="og:description" content="何以解忧， 唯有暴富">
+<meta property="og:description" content="js的内存的数结构   1var obj &#x3D; &amp;#123; a: 1&amp;#125;  将一个对象赋值给obj变量，js引擎会先在队内存中生成一个对象，然将堆内存的地址赋值给变量obj， 所以实际上变量obj指向的是一个堆内存地址  也就是说，变量obj是一个地址（reference）。后面如果要读取obj.a，引擎先从obj拿到内存地址，然后再从该地址读出原始的对象，返回它的a属性   12345">
 <meta property="og:locale">
+<meta property="og:image" content="http://zhangliminabc.github.io/2020/04/20/javascript/ecmaScript/demo/image/js中的this.png">
+<meta property="article:published_time" content="2020-04-20T02:42:03.000Z">
+<meta property="article:modified_time" content="2020-04-20T02:42:03.000Z">
 <meta property="article:author" content="zhanglimin">
-<meta property="article:tag" content="JavaScript, vue, node, 前端">
+<meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://zhangliminabc.github.io/2020/04/20/javascript/ecmaScript/demo/image/js中的this.png">
 
-<link rel="canonical" href="http://zhangliminabc.github.io/categories/javascript/">
+<link rel="canonical" href="http://zhangliminabc.github.io/2020/04/20/javascript/ecmaScript/demo/">
 
 
 <script id="page-configurations">
@@ -39,12 +43,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-Hans'
   };
 </script>
 
-  <title>Category: javascript | zhanglimin's Blog</title>
+  <title>function | zhanglimin's Blog</title>
   
 
 
@@ -202,231 +206,157 @@
         <div class="content-wrap">
           
 
-          <div class="content category">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">javascript
-          <small>Category</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/2020/04/20/javascript/ecmaScript/demo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhanglimin">
+      <meta itemprop="description" content="何以解忧， 唯有暴富">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhanglimin's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          function
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-20 10:42:03" itemprop="dateCreated datePublished" datetime="2020-04-20T10:42:03+08:00">2020-04-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>568</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>1 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
-    </div>
+        <ul>
+<li><p>js的内存的数结构</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">a</span>: <span class="number">1</span>&#125;</span><br></pre></td></tr></table></figure>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<p>将一个对象赋值给obj变量，js引擎会先在队内存中生成一个对象，然将堆内存的地址赋值给变量obj， 所以实际上变量obj指向的是一个堆内存地址</p>
+ <p style="color: red;">也就是说，变量obj是一个地址（reference）。后面如果要读取obj.a，引擎先从obj拿到内存地址，然后再从该地址读出原始的对象，返回它的a属性</p>
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-20T10:42:03+08:00"
-              content="2020-04-20">
-          04-20
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/04/20/javascript/function/" itemprop="url">
-            <span itemprop="name">function</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-20T10:42:03+08:00"
-              content="2020-04-20">
-          04-20
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/04/20/javascript/ecmaScript/demo/" itemprop="url">
-            <span itemprop="name">function</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-20T10:42:03+08:00"
-              content="2020-04-20">
-          04-20
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/04/20/javascript/ecmaScript/grammar/" itemprop="url">
-            <span itemprop="name">function</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-20T10:42:03+08:00"
-              content="2020-04-20">
-          04-20
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/04/20/javascript/ecmaScript/prototype/" itemprop="url">
-            <span itemprop="name">function</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-20T10:42:03+08:00"
-              content="2020-04-20">
-          04-20
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/04/20/javascript/ecmaScript/operator/" itemprop="url">
-            <span itemprop="name">function</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-20T10:42:03+08:00"
-              content="2020-04-20">
-          04-20
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/04/20/javascript/ecmaScript/statement/" itemprop="url">
-            <span itemprop="name">function</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-20T10:42:03+08:00"
-              content="2020-04-20">
-          04-20
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/04/20/javascript/ecmaScript/typeData/" itemprop="url">
-            <span itemprop="name">function</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-06T19:32:50+08:00"
-              content="2020-04-06">
-          04-06
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/04/06/javascript/js-oop/" itemprop="url">
-            <span itemprop="name">js-面向对象</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-06T18:41:33+08:00"
-              content="2020-04-06">
-          04-06
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/04/06/javascript/jsObject/" itemprop="url">
-            <span itemprop="name">js对象</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-03T21:06:46+08:00"
-              content="2020-04-03">
-          04-03
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/04/03/javascript/basic/" itemprop="url">
-            <span itemprop="name">js 基本概念</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.a</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">     a: <span class="number">1</span>,</span><br><span class="line">     getValue: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="built_in">this</span>.a</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">f() <span class="comment">// undefined</span></span><br><span class="line">obj.f() <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+  <img src="./image/js中的this.png">
+</li>
+<li><p>普通函数的this指向函数运行时所在的环境</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>) <span class="comment">// window</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span> === <span class="built_in">window</span>) <span class="comment">// true</span></span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>箭头函数指向函数所在的作用域</p>
+</li>
+<li><p>js中this指向的情况</p>
+<ol>
+<li>函数作为对象的属性</li>
+<li><span style="color: red;">通过apply, bind等方法显示改变this的值</span></li>
+<li><span style="color: red;">通过new 关键词实例化函数, this指向初始化的函数</span></li>
+<li>自执行函数中的this指向window</li>
+<li>函数作为对象的属性，但是不通过对象的调用， this指向window</li>
+</ol>
+</li>
+</ul>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+      
+  <div class="popular-posts-header">热点文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/04/20/javascript/function/" rel="bookmark">function</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/04/20/javascript/ecmaScript/grammar/" rel="bookmark">function</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/04/20/javascript/ecmaScript/prototype/" rel="bookmark">function</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/04/20/javascript/ecmaScript/operator/" rel="bookmark">function</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/04/20/javascript/ecmaScript/statement/" rel="bookmark">function</a></div>
+    </li>
+  </ul>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"><i class="fa fa-tag"></i> javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/20/javascript/ecmaScript/grammar/" rel="prev" title="function">
+      <i class="fa fa-chevron-left"></i> function
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/20/javascript/function/" rel="next" title="function">
+      function <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
