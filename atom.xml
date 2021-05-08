@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://zhangliminabc.github.io/"/>
-  <updated>2021-05-08T07:45:28.000Z</updated>
+  <updated>2021-05-08T10:21:00.000Z</updated>
   <id>http://zhangliminabc.github.io/</id>
   
   <author>
@@ -15,6 +15,23 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>javascript深入浅出11(面向对象编程)</title>
+    <link href="http://zhangliminabc.github.io/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA11-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/"/>
+    <id>http://zhangliminabc.github.io/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA11-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/</id>
+    <published>2021-05-08T10:21:00.000Z</published>
+    <updated>2021-05-08T10:21:00.000Z</updated>
+    
+    <summary type="html">
+    
+      js 面向对象编程
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>javascript深入浅出10(原型链)</title>
