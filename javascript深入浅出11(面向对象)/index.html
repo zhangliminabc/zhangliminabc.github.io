@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"zhangliminabc.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":240,"display":"always","offset":18,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="js 对象1. 对象属性数据属性:configurable: 能否通过 delete 删除属性从而重新定义属性，默认值 trueenumerable: 是否可以通过 forin 循环， 默认值 truewritable: 能否修改属性的值， 默认值 truevalue： 获取修改属性的值。 默认值 undifinedObject.defineProperty( 属性所在的对象， 需要修改的属性名，">
+  <meta name="description" content="JavaScript深入浅出面向对象，剖析了js为什么说是面向对象，并从封装、继承、多态三方面来解释js的面向对象">
 <meta property="og:type" content="article">
-<meta property="og:title" content="javascript面向对象编程">
-<meta property="og:url" content="http://zhangliminabc.github.io/javascript%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/index.html">
+<meta property="og:title" content="javascript深入浅出11(面向对象)">
+<meta property="og:url" content="http://zhangliminabc.github.io/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA11(%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1)/index.html">
 <meta property="og:site_name" content="浅笑整个夏季">
-<meta property="og:description" content="js 对象1. 对象属性数据属性:configurable: 能否通过 delete 删除属性从而重新定义属性，默认值 trueenumerable: 是否可以通过 forin 循环， 默认值 truewritable: 能否修改属性的值， 默认值 truevalue： 获取修改属性的值。 默认值 undifinedObject.defineProperty( 属性所在的对象， 需要修改的属性名，">
+<meta property="og:description" content="JavaScript深入浅出面向对象，剖析了js为什么说是面向对象，并从封装、继承、多态三方面来解释js的面向对象">
 <meta property="og:locale">
-<meta property="article:published_time" content="2021-04-19T11:30:26.000Z">
-<meta property="article:modified_time" content="2021-04-19T11:30:26.000Z">
+<meta property="article:published_time" content="2021-05-10T12:00:09.000Z">
+<meta property="article:modified_time" content="2021-05-10T12:00:09.000Z">
 <meta property="article:author" content="浅笑整个夏季">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://zhangliminabc.github.io/javascript%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/">
+<link rel="canonical" href="http://zhangliminabc.github.io/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA11(%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1)/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>javascript面向对象编程 | 浅笑整个夏季</title>
+  <title>javascript深入浅出11(面向对象) | 浅笑整个夏季</title>
   
 
 
@@ -128,12 +128,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">4</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">3</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">16</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">14</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -191,7 +191,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/javascript%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA11(%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -204,7 +204,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          javascript面向对象编程
+          javascript深入浅出11(面向对象)
         </h1>
 
         <div class="post-meta">
@@ -214,7 +214,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-04-19 19:30:26" itemprop="dateCreated datePublished" datetime="2021-04-19T19:30:26+08:00">2021-04-19</time>
+              <time title="Created: 2021-05-10 20:00:09" itemprop="dateCreated datePublished" datetime="2021-05-10T20:00:09+08:00">2021-05-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -248,6 +248,7 @@
                 <span class="post-meta-item-text">Reading time &asymp;</span>
               <span>2 mins.</span>
             </span>
+            <div class="post-description">JavaScript深入浅出面向对象，剖析了js为什么说是面向对象，并从封装、继承、多态三方面来解释js的面向对象</div>
 
         </div>
       </header>
@@ -258,10 +259,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="js-对象"><a href="#js-对象" class="headerlink" title="js 对象"></a>js 对象</h3><h4 id="1-对象属性"><a href="#1-对象属性" class="headerlink" title="1. 对象属性"></a>1. 对象属性</h4><p><em>数据属性:</em><br>configurable: 能否通过 delete 删除属性从而重新定义属性，默认值 true<br>enumerable: 是否可以通过 forin 循环， 默认值 true<br>writable: 能否修改属性的值， 默认值 true<br>value： 获取修改属性的值。 默认值 undifined<br>Object.defineProperty( 属性所在的对象， 需要修改的属性名， 描述符对象)</p>
+        <h4 id="1-对象属性"><a href="#1-对象属性" class="headerlink" title="1. 对象属性"></a>1. 对象属性</h4><p><em>数据属性:</em><br>configurable: 能否通过 delete 删除属性从而重新定义属性，默认值 true<br>enumerable: 是否可以通过 forin 循环， 默认值 true<br>writable: 能否修改属性的值， 默认值 true<br>value： 获取修改属性的值。 默认值 undifined<br>Object.defineProperty( 属性所在的对象， 需要修改的属性名， 描述符对象)</p>
 <p><em>访问器属性：</em><br>configurable: 能否通过 delete 删除属性从而重新定义属性，默认值 true<br>enumerable: 是否可以通过 forin 循环， 默认值 true<br>get: 获取属性值， 默认值 undifined<br>set：设置属性值。 默认值 undifined<br>访问器属性不能直接定义， 只能通过 Object.defineProperty 来定义<br>Object.defineProperties(target， {})</p>
-<a id="more"></a>
-
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 最新的定义访问器属性的方法</span></span><br><span class="line"><span class="keyword">var</span> book = &#123;</span><br><span class="line">  year: <span class="number">2004</span>,</span><br><span class="line">  editor: <span class="number">1</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(book, <span class="string">&quot;year&quot;</span>, &#123;</span><br><span class="line">  get: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>._year;</span><br><span class="line">  &#125;,</span><br><span class="line">  set: <span class="function"><span class="keyword">function</span>(<span class="params">newValue</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>._year = newValue + <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">book.year = <span class="number">2005</span>;</span><br><span class="line"><span class="built_in">console</span>.log(book.year); <span class="comment">//2006</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 旧版的定义访问器属性的方法</span></span><br><span class="line"><span class="keyword">var</span> book = &#123;</span><br><span class="line">  year: <span class="number">2004</span>,</span><br><span class="line">  editor: <span class="number">1</span></span><br><span class="line">&#125;;</span><br><span class="line">book.__defineGetter__(<span class="string">&quot;year&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.year;</span><br><span class="line">&#125;);</span><br><span class="line">book.__defineSetter__(<span class="string">&quot;year&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">newValue</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.year = newValue + <span class="number">1</span>;</span><br><span class="line">&#125;);</span><br><span class="line">book.year = <span class="number">2005</span>;</span><br><span class="line"><span class="built_in">console</span>.log(book.year); <span class="comment">//2006</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="2-创建对象"><a href="#2-创建对象" class="headerlink" title="2. 创建对象"></a>2. 创建对象</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age, job</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.name = name;</span><br><span class="line">  <span class="built_in">this</span>.age = age;</span><br><span class="line">  <span class="built_in">this</span>.job = job;</span><br><span class="line">  <span class="built_in">this</span>.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person(<span class="string">&quot;校长&quot;</span>, <span class="number">10</span>, <span class="string">&quot;softarea&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> person2 = <span class="keyword">new</span> Person(<span class="string">&quot;Greg&quot;</span>, <span class="number">20</span>, <span class="string">&quot;doctor&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(person2.constructor == Person); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">Person.prototype.name = <span class="string">&quot;nicholas&quot;</span>;</span><br><span class="line">Person.prototype.age = <span class="number">30</span>;</span><br><span class="line">Person.prototype.job = <span class="string">&quot;teacher&quot;</span>;</span><br><span class="line">Person.prototype.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person(<span class="string">&quot;校长&quot;</span>, <span class="number">10</span>, <span class="string">&quot;softarea&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> person2 = <span class="keyword">new</span> Person(<span class="string">&quot;Greg&quot;</span>, <span class="number">20</span>, <span class="string">&quot;doctor&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(Person.prototype.constructor); <span class="comment">//Person</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// isPrototypeOf： 验证对象之间是否存在关系</span></span><br><span class="line"><span class="built_in">console</span>.log(Person.prototype.isPrototypeOf(person2)); <span class="comment">//true</span></span><br><span class="line"><span class="comment">//hasOwnProperty: 验证对象属性是存在于实例中还是原型中</span></span><br><span class="line"><span class="built_in">console</span>.log(person2.hasOwnProperty(<span class="string">&quot;name&quot;</span>)); <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
@@ -275,19 +274,19 @@
   <div class="popular-posts-header">热点文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/javascript函数/" rel="bookmark">javascript函数</a></div>
+      <div class="popular-posts-title"><a href="/javascript深入浅出10(原型链)/" rel="bookmark">javascript深入浅出10(原型链)</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/javascript深入浅出2(引擎执行流程)/" rel="bookmark">javascript深入浅出一</a></div>
+      <div class="popular-posts-title"><a href="/javascript深入浅出9(闭包)/" rel="bookmark">javascript深入浅出9(闭包)</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/javascript深入浅出1(整体框架)/" rel="bookmark">javascript深入浅出零-js整体框架</a></div>
+      <div class="popular-posts-title"><a href="/javascript深入浅出8(作用域)/" rel="bookmark">javascript深入浅出8(作用域)</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/javascript深入浅出3(词法分析)/" rel="bookmark">javascript深入浅出二-js词法分析</a></div>
+      <div class="popular-posts-title"><a href="/javascript深入浅出7(内存结构)/" rel="bookmark">javascript深入浅出7(内存结构)</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/javascript深入浅出4(语法)/" rel="bookmark">javascript深入浅出三(语法)</a></div>
+      <div class="popular-posts-title"><a href="/javascript深入浅出6(this)/" rel="bookmark">javascript深入浅出6(this)</a></div>
     </li>
   </ul>
 
@@ -304,13 +303,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/ecmescript%E8%AF%AD%E6%B3%95/" rel="prev" title="ECMAScript语法">
-      <i class="fa fa-chevron-left"></i> ECMAScript语法
+    <a href="/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA10(%E5%8E%9F%E5%9E%8B%E9%93%BE)/" rel="prev" title="javascript深入浅出10(原型链)">
+      <i class="fa fa-chevron-left"></i> javascript深入浅出10(原型链)
     </a></div>
-      <div class="post-nav-item">
-    <a href="/javascript%E5%87%BD%E6%95%B0/" rel="next" title="javascript函数">
-      javascript函数 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -369,7 +365,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#js-%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">js 对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7"><span class="nav-number">1.1.</span> <span class="nav-text">1. 对象属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.2.</span> <span class="nav-text">2. 创建对象</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7"><span class="nav-number">1.</span> <span class="nav-text">1. 对象属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.</span> <span class="nav-text">2. 创建对象</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -383,19 +379,19 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -440,13 +436,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">26k</span>
+    <span title="Symbols count total">28k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">24 mins.</span>
+    <span title="Reading time total">25 mins.</span>
 </div>
 
         
