@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://zhangliminabc.github.io/"/>
-  <updated>2021-05-10T12:00:09.000Z</updated>
+  <updated>2021-05-11T12:15:54.000Z</updated>
   <id>http://zhangliminabc.github.io/</id>
   
   <author>
@@ -15,6 +15,91 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>面试题js(3)</title>
+    <link href="http://zhangliminabc.github.io/interview-05-11-%E9%9D%A2%E8%AF%95%E9%A2%98js-3/"/>
+    <id>http://zhangliminabc.github.io/interview-05-11-%E9%9D%A2%E8%AF%95%E9%A2%98js-3/</id>
+    <published>2021-05-11T12:15:54.000Z</published>
+    <updated>2021-05-11T12:15:54.000Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>实现一个arrange函数， 可以实现和工作的调度</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;实现一个arrange函数， 可以实现和工作的调度&lt;/li&gt;
+&lt;/ul&gt;
+
+      
+    
+    </summary>
+    
+    
+      <category term="Interview" scheme="http://zhangliminabc.github.io/categories/interview/"/>
+    
+    
+      <category term="Interview" scheme="http://zhangliminabc.github.io/tags/interview/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>面试题js(2)</title>
+    <link href="http://zhangliminabc.github.io/interview-05-11-%E9%9D%A2%E8%AF%95%E9%A2%98js-2/"/>
+    <id>http://zhangliminabc.github.io/interview-05-11-%E9%9D%A2%E8%AF%95%E9%A2%98js-2/</id>
+    <published>2021-05-11T02:23:18.000Z</published>
+    <updated>2021-05-11T02:23:18.000Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li><p>实现一个函数，可以将数组转化为树状数据结构<br> <a href="../../code/buildTreeByArray.js">源码</a></p><pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">buildTreeByArray</span>(<span class="params">arr1</span>) </span>&#123;    <span class="keyword">const</span> map = arr1.reduce(<span class="function">(<span class="params">pre, item</span>) =&gt;</span> &#123;        <span class="keyword">const</span> &#123; id &#125; = item        pre[id] = item        <span class="keyword">return</span> pre    &#125;, &#123;&#125;)    arr1.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;        <span class="keyword">const</span> &#123; parent_id &#125; = item        <span class="keyword">if</span> (parent_id !== <span class="number">0</span>) &#123;            map[parent_id].children ? map[parent_id].children.push(item) : map[parent_id].children = [item]        &#125;    &#125;)    <span class="keyword">return</span> arr1.filter(<span class="function"><span class="params">item</span> =&gt;</span> item.parent_id === <span class="number">0</span>)&#125;</code></pre></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;&lt;p&gt;实现一个函数，可以将数组转化为树状数据结构&lt;br&gt; &lt;a href=&quot;../../code/buildTreeByArray.js&quot;&gt;源码&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;functio
+      
+    
+    </summary>
+    
+    
+      <category term="Interview" scheme="http://zhangliminabc.github.io/categories/interview/"/>
+    
+    
+      <category term="Interview" scheme="http://zhangliminabc.github.io/tags/interview/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>面试题js(1)</title>
+    <link href="http://zhangliminabc.github.io/interview-05-10-%E9%9D%A2%E8%AF%95%E9%A2%98js-1/"/>
+    <id>http://zhangliminabc.github.io/interview-05-10-%E9%9D%A2%E8%AF%95%E9%A2%98js-1/</id>
+    <published>2021-05-10T13:07:57.000Z</published>
+    <updated>2021-05-10T13:07:57.000Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li><p>实现一个函数，可以对url中的query部分做拆解， 返回一个 key -&gt; value形式的对象<br>  <a href="../../code/querySearch.js">源代码</a></p>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">querySearch</span>(<span class="params">url</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!url) <span class="keyword">return</span> &#123;&#125;</span><br><span class="line">    <span class="comment">// const queryParams = url.split(&#x27;?&#x27;)[1] </span></span><br><span class="line">    <span class="keyword">const</span> reg = <span class="regexp">/(?&lt;=\?).*(?=#)/gmi</span></span><br><span class="line">    <span class="keyword">const</span> queryParamsStr = reg.exec(url)[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">if</span> (!queryParamsStr) <span class="keyword">return</span> &#123;&#125;</span><br><span class="line">    <span class="keyword">return</span> queryParamsStr.split(<span class="string">&#x27;&amp;&#x27;</span>).reduce(<span class="function">(<span class="params">pre, str</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> [key, value = <span class="string">&#x27;&#x27;</span>] = str.split(<span class="string">&#x27;=&#x27;</span>)</span><br><span class="line">        key = key.trim()</span><br><span class="line">        value = value.trim()</span><br><span class="line">        pre[key] = value</span><br><span class="line">        <span class="keyword">return</span> pre</span><br><span class="line">    &#125;, &#123;&#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(querySearch(<span class="string">&#x27;http://sample.com/?a=1&amp;b=2&amp;c=xx&amp;d#hash&#x27;</span>)) <span class="comment">// &#123; a: &#x27;1&#x27;, b: &#x27;2&#x27;, c: &#x27;xx&#x27;, d: &#x27;&#x27; &#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;&lt;p&gt;实现一个函数，可以对url中的query部分做拆解， 返回一个 key -&amp;gt; value形式的对象&lt;br&gt;  &lt;a href=&quot;../../code/querySearch.js&quot;&gt;源代码&lt;/a&gt;&lt;/p&gt;
+  &lt;figure class=&quot;highl
+      
+    
+    </summary>
+    
+    
+      <category term="Interview" scheme="http://zhangliminabc.github.io/categories/interview/"/>
+    
+    
+      <category term="Interview" scheme="http://zhangliminabc.github.io/tags/interview/"/>
+    
+  </entry>
   
   <entry>
     <title>javascript深入浅出11(面向对象)</title>

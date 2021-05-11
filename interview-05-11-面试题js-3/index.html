@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"zhangliminabc.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":240,"display":"always","offset":18,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="js中的作用域只有函数作用域和全局作用域">
+  <meta name="description" content="实现一个arrange函数， 可以实现和工作的调度">
 <meta property="og:type" content="article">
-<meta property="og:title" content="javascript深入浅出8(作用域)">
-<meta property="og:url" content="http://zhangliminabc.github.io/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA8(%E4%BD%9C%E7%94%A8%E5%9F%9F)/index.html">
+<meta property="og:title" content="面试题js(3)">
+<meta property="og:url" content="http://zhangliminabc.github.io/interview-05-11-%E9%9D%A2%E8%AF%95%E9%A2%98js-3/index.html">
 <meta property="og:site_name" content="浅笑整个夏季">
-<meta property="og:description" content="js中的作用域只有函数作用域和全局作用域">
+<meta property="og:description" content="实现一个arrange函数， 可以实现和工作的调度">
 <meta property="og:locale">
-<meta property="article:published_time" content="2021-05-08T07:35:47.000Z">
-<meta property="article:modified_time" content="2021-05-08T07:35:47.000Z">
+<meta property="article:published_time" content="2021-05-11T12:15:54.000Z">
+<meta property="article:modified_time" content="2021-05-11T12:15:54.000Z">
 <meta property="article:author" content="浅笑整个夏季">
-<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Interview">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://zhangliminabc.github.io/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA8(%E4%BD%9C%E7%94%A8%E5%9F%9F)/">
+<link rel="canonical" href="http://zhangliminabc.github.io/interview-05-11-%E9%9D%A2%E8%AF%95%E9%A2%98js-3/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>javascript深入浅出8(作用域) | 浅笑整个夏季</title>
+  <title>面试题js(3) | 浅笑整个夏季</title>
   
 
 
@@ -191,7 +191,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA8(%E4%BD%9C%E7%94%A8%E5%9F%9F)/">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/interview-05-11-%E9%9D%A2%E8%AF%95%E9%A2%98js-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -204,7 +204,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          javascript深入浅出8(作用域)
+          面试题js(3)
         </h1>
 
         <div class="post-meta">
@@ -214,7 +214,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-05-08 15:35:47" itemprop="dateCreated datePublished" datetime="2021-05-08T15:35:47+08:00">2021-05-08</time>
+              <time title="Created: 2021-05-11 20:15:54" itemprop="dateCreated datePublished" datetime="2021-05-11T20:15:54+08:00">2021-05-11</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -222,7 +222,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                  <a href="/categories/interview/" itemprop="url" rel="index"><span itemprop="name">Interview</span></a>
                 </span>
             </span>
 
@@ -239,7 +239,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>957</span>
+              <span>24</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -248,7 +248,6 @@
                 <span class="post-meta-item-text">Reading time &asymp;</span>
               <span>1 mins.</span>
             </span>
-            <div class="post-description">js中的作用域只有函数作用域和全局作用域</div>
 
         </div>
       </header>
@@ -259,21 +258,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h4 id="作用域-js中的作用域只有函数作用域和全局作用域"><a href="#作用域-js中的作用域只有函数作用域和全局作用域" class="headerlink" title="作用域: (js中的作用域只有函数作用域和全局作用域)"></a>作用域: (js中的作用域只有函数作用域和全局作用域)</h4><p><b>确定当前执行代码对标识符的访问权限</b></p>
-<ul>
-<li><p>函数的作用域: 函数产生一层函数作用域</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> b = a * <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">c</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a, b, c);</span><br><span class="line">  &#125;</span><br><span class="line">  bar(b * <span class="number">10</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 函数的作用域</span></span><br><span class="line"><span class="comment"> * 1, 全局window下foo</span></span><br><span class="line"><span class="comment"> * 2, foo下有a, b, bar</span></span><br><span class="line"><span class="comment"> * 3, bar下有c, 当需要查找b，a的值时在当前对象下不能找到会向上级foo下的作用域寻找</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">foo(<span class="number">10</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>模拟块级作用域</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mockBlaockScope</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">100</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(a); <span class="comment">// 100</span></span><br><span class="line">  &#125;)();</span><br><span class="line">  <span class="built_in">console</span>.log(a); <span class="comment">// a is not defined</span></span><br><span class="line">&#125;</span><br><span class="line">mockBlaockScope();</span><br></pre></td></tr></table></figure>
-
-</li>
+        <ul>
+<li>实现一个arrange函数， 可以实现和工作的调度</li>
 </ul>
-<h4 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h4><p>1, 使用 es5 模拟块级作用域</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mockScoptBlock</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="string">&quot;这是块级作用于内的函数&quot;</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(a);</span><br><span class="line">  &#125;)();</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(a); <span class="comment">// error, a is not defined</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>2, 解决循环输出的问题</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">scopeFun();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">scopeFun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(i);</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//  output: 5,5,5,5,5</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 解决方案: 使用自执行函数生成函数内的作用域</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">scopeFun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">    (<span class="function"><span class="keyword">function</span> (<span class="params">a</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(a);</span><br><span class="line">      &#125;, <span class="number">1000</span>);</span><br><span class="line">    &#125;)(i);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -283,19 +271,10 @@
   <div class="popular-posts-header">热点文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/javascript深入浅出11(面向对象)/" rel="bookmark">javascript深入浅出11(面向对象)</a></div>
+      <div class="popular-posts-title"><a href="/interview-05-11-面试题js-2/" rel="bookmark">面试题js(2)</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/javascript深入浅出10(原型链)/" rel="bookmark">javascript深入浅出10(原型链)</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/javascript深入浅出9(闭包)/" rel="bookmark">javascript深入浅出9(闭包)</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/javascript深入浅出7(内存结构)/" rel="bookmark">javascript深入浅出7(内存结构)</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/javascript深入浅出6(this)/" rel="bookmark">javascript深入浅出6(this)</a></div>
+      <div class="popular-posts-title"><a href="/interview-05-10-面试题js-1/" rel="bookmark">面试题js(1)</a></div>
     </li>
   </ul>
 
@@ -303,7 +282,7 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/javascript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+              <a href="/tags/interview/" rel="tag"><i class="fa fa-tag"></i> Interview</a>
           </div>
 
         
@@ -312,13 +291,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA7(%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84)/" rel="prev" title="javascript深入浅出7(内存结构)">
-      <i class="fa fa-chevron-left"></i> javascript深入浅出7(内存结构)
+    <a href="/interview-05-11-%E9%9D%A2%E8%AF%95%E9%A2%98js-2/" rel="prev" title="面试题js(2)">
+      <i class="fa fa-chevron-left"></i> 面试题js(2)
     </a></div>
-      <div class="post-nav-item">
-    <a href="/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA9(%E9%97%AD%E5%8C%85)/" rel="next" title="javascript深入浅出9(闭包)">
-      javascript深入浅出9(闭包) <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -377,7 +353,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F-js%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%8F%AA%E6%9C%89%E5%87%BD%E6%95%B0%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%92%8C%E5%85%A8%E5%B1%80%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">1.</span> <span class="nav-text">作用域: (js中的作用域只有函数作用域和全局作用域)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">面试题</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
