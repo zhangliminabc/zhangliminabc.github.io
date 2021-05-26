@@ -20,35 +20,31 @@
     var CONFIG = {"hostname":"zhangliminabc.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":240,"display":"always","offset":18,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="JavaScript深入浅出二， 深度剖析js的词法环境; 之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定)">
-<meta property="og:type" content="article">
-<meta property="og:title" content="javascript深入浅出二-js词法分析">
-<meta property="og:url" content="http://zhangliminabc.github.io/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA3(%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90)/index.html">
+  <meta name="description" content="何以解忧， 唯有暴富">
+<meta property="og:type" content="website">
+<meta property="og:title" content="浅笑整个夏季">
+<meta property="og:url" content="http://zhangliminabc.github.io/page/3/index.html">
 <meta property="og:site_name" content="浅笑整个夏季">
-<meta property="og:description" content="JavaScript深入浅出二， 深度剖析js的词法环境; 之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定)">
+<meta property="og:description" content="何以解忧， 唯有暴富">
 <meta property="og:locale">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/3/1677429807aea76d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="article:published_time" content="2021-05-08T03:06:27.000Z">
-<meta property="article:modified_time" content="2021-05-08T03:06:27.000Z">
 <meta property="article:author" content="浅笑整个夏季">
-<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="JavaScript, vue, node, 前端">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/12/3/1677429807aea76d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
 
-<link rel="canonical" href="http://zhangliminabc.github.io/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA3(%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90)/">
+<link rel="canonical" href="http://zhangliminabc.github.io/page/3/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : false,
-    isPost : true,
+    isHome : true,
+    isPost : false,
     lang   : 'zh-Hans'
   };
 </script>
 
-  <title>javascript深入浅出二-js词法分析 | 浅笑整个夏季</title>
+  <title>浅笑整个夏季</title>
   
 
 
@@ -186,14 +182,13 @@
         <div class="content-wrap">
           
 
-          <div class="content post posts-expand">
+          <div class="content index posts-expand">
             
-
-    
+      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA3(%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90)/">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/javascript%E5%87%BD%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -205,9 +200,10 @@
       <meta itemprop="name" content="浅笑整个夏季">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          javascript深入浅出二-js词法分析
-        </h1>
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/javascript%E5%87%BD%E6%95%B0/" class="post-title-link" itemprop="url">javascript函数</a>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -216,7 +212,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-05-08 11:06:27" itemprop="dateCreated datePublished" datetime="2021-05-08T11:06:27+08:00">2021-05-08</time>
+              <time title="Created: 2021-05-06 11:11:35" itemprop="dateCreated datePublished" datetime="2021-05-06T11:11:35+08:00">2021-05-06</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -228,29 +224,21 @@
                 </span>
             </span>
 
-          
-            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span><br>
+          <br>
             <span class="post-meta-item" title="Symbols count in article">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>604</span>
+              <span>3k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
+              <span>3 mins.</span>
             </span>
-            <div class="post-description">JavaScript深入浅出二， 深度剖析js的词法环境; 之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定)</div>
 
         </div>
       </header>
@@ -261,68 +249,47 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h4 id="词法环境"><a href="#词法环境" class="headerlink" title="词法环境"></a>词法环境</h4><h5 id="之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定）"><a href="#之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定）" class="headerlink" title="之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定）"></a>之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定）</h5><h6 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h6><pre><code>- 全局词法环境
-- 函数词法环境
-- with词法环境
-- catch词法环境</code></pre><img src="https://user-gold-cdn.xitu.io/2018/12/3/1677429807aea76d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"/>
+          <ul>
+<li><p>概述</p>
+<hr style="margin: 5px 0px; background-image: none;     border-top: 1px solid #fff;"/>
 
+<p>函数是一段可以反复调用的代码块。函数还能接受输入的参数，不同的参数会返回不同的值</p>
+</li>
+<li><p>声明(Function Declaration)</p>
+<hr style="margin: 5px 0px; background-image: none;     border-top: 1px solid #fff;"/>
 
-<p> 伪代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">LexicalEnvironment</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.EnvironmentRecord =  <span class="keyword">new</span> EnvironmentRecord()<span class="comment">// 自己的词法环境</span></span><br><span class="line">    <span class="built_in">this</span>.outer = <span class="literal">undefined</span> <span class="comment">// 外部的词法环境的引用</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">EnvironmentRecord</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.bindings = <span class="keyword">new</span> <span class="built_in">Map</span>()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">EnvironmentRecord.prototype.rigister = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.bindings.set(name, <span class="literal">undefined</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">EnvironmentRecord.prototype.init = <span class="function"><span class="keyword">function</span>(<span class="params">name, value</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.bindings[name] = value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">EnvironmentRecord.prototype.getValue = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.bindings[name]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
+<p>1.function 命令声明的代码区块，就是一个函数。function 命令后面是函数名，函数名后面是一对圆括号，里面是传入函数的参数。函数体放在大括号里面</p>
+</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/javascript%E5%87%BD%E6%95%B0/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
     </div>
 
     
     
     
       
-  <div class="popular-posts-header">热点文章</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/javascript函数/" rel="bookmark">javascript函数</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/javascript深入浅出2(引擎执行流程)/" rel="bookmark">javascript深入浅出一</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/javascript深入浅出1(整体框架)/" rel="bookmark">javascript深入浅出零-js整体框架</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/javascript深入浅出10(原型链)/" rel="bookmark">javascript深入浅出10(原型链)</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/javascript深入浅出5(执行上下文)/" rel="bookmark">javascript深入浅出5(执行上下文)</a></div>
-    </li>
-  </ul>
-
 
       <footer class="post-footer">
-          
-          <div class="post-tags">
-              <a href="/tags/javascript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA1(%E6%95%B4%E4%BD%93%E6%A1%86%E6%9E%B6)/" rel="prev" title="javascript深入浅出零-js整体框架">
-      <i class="fa fa-chevron-left"></i> javascript深入浅出零-js整体框架
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA4(%E8%AF%AD%E6%B3%95)/" rel="next" title="javascript深入浅出三(语法)">
-      javascript深入浅出三(语法) <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
+        <div class="post-eof"></div>
       </footer>
-    
   </article>
   
   
   
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
 
 
 
@@ -374,7 +341,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%8D%E6%B3%95%E7%8E%AF%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">词法环境</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B9%8B%E6%89%80%E4%BB%A5%E5%8F%AB%E8%AF%8D%E6%B3%95%E7%8E%AF%E5%A2%83%EF%BC%8C%E6%98%AF%E5%9B%A0%E4%B8%BA%E5%AE%83%E6%98%AF%E5%92%8C%E6%BA%90%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BB%93%E6%9E%84%E5%AF%B9%E5%BA%94%EF%BC%8C%E5%B0%B1%E6%98%AF%E5%92%8C%E4%BD%A0%E6%89%80%E5%86%99%E7%9A%84%E9%82%A3%E4%BA%9B%E6%BA%90%E7%A0%81%E7%9A%84%E6%96%87%E5%AD%97%E7%9A%84%E7%BB%93%E6%9E%84%E5%AF%B9%E5%BA%94%EF%BC%8C%E4%BD%A0%E5%86%99%E4%BB%A3%E7%A0%81%E7%9A%84%E6%97%B6%E5%80%99%E8%BF%99%E4%B8%AA%E7%8E%AF%E5%A2%83%E5%B0%B1%E5%AE%9A%E4%BA%86%EF%BC%88%E5%86%99%E4%BB%A3%E7%A0%81%E7%9A%84%E6%97%B6%E5%80%99%E5%86%B3%E5%AE%9A%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定）</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%86%E7%B1%BB"><span class="nav-number">1.1.1.</span> <span class="nav-text">分类</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

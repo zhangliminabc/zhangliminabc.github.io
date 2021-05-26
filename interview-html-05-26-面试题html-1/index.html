@@ -20,22 +20,20 @@
     var CONFIG = {"hostname":"zhangliminabc.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":240,"display":"always","offset":18,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="JavaScript深入浅出二， 深度剖析js的词法环境; 之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定)">
+  <meta name="description" content="1,简述一下你对HTML语义化的理解; 2,请写出行内元素? 块级元素， 空元素有哪些？;  3,HTML5的form如何关闭自动完成功能？;.....等，汇聚了HTML相关的面试题和HTML的相关知识点">
 <meta property="og:type" content="article">
-<meta property="og:title" content="javascript深入浅出二-js词法分析">
-<meta property="og:url" content="http://zhangliminabc.github.io/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA3(%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90)/index.html">
+<meta property="og:title" content="HTML编程系列(1)">
+<meta property="og:url" content="http://zhangliminabc.github.io/interview-html-05-26-%E9%9D%A2%E8%AF%95%E9%A2%98html-1/index.html">
 <meta property="og:site_name" content="浅笑整个夏季">
-<meta property="og:description" content="JavaScript深入浅出二， 深度剖析js的词法环境; 之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定)">
+<meta property="og:description" content="1,简述一下你对HTML语义化的理解; 2,请写出行内元素? 块级元素， 空元素有哪些？;  3,HTML5的form如何关闭自动完成功能？;.....等，汇聚了HTML相关的面试题和HTML的相关知识点">
 <meta property="og:locale">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/3/1677429807aea76d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="article:published_time" content="2021-05-08T03:06:27.000Z">
-<meta property="article:modified_time" content="2021-05-08T03:06:27.000Z">
+<meta property="article:published_time" content="2021-05-26T12:55:34.000Z">
+<meta property="article:modified_time" content="2021-05-26T12:55:34.000Z">
 <meta property="article:author" content="浅笑整个夏季">
-<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="HTML">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/12/3/1677429807aea76d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
 
-<link rel="canonical" href="http://zhangliminabc.github.io/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA3(%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90)/">
+<link rel="canonical" href="http://zhangliminabc.github.io/interview-html-05-26-%E9%9D%A2%E8%AF%95%E9%A2%98html-1/">
 
 
 <script id="page-configurations">
@@ -48,7 +46,7 @@
   };
 </script>
 
-  <title>javascript深入浅出二-js词法分析 | 浅笑整个夏季</title>
+  <title>HTML编程系列(1) | 浅笑整个夏季</title>
   
 
 
@@ -193,7 +191,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA3(%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90)/">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/interview-html-05-26-%E9%9D%A2%E8%AF%95%E9%A2%98html-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -206,7 +204,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          javascript深入浅出二-js词法分析
+          HTML编程系列(1)
         </h1>
 
         <div class="post-meta">
@@ -216,7 +214,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-05-08 11:06:27" itemprop="dateCreated datePublished" datetime="2021-05-08T11:06:27+08:00">2021-05-08</time>
+              <time title="Created: 2021-05-26 20:55:34" itemprop="dateCreated datePublished" datetime="2021-05-26T20:55:34+08:00">2021-05-26</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -224,7 +222,11 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                  <a href="/categories/interview/" itemprop="url" rel="index"><span itemprop="name">Interview</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/interview/html/" itemprop="url" rel="index"><span itemprop="name">HTML</span></a>
                 </span>
             </span>
 
@@ -241,16 +243,16 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>604</span>
+              <span>2.5k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
+              <span>2 mins.</span>
             </span>
-            <div class="post-description">JavaScript深入浅出二， 深度剖析js的词法环境; 之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定)</div>
+            <div class="post-description">1,简述一下你对HTML语义化的理解; 2,请写出行内元素? 块级元素， 空元素有哪些？;  3,HTML5的form如何关闭自动完成功能？;.....等，汇聚了HTML相关的面试题和HTML的相关知识点</div>
 
         </div>
       </header>
@@ -261,15 +263,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h4 id="词法环境"><a href="#词法环境" class="headerlink" title="词法环境"></a>词法环境</h4><h5 id="之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定）"><a href="#之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定）" class="headerlink" title="之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定）"></a>之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定）</h5><h6 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h6><pre><code>- 全局词法环境
-- 函数词法环境
-- with词法环境
-- catch词法环境</code></pre><img src="https://user-gold-cdn.xitu.io/2018/12/3/1677429807aea76d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"/>
-
-
-<p> 伪代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">LexicalEnvironment</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.EnvironmentRecord =  <span class="keyword">new</span> EnvironmentRecord()<span class="comment">// 自己的词法环境</span></span><br><span class="line">    <span class="built_in">this</span>.outer = <span class="literal">undefined</span> <span class="comment">// 外部的词法环境的引用</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">EnvironmentRecord</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.bindings = <span class="keyword">new</span> <span class="built_in">Map</span>()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">EnvironmentRecord.prototype.rigister = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.bindings.set(name, <span class="literal">undefined</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">EnvironmentRecord.prototype.init = <span class="function"><span class="keyword">function</span>(<span class="params">name, value</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.bindings[name] = value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">EnvironmentRecord.prototype.getValue = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.bindings[name]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+        <ol>
+<li><p>简述一下你对HTML语义化的理解</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 用正确的标签做正确的事， </span><br><span class="line">2. 有利于搜索引擎的搜索，</span><br><span class="line">3. 有利于阅读源代码或者开发人员更容易将网站分块和阅读</span><br></pre></td></tr></table></figure></li>
+<li><p>请写出行内元素? 块级元素， 空元素有哪些？</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.行内元素： span,  a,  b,  img,  input, 	select,	strong</span><br><span class="line">2.块级元素： div, 	ol,	li,	h1-h6,	p, 	ul,	table</span><br><span class="line">3. 空元素：	br,	hr,	img, input, link,	 meta</span><br></pre></td></tr></table></figure></li>
+<li><p>HTML5的form如何关闭自动完成功能？</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">不需要提示的form或者某个input设置属性为：  autocomplete&#x3D;off</span><br></pre></td></tr></table></figure></li>
+<li><p>html5有哪些新特性？</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. 新增 画板元素 canvas, </span><br><span class="line">2. 视频音频： video, audio,</span><br><span class="line">3. 语义化的标签 header, footer, nav, section, article, calendar(日历), date(日期)， time, email, url, search, </span><br><span class="line">4. 地理定位： Geolocation ( 浏览器对象 navigator)</span><br><span class="line">		navigator.geolocation.getCurrentPosition</span><br><span class="line">5. 网络： websocket， webworker （向服务器发送事件）</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>请描述一下 cookies，sessionStorage 和 localStorage 的区别？</p>
+</li>
+<li><p>doctype是什么,举例常见doctype及特点</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">doctype: 文档类型</span><br><span class="line">浏览器渲染模式：</span><br><span class="line">	非怪异（标准）模式</span><br><span class="line">	怪异模式</span><br><span class="line">	部分怪异（近乎标准）模式</span><br><span class="line">1. HTML 4.01 strict doctype 适用于验证文档是否符合 HTML 4.01 规范</span><br><span class="line">	</span><br><span class="line">	&lt;!DOCTYPE HTML PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD HTML 4.01&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;html4&#x2F;strict.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">2. HTML 4.01 transitional doctype</span><br><span class="line"></span><br><span class="line">	&lt;!DOCTYPE HTML PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD HTML 4.01 Transitional&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;html4&#x2F;loose.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">3. HTML 4.01 frameset doctype</span><br><span class="line"></span><br><span class="line">	&lt;!DOCTYPE HTML PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD HTML 4.01 Transitional&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;html4&#x2F;loose.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">4. XML 1.0 strict doctype</span><br><span class="line"></span><br><span class="line">	&lt;!DOCTYPE html PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD XHTML 1.0 Strict&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;xhtml1&#x2F;DTD&#x2F;xhtml1-strict.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">5. XML 1.0 transitional doctype</span><br><span class="line"></span><br><span class="line">	&lt;!DOCTYPE html PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD XHTML 1.0 Transitional&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;xhtml1&#x2F;DTD&#x2F;xhtml1-transitional.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">6. XML 1.0 frameset doctype	</span><br><span class="line"></span><br><span class="line">	&lt;!DOCTYPE html PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD XHTML 1.0 Transitional&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;xhtml1&#x2F;DTD&#x2F;xhtml1-transitional.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">html 与 xhtml : </span><br><span class="line">	html大小写不敏感， xhtml： 元素和属性名大小写敏感，且一律为小写</span><br><span class="line">	html： 空元素可以不关闭标签，  xhtml： 每个元素都需要闭合。如果元素内容为空，则需要自闭合</span><br><span class="line">	html： 允许使用缩写属性， xhtml： 不允许使用缩写属性，每个属性都需要声明属性名与属性值</span><br></pre></td></tr></table></figure></li>
+<li><p>meta 标签</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1. 	X-UA-Compatible是IE 浏览器一个专有&lt;meta&gt;属性，它告诉IE采用何种IE版本去渲染网页 </span><br><span class="line">	 &lt;meta http-equiv&#x3D;&quot;X-UA-Compatible&quot; content&#x3D;&quot;IE&#x3D;edge,chrome&#x3D;1&quot; &#x2F;&gt;</span><br><span class="line">2. content  设置或返回 &lt;meta&gt; 元素的 content 属性的值</span><br><span class="line">3. name 	把 content 属性连接到某个名称。</span><br><span class="line">4. scheme 设置或返回用于解释 content 属性的值的格式</span><br><span class="line">5. httpEquiv： 把 content 属性连接到一个 HTTP 头部。</span><br><span class="line"></span><br><span class="line">[ref](https:&#x2F;&#x2F;segmentfault.com&#x2F;a&#x2F;1190000004279791)</span><br></pre></td></tr></table></figure></li>
+<li><p>浏览器的重绘和回退？</p>
+<pre><code>重绘： 不影响它周围或内部布局的属性， 只是修改元素本身的颜色，文字颜色等
+回退： 影响它周围或内部布局的属性</code></pre></li>
+</ol>
 
     </div>
 
@@ -277,30 +290,12 @@
     
     
       
-  <div class="popular-posts-header">热点文章</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/javascript函数/" rel="bookmark">javascript函数</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/javascript深入浅出2(引擎执行流程)/" rel="bookmark">javascript深入浅出一</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/javascript深入浅出1(整体框架)/" rel="bookmark">javascript深入浅出零-js整体框架</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/javascript深入浅出10(原型链)/" rel="bookmark">javascript深入浅出10(原型链)</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/javascript深入浅出5(执行上下文)/" rel="bookmark">javascript深入浅出5(执行上下文)</a></div>
-    </li>
-  </ul>
 
 
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/javascript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+              <a href="/tags/html/" rel="tag"><i class="fa fa-tag"></i> HTML</a>
           </div>
 
         
@@ -309,12 +304,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA1(%E6%95%B4%E4%BD%93%E6%A1%86%E6%9E%B6)/" rel="prev" title="javascript深入浅出零-js整体框架">
-      <i class="fa fa-chevron-left"></i> javascript深入浅出零-js整体框架
+    <a href="/interview-05-14-%E9%9D%A2%E8%AF%95%E9%A2%98js-5/" rel="prev" title="javascript编程系列(5)">
+      <i class="fa fa-chevron-left"></i> javascript编程系列(5)
     </a></div>
       <div class="post-nav-item">
-    <a href="/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA4(%E8%AF%AD%E6%B3%95)/" rel="next" title="javascript深入浅出三(语法)">
-      javascript深入浅出三(语法) <i class="fa fa-chevron-right"></i>
+    <a href="/interview-css-05-26-%E9%9D%A2%E8%AF%95%E9%A2%98css-1/" rel="next" title="面试题css(1)">
+      面试题css(1) <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -374,7 +369,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%8D%E6%B3%95%E7%8E%AF%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">词法环境</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B9%8B%E6%89%80%E4%BB%A5%E5%8F%AB%E8%AF%8D%E6%B3%95%E7%8E%AF%E5%A2%83%EF%BC%8C%E6%98%AF%E5%9B%A0%E4%B8%BA%E5%AE%83%E6%98%AF%E5%92%8C%E6%BA%90%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BB%93%E6%9E%84%E5%AF%B9%E5%BA%94%EF%BC%8C%E5%B0%B1%E6%98%AF%E5%92%8C%E4%BD%A0%E6%89%80%E5%86%99%E7%9A%84%E9%82%A3%E4%BA%9B%E6%BA%90%E7%A0%81%E7%9A%84%E6%96%87%E5%AD%97%E7%9A%84%E7%BB%93%E6%9E%84%E5%AF%B9%E5%BA%94%EF%BC%8C%E4%BD%A0%E5%86%99%E4%BB%A3%E7%A0%81%E7%9A%84%E6%97%B6%E5%80%99%E8%BF%99%E4%B8%AA%E7%8E%AF%E5%A2%83%E5%B0%B1%E5%AE%9A%E4%BA%86%EF%BC%88%E5%86%99%E4%BB%A3%E7%A0%81%E7%9A%84%E6%97%B6%E5%80%99%E5%86%B3%E5%AE%9A%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定）</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%86%E7%B1%BB"><span class="nav-number">1.1.1.</span> <span class="nav-text">分类</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
