@@ -1,175 +1,365 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>EcmaScript6-generator</title>
-    <url>/ecmascript6-generator/</url>
-    <content><![CDATA[<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>Generator 函数是 ES6 提供的一种异步编程解决方案，语法行为与传统函数完全不同。本章详细介绍 Generator 函数的语法和 API，它的异步编程应用请看《Generator 函数的异步应用》一章。</p>
-<p>Generator 函数有多种理解角度。语法上，首先可以把它理解成，Generator 函数是一个状态机，封装了多个内部状态。</p>
-<p>执行 Generator 函数会返回一个遍历器对象，也就是说，Generator 函数除了状态机，还是一个遍历器对象生成函数。返回的遍历器对象，可以依次遍历 Generator 函数内部的每一个状态。</p>
-<p>形式上，Generator 函数是一个普通函数，但是有两个特征。<br>一是，<code>function</code>关键字与函数名之间有一个星号；<br>二是，函数体内部使用<code>yield</code>表达式，定义不同的内部状态（<code>yield</code>在英语里的意思就是“产出”）。</p>
-<a id="more"></a>
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">helloWorldGenerator</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">yield</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">  <span class="keyword">yield</span> <span class="string">&quot;world&quot;</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;ending&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> hw = helloWorldGenerator();</span><br></pre></td></tr></table></figure>
-
-<p>上面代码定义了一个 Generator 函数<code>helloWorldGenerator</code>，它内部有两个<code>yield</code>表达式（<code>hello</code>和<code>world</code>），即该函数有三个状态：hello，world 和 return 语句（结束执行）。</p>
-<p>然后，Generator 函数的调用方法与普通函数一样，也是在函数名后面加上一对圆括号。不同的是，调用 Generator 函数后，该函数并不执行，返回的也不是函数运行结果，而是一个指向内部状态的指针对象，也就是上一章介绍的遍历器对象（Iterator Object）。</p>
-<p>下一步，必须调用遍历器对象的<code>next</code>方法，使得指针移向下一个状态。也就是说，每次调用<code>next</code>方法，内部指针就从函数头部或上一次停下来的地方开始执行，直到遇到下一个<code>yield</code>表达式（或<code>return</code>语句）为止。换言之，Generator 函数是分段执行的，<code>yield</code>表达式是暂停执行的标记，而<code>next</code>方法可以恢复执行。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">hw.next();</span><br><span class="line"><span class="comment">// &#123; value: &#x27;hello&#x27;, done: false &#125;</span></span><br><span class="line"></span><br><span class="line">hw.next();</span><br><span class="line"><span class="comment">// &#123; value: &#x27;world&#x27;, done: false &#125;</span></span><br><span class="line"></span><br><span class="line">hw.next();</span><br><span class="line"><span class="comment">// &#123; value: &#x27;ending&#x27;, done: true &#125;</span></span><br><span class="line"></span><br><span class="line">hw.next();</span><br><span class="line"><span class="comment">// &#123; value: undefined, done: true &#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>上面代码一共调用了四次<code>next</code>方法。</p>
-<p>第一次调用，Generator 函数开始执行，直到遇到第一个<code>yield</code>表达式为止。<code>next</code>方法返回一个对象，它的<code>value</code>属性就是当前<code>yield</code>表达式的值<code>hello</code>，<code>done</code>属性的值<code>false</code>，表示遍历还没有结束。</p>
-<p>第二次调用，Generator 函数从上次<code>yield</code>表达式停下的地方，一直执行到下一个<code>yield</code>表达式。<code>next</code>方法返回的对象的<code>value</code>属性就是当前<code>yield</code>表达式的值<code>world</code>，<code>done</code>属性的值<code>false</code>，表示遍历还没有结束。</p>
-<p>第三次调用，Generator 函数从上次<code>yield</code>表达式停下的地方，一直执行到<code>return</code>语句（如果没有<code>return</code>语句，就执行到函数结束）。<code>next</code>方法返回的对象的<code>value</code>属性，就是紧跟在<code>return</code>语句后面的表达式的值（如果没有<code>return</code>语句，则<code>value</code>属性的值为<code>undefined</code>），<code>done</code>属性的值<code>true</code>，表示遍历已经结束。</p>
-<p>第四次调用，此时 Generator 函数已经运行完毕，<code>next</code>方法返回对象的<code>value</code>属性为<code>undefined</code>，<code>done</code>属性为<code>true</code>。以后再调用<code>next</code>方法，返回的都是这个值。</p>
-<p>总结一下，调用 Generator 函数，返回一个遍历器对象，代表 Generator 函数的内部指针。以后，每次调用遍历器对象的<code>next</code>方法，就会返回一个有着<code>value</code>和<code>done</code>两个属性的对象。<code>value</code>属性表示当前的内部状态的值，是<code>yield</code>表达式后面那个表达式的值；<code>done</code>属性是一个布尔值，表示是否遍历结束。</p>
-<p>ES6 没有规定，<code>function</code>关键字与函数名之间的星号，写在哪个位置。这导致下面的写法都能通过。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> * <span class="title">foo</span>(<span class="params">x, y</span>) </span>&#123; ··· &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params">x, y</span>) </span>&#123; ··· &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">foo</span>(<span class="params">x, y</span>) </span>&#123; ··· &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span>*<span class="title">foo</span>(<span class="params">x, y</span>) </span>&#123; ··· &#125;</span><br></pre></td></tr></table></figure>
-
-<p>由于 Generator 函数仍然是普通函数，所以一般的写法是上面的第三种，即星号紧跟在<code>function</code>关键字后面。本书也采用这种写法。</p>
-]]></content>
+    <title>css重学(1)-单位</title>
+    <url>/style-07-05-css%E9%87%8D%E5%AD%A6-1-%E5%8D%95%E4%BD%8D/</url>
+    <content><![CDATA[<h4 id="css中的常用单位："><a href="#css中的常用单位：" class="headerlink" title="css中的常用单位："></a>css中的常用单位：</h4><p>设备像素： 设备屏幕实际拥有的像素点； 一般来说： 宽度方向有1920个像素点，长度方向有1080个像素点</p>
+<p>逻辑像素： CSS的像素单位（css的px）其尺寸大小是想相对的， 也称谓独立像素</p>
+<p>分辨率： 屏长的设备像素 * 屏宽的设备像素（1920 * 1080 )</p>
+<p>ppi(pixels per inch): 像素密度，便是沿对角线没英寸长度的像素数目，越大显示的越细腻</p>
+<p>缩放因子： 逻辑像素相对于设备像素的放大比例， 可通过window.devicePixelRatio获得</p>
+<p>分辨率（设备像素） = 设备尺寸 * 像素密度</p>
+<p>关系一：<br>  设备尺寸 × 像素密度 = 分辨率（设备像素）</p>
+<p>举例：<br>  iphone6s 对角线长度为5.5 inches，像素密度401 ppi，分辨率 1920 * 1080，计算可得对角线的设备像素为2205.5。<br>  5.5 * 401 = 2205.5</p>
+<p>关系二：<br>  逻辑像素(css的px) = 设备像素 × 缩放因子</p>
+<p>举例：<br>  iphone6逻辑像素为375 * 667，分辨率为750 * 1334，缩放因子为2<br>  1个逻辑像素（1px） = 设备宽度的1/375<br>  1个设备像素 = 设备宽度的1/750</p>
+<p>px: 独立像素</p>
+<p>em: 根据父元素的字体大小来计算字体大小</p>
+<p>rem: 相对于根元素html字体大小计算字体大小</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">doc, win</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">const</span> docEl = win.document.documentElement;</span><br><span class="line">	<span class="keyword">const</span> resiezeEvt = <span class="string">&#x27;orientationchange&#x27;</span> <span class="keyword">in</span> <span class="built_in">window</span> ? <span class="string">&#x27;orientationchange&#x27;</span> : <span class="string">&#x27;resize&#x27;</span>;</span><br><span class="line">	<span class="keyword">const</span> refreshRem = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">   		<span class="keyword">const</span> clientWidth = win.innerWidth || doc.documentElement.clientWidth || doc.body.clientWidth;</span><br><span class="line">   		<span class="built_in">console</span>.log(clientWidth)</span><br><span class="line">   		<span class="keyword">if</span> (!clientWidth) <span class="keyword">return</span>;</span><br><span class="line">   		<span class="keyword">let</span> fz;</span><br><span class="line">   		<span class="keyword">const</span> width = clientWidth;</span><br><span class="line">   		fz = <span class="number">16</span> * width / <span class="number">375</span>;</span><br><span class="line">   		docEl.style.fontSize = fz + <span class="string">&#x27;px&#x27;</span>;<span class="comment">//这样每一份也是16px,即1rem=16px</span></span><br><span class="line"> 		&#125;;</span><br><span class="line">	<span class="keyword">if</span> (!doc.addEventListener) <span class="keyword">return</span>;</span><br><span class="line"> 		win.addEventListener(resizeEvt, refreshRem, <span class="literal">false</span>);</span><br><span class="line"> 		doc.addEventListener(<span class="string">&#x27;DOMContentLoaded&#x27;</span>, refreshRem, <span class="literal">false</span>);</span><br><span class="line"> 		refreshRem();</span><br><span class="line">&#125;)(<span class="built_in">document</span>, <span class="built_in">window</span>);</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>EcmaScript6</category>
+        <category>CSS</category>
       </categories>
       <tags>
-        <tag>EcmaScript6</tag>
+        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
-    <title>git命令详解</title>
-    <url>/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</url>
-    <content><![CDATA[<h4 id="git-安装"><a href="#git-安装" class="headerlink" title="git 安装"></a>git 安装</h4><ol>
-<li>homebrew 安装<br><a href="https://www.jianshu.com/p/7edb6b838a2e">git 安装</a><br><a href="https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%89%93%E6%A0%87%E7%AD%BE">git 资料</a></li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装Homebrew</span></span><br><span class="line">/usr/bin/ruby -e <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>&quot;</span></span><br><span class="line"><span class="comment"># 安装git</span></span><br><span class="line">brew install git</span><br></pre></td></tr></table></figure>
+    <title>重学js值(3)-super</title>
+    <url>/%E9%87%8D%E5%AD%A6js%E5%80%BC-3-super/</url>
+    <content><![CDATA[<h4 id="super-用于访问和调用一个对象的父对象上的函数"><a href="#super-用于访问和调用一个对象的父对象上的函数" class="headerlink" title="super: 用于访问和调用一个对象的父对象上的函数"></a>super: 用于访问和调用一个对象的父对象上的函数</h4><h5 id="Object-getPrototypeOf-Object-setPrototypeOf-返回的是对象的隐士的原型对象-proto"><a href="#Object-getPrototypeOf-Object-setPrototypeOf-返回的是对象的隐士的原型对象-proto" class="headerlink" title="Object.getPrototypeOf / Object.setPrototypeOf: 返回的是对象的隐士的原型对象 proto"></a>Object.getPrototypeOf / Object.setPrototypeOf: 返回的是对象的隐士的原型对象 <strong>proto</strong></h5><h5 id="Object-create-方法创建一个新对象，使用现有的对象来提供新创建的对象的proto。"><a href="#Object-create-方法创建一个新对象，使用现有的对象来提供新创建的对象的proto。" class="headerlink" title="Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的proto。"></a>Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的<strong>proto</strong>。</h5><h4 id="babel编译super"><a href="#babel编译super" class="headerlink" title="babel编译super"></a>babel编译super</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_getPrototypeOf</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">	_getPrototypeOf = <span class="built_in">Object</span>.setPrototypeOf ?</span><br><span class="line">		<span class="built_in">Object</span>.getPrototypeOf :</span><br><span class="line">		<span class="function"><span class="keyword">function</span> <span class="title">_getPrototypeOf</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">			<span class="keyword">return</span> o.__proto__ || <span class="built_in">Object</span>.getPrototypeOf(o);</span><br><span class="line">		&#125;;</span><br><span class="line">	<span class="keyword">return</span> _getPrototypeOf(o);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_assertThisInitialized</span>(<span class="params">self</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (self === <span class="keyword">void</span> <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">ReferenceError</span>(<span class="string">&quot;this hasn&#x27;t been initialised - super() hasn&#x27;t been called&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> self;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_possibleConstructorReturn</span>(<span class="params">self, call</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (call &amp;&amp; (_typeof(call) === <span class="string">&#x27;object&#x27;</span> || <span class="keyword">typeof</span> call === <span class="string">&#x27;function&#x27;</span>)) &#123;</span><br><span class="line">		<span class="keyword">return</span> call;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> _assertThisInitialized(self);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperMethod</span>(<span class="params">subClass</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span>  <span class="function"><span class="keyword">function</span>  <span class="title">_createSuperInternal</span>(<span class="params">subClass</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">let</span> result = <span class="literal">null</span></span><br><span class="line">		<span class="comment">// 这两步参考extends</span></span><br><span class="line">		<span class="keyword">const</span> <span class="built_in">super</span> = _getPrototypeOf(subClass)</span><br><span class="line">		<span class="keyword">const</span> newTarget =  _getPrototypeOf(<span class="built_in">this</span>).constructor</span><br><span class="line">		<span class="comment">/** Reflect.constructor(super, constructor, newTarget) 相当于 =  </span></span><br><span class="line"><span class="comment">			var obj2 = Object.create(newTarget.prototype);</span></span><br><span class="line"><span class="comment">			super.apply(obj2, args);	</span></span><br><span class="line"><span class="comment">		*/</span></span><br><span class="line">		result = <span class="built_in">Reflect</span>.constructor(<span class="built_in">super</span>, <span class="built_in">arguments</span>, newTarget)</span><br><span class="line">		<span class="keyword">return</span> _possibleConstructorReturn(<span class="built_in">this</span>, result) </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>重学js值(2)-extends</title>
+    <url>/%E9%87%8D%E5%AD%A6js%E5%80%BC(2)-extends/</url>
+    <content><![CDATA[<h5 id="Object-create-方法创建一个新对象，使用现有的对象来提供新创建的对象的proto。"><a href="#Object-create-方法创建一个新对象，使用现有的对象来提供新创建的对象的proto。" class="headerlink" title="Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的proto。"></a>Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的<strong>proto</strong>。</h5><h4 id="先搞定清楚-prototype-和-proto之间的区别"><a href="#先搞定清楚-prototype-和-proto之间的区别" class="headerlink" title="先搞定清楚 prototype 和 proto之间的区别"></a>先搞定清楚 prototype 和 <strong>proto</strong>之间的区别</h4><h5 id="区别："><a href="#区别：" class="headerlink" title="区别："></a>区别：</h5><pre><code>a, 拥有属性的对象不同</code></pre><p><strong>proto</strong>: 在js中， 万物皆为对象，对象具有<strong>proto</strong>属性，可称为隐式原型； 一个对象的隐式原型指向该对象的构造函数的原型（js的对象）</p>
+<p>prototype: 函数这个特殊对象所特有的属性（原型属性）（函数）</p>
+<pre><code>b,  指向不同</code></pre><p>1，<strong>proto</strong> 指向它的构造函数的原型对象（prototype ）</p>
+<p>2，该原型对象也有一个自己的隐式原型( <strong>proto</strong> ) 和 constructor;<br>    constructor: 指向构造函数<br>    <strong>proto</strong>: 指向它的构造函数的原型对象</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">Test.__proto__ === <span class="built_in">Function</span>.prototype <span class="comment">// true</span></span><br><span class="line">Test.prototype.constructor === Test <span class="comment">// true</span></span><br><span class="line">Test.prototype.__proto__ === <span class="built_in">Object</span>.prototype <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 
-<ol start="2">
-<li><p>git 常用命令：</p>
+<h4 id="extends做了什么？？"><a href="#extends做了什么？？" class="headerlink" title="extends做了什么？？"></a>extends做了什么？？</h4><pre><code>extends在实现继承方面，本质上也是原型链继承,该方法实现了两步原型链继承
+
+    1）子类的__proto__属性，表示构造函数的继承，总是指向父类。（把子类构造函数(Child)的原型(__proto__)指向了父类构造函数(Parent)）
+    2）子类prototype属性的__proto__属性，表示方法的继承，总是指向父类的prototype属性。</code></pre><h4 id="自定义实现extends"><a href="#自定义实现extends" class="headerlink" title="自定义实现extends"></a>自定义实现extends</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">customExtends</span>(<span class="params">subClass, superClass</span>) </span>&#123;</span><br><span class="line"> <span class="comment">// 创建以constructor对象为基准的__proto__ == superClass.prototype</span></span><br><span class="line">subClass.prototype = <span class="built_in">Object</span>.create(superClass &amp;&amp; superClass.prototype, &#123;</span><br><span class="line">      	<span class="title">constructor</span>: &#123; </span><br><span class="line">			value: subClass,</span><br><span class="line">			writable: <span class="literal">true</span>,</span><br><span class="line">			configurable: <span class="literal">true</span> </span><br><span class="line">		&#125;,</span><br><span class="line">  	&#125;)</span><br><span class="line"><span class="comment">// 2. 将子类的隐式原型设置为父类</span></span><br><span class="line">subClass.__proto__ = p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="babel编译extends"><a href="#babel编译extends" class="headerlink" title="babel编译extends"></a>babel编译extends</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_inherits</span>(<span class="params">subClass, superClass</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">typeof</span> superClass !== <span class="string">&#x27;function&#x27;</span> &amp;&amp; superClass !== <span class="literal">null</span>) &#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;Super expression must either be null or a function &#x27;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	subClass.prototype = <span class="built_in">Object</span>.create(superClass &amp;&amp; superClass.prototype, &#123;</span><br><span class="line">		<span class="title">constructor</span>: &#123;</span><br><span class="line">			value: subClass,</span><br><span class="line">			writable: <span class="literal">true</span>,</span><br><span class="line">			configureable: <span class="literal">true</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">	<span class="keyword">if</span> (superClass) &#123;</span><br><span class="line">		_setPrototypeOf(subClass, superClass)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_setPrototypeOf</span>(<span class="params">subClass, superClass</span>) </span>&#123;</span><br><span class="line">	_setPrototypeOf = <span class="built_in">Object</span>.setPrototypeOf || <span class="function"><span class="keyword">function</span> <span class="title">_setPrototypeOf</span>(<span class="params">o, p</span>) </span>&#123; o.__proto__ = p; <span class="keyword">return</span> o&#125;</span><br><span class="line">	<span class="comment">// subClass.__proto__ = superClass</span></span><br><span class="line">	<span class="keyword">return</span> _setPrototypeOf(subClass, superClass)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>JavaScriptj</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>重学js之(1)-new</title>
+    <url>/%E9%87%8D%E5%AD%A6js%E4%B9%8B(1)-new/</url>
+    <content><![CDATA[<h4 id="new的作用"><a href="#new的作用" class="headerlink" title="new的作用"></a>new的作用</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line"> <span class="built_in">this</span>.name = name</span><br><span class="line">&#125;</span><br><span class="line">Test.prototype.setName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="built_in">this</span>.name = name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> instance = <span class="keyword">new</span> Test(<span class="string">&#x27;测试&#x27;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(instance.name) <span class="comment">// 测试</span></span><br><span class="line"></span><br><span class="line">instance.setName(<span class="string">&#x27;测试1&#x27;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(instance.name) <span class="comment">// 测试1</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h6 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h6><p> new 通过构造函数创建出来的实例可以访问构造函数中的属性</p>
+<p> new 通过构造函数创建出来的实例可以访问原型链中的属性和方法； 也就是说通过new操作符实例和构造函数通过原型链连接起来了</p>
+
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">this</span>.name = name</span><br><span class="line">	<span class="keyword">return</span> &#123; <span class="attr">age</span>: <span class="number">24</span>&#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> t = <span class="keyword">new</span> Test(<span class="string">&#x27;yck&#x27;</span>)</span><br><span class="line">   <span class="built_in">console</span>.log(t) <span class="comment">// &#123; age: 26 &#125;</span></span><br><span class="line">   <span class="built_in">console</span>.log(t.name) <span class="comment">// &#x27;undefined&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h6 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h6><p> 构造函数如果返回值为对象，那么这个返回值会被正常使用 </p>
+
+<h6 id="自定义实现-new-操作符"><a href="#自定义实现-new-操作符" class="headerlink" title="自定义实现 new 操作符"></a>自定义实现 new 操作符</h6><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createNew</span>(<span class="params">Con, ...args</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">let</span> obj = &#123;&#125;</span><br><span class="line">	<span class="comment">// 解释了static类型的方法不能通过this调用的原因</span></span><br><span class="line">	<span class="built_in">Object</span>.setPrototypeOf(obj, Con.prototype)</span><br><span class="line">	<span class="comment">// apply方法调用一个具有给定this值的函数</span></span><br><span class="line">	<span class="keyword">let</span> result = Con.apply(<span class="built_in">this</span>, args)</span><br><span class="line">	<span class="keyword">return</span> result <span class="keyword">instanceof</span> <span class="built_in">Object</span> ? result : obj</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>es深入浅出系列(2)</title>
+    <url>/ecmascript-06-09-es%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E7%B3%BB%E5%88%97-2/</url>
+    <content><![CDATA[<h3 id="解构"><a href="#解构" class="headerlink" title="解构"></a>解构</h3><p>ES6 允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为解构（Destructuring）。</p>
+<p>以前，为变量赋值，只能直接指定值。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">let</span> c = <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<p>ES6 允许写成下面这样。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> [a, b, c] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br></pre></td></tr></table></figure>
+
+<h4 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h4><p>解构赋值允许指定默认值。</p>
+<p>注意，ES6 内部使用严格相等运算符（<code>===</code>），判断一个位置是否有值。所以，只有当一个数组成员严格等于<code>undefined</code>，默认值才会生效。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> [firstItem = []] = []</span><br><span class="line"></span><br><span class="line">firstItem <span class="comment">// []; 解构赋值在解构出来的值为undefined时，默认值才会生效</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>EcmaScript</category>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>EcmaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>es深入浅出系列(1)</title>
+    <url>/ecmascript-06-09-es%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E7%B3%BB%E5%88%97-1/</url>
+    <content><![CDATA[<h4 id="let和const系列"><a href="#let和const系列" class="headerlink" title="let和const系列"></a>let和const系列</h4><h3 id="let-命令"><a href="#let-命令" class="headerlink" title="let 命令"></a>let 命令</h3><p>ES6 新增了<code>let</code>命令，用来声明变量。它的用法类似于<code>var</code>，但是所声明的变量，只在<code>let</code>命令所在的代码块内有效。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="keyword">let</span> a = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> b = <span class="number">11</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">a <span class="comment">// ReferenceError: a is not undefined</span></span><br><span class="line">b <span class="comment">// 11</span></span><br></pre></td></tr></table></figure>
+
+<p>上面代码在代码块之中，分别用<code>let</code>和<code>var</code>声明了两个变量。然后在代码块之外调用这两个变量，结果<code>let</code>声明的变量报错，<code>var</code>声明的变量返回了正确的值。这表明，<code>let</code>声明的变量只在它所在的代码块有效。</p>
+<h3 id="const命令"><a href="#const命令" class="headerlink" title="const命令"></a>const命令</h3><p>  const声明一个只读的常量。一旦声明，常量的值就不能改变。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const PI &#x3D; 3.1415</span><br><span class="line"></span><br><span class="line">PI &#x2F;&#x2F; 3.1415</span><br><span class="line"></span><br><span class="line">pI &#x3D; 3 &#x2F;&#x2F; TypeError: Assignment to constant variable</span><br></pre></td></tr></table></figure>
+
+<p>const语法对于引用类型是可以更改和增加其属性值， 因为对于引用类型在内存中存储的是一个引用地址； 对于const命令不能将引用地址更改</p>
+<p>1, let 和 const 的出现解决了什么问题？</p>
+<pre><code>在es5中只有全局作用域和函数作用域，带来很多不合理的场景
+
+第一种场景： 内层变量覆盖外层变量
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a)</span><br><span class="line">    <span class="keyword">var</span> a = <span class="string">&#x27;这不是时间&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f() <span class="comment">// 这不是时间， 原因在于用var 声明的变量存在变量提升， 导致函数执行时在当前函数作用域中就能找到对应的a变量因此进行了输出</span></span><br></pre></td></tr></table></figure>
+
+第二中场景： 变量泄露为全局变量
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="string">&#x27;hello&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">for</span>(<span class="params"> <span class="keyword">var</span> i = <span class="number">0</span>; i &lt;= s.length-<span class="number">1</span>; i++</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(s[i])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(i) <span class="comment">// 5; 原因在于 变量i用var 声明， 导致循环执行结束之后，变量i并没有销毁, 泄露成了全局变量</span></span><br></pre></td></tr></table></figure></code></pre><p>2, let 和const的共同点<br>    1, 没有变量提升<br>    2, 增加了块级作用域<br>    3, 必须先定义后使用, 都存在暂时性死区(在代码块内，使用<code>let</code>和 <code>const</code>命令声明变量之前，该变量都是不可用的变)<br>    4, 在同一个块级作用域中不能重复定义相同的变量</p>
+<p>注意点：</p>
 <ul>
-<li>git init: 初始化一个 Git 仓库</li>
-<li>git clone: 从远端拉取一个 git 仓库到本地</li>
-<li>git tag: 查看 tag 列表</li>
-<li>git tag ${tagName}: 在当前提交上打上 tag</li>
-<li>git push origin ${tagName}: 把 tagName 提交到代码服务器</li>
-<li>git tag –delete ${tagName}: 删除本地 tag</li>
-<li>git push origin :${tagName} &amp;&amp; git tag –delete ${tagName}: 删除本地和远程的标签</li>
-<li>git symbolic-ref –short HEAD： 获取当前分支的名字</li>
-<li>git remote get-url origin： 获取远程 git 仓库地址</li>
-<li>git tag -l –points-at HEAD： 获取当前 commit 上的 tag</li>
-<li>git branch： 查看所有的分支</li>
-<li>git branch ${tagName} ： 删除本地分支</li>
-<li>git branch -ｒ： 查看远端所有的分支</li>
-<li>git branch -a: 查看本地和远端的分支</li>
-<li>git branch -d: 删除本地分支</li>
-<li>git push origin –delete ${branchName}: 删除远端分支</li>
+<li>允许在块级作用域中声明函数</li>
+<li>函数声明类似于 ‘var’，即会提升到全局作用域或者函数作用域的头部（var的变量声明）</li>
+<li>函数声明还会提升到所在的块级作用域的头部</li>
 </ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">  <span class="comment">// 浏览器的 ES6 环境</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">&#x27;I am outside!&#x27;</span>); &#125;</span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="literal">false</span>) &#123;</span><br><span class="line">    <span class="comment">// 重复声明一次函数f</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">&#x27;I am inside!&#x27;</span>); &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  f();</span><br><span class="line">&#125;());</span><br><span class="line"><span class="comment">// Uncaught TypeError: f is not a function</span></span><br></pre></td></tr></table></figure>
+
+<p>相当于运行以下代码</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 浏览器的 ES6 环境</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">&#x27;I am outside!&#x27;</span>); &#125;</span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> f = <span class="literal">undefined</span>;</span><br><span class="line">  <span class="keyword">if</span> (<span class="literal">false</span>) &#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">&#x27;I am inside!&#x27;</span>); &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  f();</span><br><span class="line">&#125;());</span><br><span class="line"><span class="comment">// Uncaught TypeError: f is not a function</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>EcmaScript</category>
+      </categories>
+      <tags>
+        <tag>EcmaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>webrtc基础概念介绍</title>
+    <url>/webrtc-rtc%E4%BB%8B%E7%BB%8D/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>webrtc</category>
+      </categories>
+      <tags>
+        <tag>webrtc</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/webrtc-rtc%E4%BB%8B%E7%BB%8D-2/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>nodejs介绍</title>
+    <url>/nodejs-05-31-nodejs%E4%BB%8B%E7%BB%8D-2/</url>
+    <content><![CDATA[<p>ECMAScript: 定义了语法（本身只有语法和词法， 简称语法); 比如: 变量定义、循环、判断、函数、原型、原型链、作用域、闭包、异步<br>(ES教程)[<a href="https://es6.ruanyifeng.com/]">https://es6.ruanyifeng.com/]</a></p>
+<p>javascript:  是用ES语法规范 + web API; 两者结合，即可完成浏览器端的任何操作<br>    web Api: BOM、DOM、事件绑定、Ajax、 websock等</p>
+<p>nodejs: 使用ES语法规范 + nodejs api；</p>
+]]></content>
+      <categories>
+        <category>NodeJs</category>
+      </categories>
+      <tags>
+        <tag>NodeJs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>nvm控制node版本</title>
+    <url>/nodejs-05-31-nvm%E6%8E%A7%E5%88%B6node%E7%89%88%E6%9C%AC-1/</url>
+    <content><![CDATA[<p>nvm 控制node 版本</p>
+<p>nvm:  (github地址)[<a href="https://github.com/nvm-sh/nvm]">https://github.com/nvm-sh/nvm]</a></p>
+<p>commender list:</p>
+<ul>
+<li>nvm list</li>
+<li>nvm use</li>
+<li>nvm install</li>
+</ul>
+]]></content>
+      <categories>
+        <category>NodeJs</category>
+      </categories>
+      <tags>
+        <tag>NodeJs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>面试题css(1)</title>
+    <url>/interview-css-05-26-%E9%9D%A2%E8%AF%95%E9%A2%98css-1/</url>
+    <content><![CDATA[<ol>
+<li><p>常见的css属性  <a href="https://leohxj.gitbooks.io/front-end-database/html-and-css-basic/common-use-css-property.html">常见的属性</a></p>
+</li>
+<li><p>css 盒模型 <a href="https://css.doyoe.com/">盒模型</a></p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">标准盒模型： width &#x3D; content</span><br><span class="line">ie盒模型： width &#x3D; content + padding + border</span><br><span class="line">不同的浏览器渲染默认对盒模型的渲染是不同的</span><br><span class="line">box-sizing: </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>文档流</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">从上到下，从左到右</span><br></pre></td></tr></table></figure></li>
+<li><p>display取值</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. block    独占一行， 可设置宽高内外边距， 默认宽度由父容器决定，默认高度有内容决定</span><br><span class="line">2. inline-block  不独占一行</span><br><span class="line">3. inline 宽度和高度都有内容决定，与其他元素共占一行。</span><br><span class="line">4. table-call</span><br><span class="line">5. none</span><br><span class="line">6. flex 弹性盒不		 </span><br></pre></td></tr></table></figure></li>
+<li><p>css 定位</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">relative:  相对不自己本身</span><br><span class="line">absolute: 相对于不是static定位的父级元素</span><br><span class="line">fixed: 相对于可视窗口</span><br><span class="line">static: 默认的</span><br></pre></td></tr></table></figure></li>
+<li><p>css浮动 <a href="http://www.iyunlu.com/view/css-xhtml/55.html">清除浮动</a></p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 	在浮动元素后添加额外的标签设置为 clear： both</span><br><span class="line">2. 父元素设置： overflow： hidden</span><br><span class="line">3. 使用 after伪类： content:&quot;.&quot;; display:block; height:0; visibility:hidden; clear:both;	</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
-]]></content>
+<p>5.css选择器<a href="https://leohxj.gitbooks.io/front-end-database/html-and-css-basic/css-selector.html">选择器和权重</a></p>
+<p>6.css权重 <a href="http://www.w3cplus.com/css/css-specificity-things-you-should-know.html">权重</a></p>
+<pre><code>从0开始，一个行内样式+1000，一个id+100，一个属性选择器/class或者伪类+10，一个元素名，或者伪元素+1</code></pre><p>7.css书写规范 <a href="http://www.shejidaren.com/css-written-specifications.html">规范</a></p>
+<p>8.flexbox 和 网格布局</p>
+<p>9.请写出如何垂直水平居中div</p>
+<pre><code>分为已知宽高和未知宽高</code></pre><p>10.请简述css3有哪些新特性？</p>
+<pre><code>border-radius,  text-shadow, transform, gradient</code></pre>]]></content>
       <categories>
-        <category>GIT</category>
+        <category>Interview</category>
+        <category>CSS编程</category>
       </categories>
       <tags>
-        <tag>GIT</tag>
+        <tag>Interview</tag>
       </tags>
   </entry>
   <entry>
-    <title>javascript函数</title>
-    <url>/javascript%E5%87%BD%E6%95%B0/</url>
+    <title>HTML编程系列(1)</title>
+    <url>/interview-html-05-26-%E9%9D%A2%E8%AF%95%E9%A2%98html-1/</url>
+    <content><![CDATA[<ol>
+<li><p>简述一下你对HTML语义化的理解</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 用正确的标签做正确的事， </span><br><span class="line">2. 有利于搜索引擎的搜索，</span><br><span class="line">3. 有利于阅读源代码或者开发人员更容易将网站分块和阅读</span><br></pre></td></tr></table></figure></li>
+<li><p>请写出行内元素? 块级元素， 空元素有哪些？</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.行内元素： span,  a,  b,  img,  input, 	select,	strong</span><br><span class="line">2.块级元素： div, 	ol,	li,	h1-h6,	p, 	ul,	table</span><br><span class="line">3. 空元素：	br,	hr,	img, input, link,	 meta</span><br></pre></td></tr></table></figure></li>
+<li><p>HTML5的form如何关闭自动完成功能？</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">不需要提示的form或者某个input设置属性为：  autocomplete&#x3D;off</span><br></pre></td></tr></table></figure></li>
+<li><p>html5有哪些新特性？</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 新增 画板元素 canvas, </span><br><span class="line">2. 视频音频： video, audio,</span><br><span class="line">3. 语义化的标签 header, footer, nav, section, article, calendar(日历), date(日期)， time, email, url, search, </span><br><span class="line">4. 地理定位： Geolocation ( 浏览器对象 navigator)</span><br><span class="line">		navigator.geolocation.getCurrentPosition</span><br><span class="line">5. 网络： websocket， webworker （向服务器发送事件）</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>请描述一下 cookies，sessionStorage 和 localStorage 的区别？</p>
+</li>
+<li><p>doctype是什么,举例常见doctype及特点</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">doctype: 文档类型</span><br><span class="line">浏览器渲染模式：</span><br><span class="line">	非怪异（标准）模式</span><br><span class="line">	怪异模式</span><br><span class="line">	部分怪异（近乎标准）模式</span><br><span class="line">1. HTML 4.01 strict doctype 适用于验证文档是否符合 HTML 4.01 规范</span><br><span class="line">	</span><br><span class="line">	&lt;!DOCTYPE HTML PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD HTML 4.01&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;html4&#x2F;strict.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">2. HTML 4.01 transitional doctype</span><br><span class="line"></span><br><span class="line">	&lt;!DOCTYPE HTML PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD HTML 4.01 Transitional&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;html4&#x2F;loose.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">3. HTML 4.01 frameset doctype</span><br><span class="line"></span><br><span class="line">	&lt;!DOCTYPE HTML PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD HTML 4.01 Transitional&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;html4&#x2F;loose.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">4. XML 1.0 strict doctype</span><br><span class="line"></span><br><span class="line">	&lt;!DOCTYPE html PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD XHTML 1.0 Strict&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;xhtml1&#x2F;DTD&#x2F;xhtml1-strict.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">5. XML 1.0 transitional doctype</span><br><span class="line"></span><br><span class="line">	&lt;!DOCTYPE html PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD XHTML 1.0 Transitional&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;xhtml1&#x2F;DTD&#x2F;xhtml1-transitional.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">6. XML 1.0 frameset doctype	</span><br><span class="line"></span><br><span class="line">	&lt;!DOCTYPE html PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD XHTML 1.0 Transitional&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;xhtml1&#x2F;DTD&#x2F;xhtml1-transitional.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">html 与 xhtml : </span><br><span class="line">	html大小写不敏感， xhtml： 元素和属性名大小写敏感，且一律为小写</span><br><span class="line">	html： 空元素可以不关闭标签，  xhtml： 每个元素都需要闭合。如果元素内容为空，则需要自闭合</span><br><span class="line">	html： 允许使用缩写属性， xhtml： 不允许使用缩写属性，每个属性都需要声明属性名与属性值</span><br></pre></td></tr></table></figure></li>
+<li><p>meta 标签</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 	X-UA-Compatible是IE 浏览器一个专有&lt;meta&gt;属性，它告诉IE采用何种IE版本去渲染网页 </span><br><span class="line">	 &lt;meta http-equiv&#x3D;&quot;X-UA-Compatible&quot; content&#x3D;&quot;IE&#x3D;edge,chrome&#x3D;1&quot; &#x2F;&gt;</span><br><span class="line">2. content  设置或返回 &lt;meta&gt; 元素的 content 属性的值</span><br><span class="line">3. name 	把 content 属性连接到某个名称。</span><br><span class="line">4. scheme 设置或返回用于解释 content 属性的值的格式</span><br><span class="line">5. httpEquiv： 把 content 属性连接到一个 HTTP 头部。</span><br><span class="line"></span><br><span class="line">[ref](https:&#x2F;&#x2F;segmentfault.com&#x2F;a&#x2F;1190000004279791)</span><br></pre></td></tr></table></figure></li>
+<li><p>浏览器的重绘和回退？</p>
+<pre><code>重绘： 不影响它周围或内部布局的属性， 只是修改元素本身的颜色，文字颜色等
+回退： 影响它周围或内部布局的属性</code></pre></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Interview</category>
+        <category>HTML</category>
+      </categories>
+      <tags>
+        <tag>HTML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>javascript编程系列(5)</title>
+    <url>/interview-05-14-%E9%9D%A2%E8%AF%95%E9%A2%98js-5/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>Interview</category>
+        <category>js编程题</category>
+      </categories>
+      <tags>
+        <tag>Interview</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>javascript编程系列(4)</title>
+    <url>/interview-05-12-%E9%9D%A2%E8%AF%95%E9%A2%98js-4/</url>
     <content><![CDATA[<ul>
-<li><p>概述</p>
-<hr style="margin: 5px 0px; background-image: none;     border-top: 1px solid #fff;"/>
-
-<p>函数是一段可以反复调用的代码块。函数还能接受输入的参数，不同的参数会返回不同的值</p>
-</li>
-<li><p>声明(Function Declaration)</p>
-<hr style="margin: 5px 0px; background-image: none;     border-top: 1px solid #fff;"/>
-
-<p>1.function 命令声明的代码区块，就是一个函数。function 命令后面是函数名，函数名后面是一对圆括号，里面是传入函数的参数。函数体放在大括号里面</p>
+<li><p>在一堆正整数中， 找到最长的一组斐波拉契烈段</p>
+<p>  <a href="../../code/findFibonacci.js">源码</a></p>
 </li>
 </ul>
-  <a id="more"></a>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findFibonacci</span>(<span class="params">inputArr</span>) </span>&#123;</span><br><span class="line">    inputArr.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b)</span><br><span class="line">    <span class="keyword">let</span> startIndex = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> item = []</span><br><span class="line">    <span class="keyword">let</span> current = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> next = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> result = []</span><br><span class="line">    <span class="keyword">let</span> lastValue = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> endIndex = inputArr.length</span><br><span class="line">    <span class="keyword">const</span> numberMap = inputArr.reduce(<span class="function">(<span class="params">pre, num, index</span>) =&gt;</span> &#123;</span><br><span class="line">        pre[num] = index</span><br><span class="line">        <span class="keyword">return</span> pre</span><br><span class="line">    &#125;, &#123;&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> isFibona = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> value = current + next</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> numberMap[value] !== <span class="string">&#x27;undefined&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (item.length &lt; <span class="number">2</span>) &#123;</span><br><span class="line">                item.push(current)</span><br><span class="line">            &#125; </span><br><span class="line">            item.push(next)</span><br><span class="line">            current = next</span><br><span class="line">            next = value</span><br><span class="line">            lastValue = value</span><br><span class="line">            <span class="keyword">return</span> numberMap[value]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">while</span>(<span class="params">startIndex &lt; endIndex</span>)</span> &#123;</span><br><span class="line">        current = inputArr[startIndex]</span><br><span class="line">        next = <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> (item.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            result.push(item)</span><br><span class="line">        &#125;</span><br><span class="line">        item = []</span><br><span class="line">        <span class="keyword">let</span> nextIndex = startIndex + <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = nextIndex; i &lt;= endIndex - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            next = inputArr[i]</span><br><span class="line">            <span class="keyword">const</span> index = isFibona()</span><br><span class="line">            <span class="keyword">if</span> (index) &#123;</span><br><span class="line">                i = index - <span class="number">1</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        item.push(lastValue)</span><br><span class="line">        startIndex++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> data = result.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a.length - b.length)</span><br><span class="line">    <span class="keyword">return</span> data[data.length -<span class="number">1</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> inputArr = [<span class="number">13</span>, <span class="number">9</span>, <span class="number">3</span>, <span class="number">8</span>, <span class="number">5</span>, <span class="number">25</span>, <span class="number">31</span>, <span class="number">11</span>, <span class="number">21</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(findFibonacci(inputArr))</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Interview</category>
+        <category>js编程题</category>
+      </categories>
+      <tags>
+        <tag>Interview</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>javascript编程系列(3)</title>
+    <url>/interview-05-11-%E9%9D%A2%E8%AF%95%E9%A2%98js-3/</url>
+    <content><![CDATA[<ul>
+<li>实现一个arrange函数， 可以实现和工作的调度</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Interview</category>
+        <category>js编程题</category>
+      </categories>
+      <tags>
+        <tag>Interview</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>javascript编程系列(2)</title>
+    <url>/interview-05-11-%E9%9D%A2%E8%AF%95%E9%A2%98js-2/</url>
+    <content><![CDATA[<ul>
+<li><p>实现一个函数，可以将数组转化为树状数据结构<br> <a href="../../code/buildTreeByArray.js">源码</a></p>
+<pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">buildTreeByArray</span>(<span class="params">arr1</span>) </span>&#123;
+    <span class="keyword">const</span> map = arr1.reduce(<span class="function">(<span class="params">pre, item</span>) =&gt;</span> &#123;
+        <span class="keyword">const</span> &#123; id &#125; = item
+        pre[id] = item
+        <span class="keyword">return</span> pre
+    &#125;, &#123;&#125;)
 
-  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">print</span>(<span class="params">param</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(param);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    arr1.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;
+        <span class="keyword">const</span> &#123; parent_id &#125; = item
+        <span class="keyword">if</span> (parent_id !== <span class="number">0</span>) &#123;
+            map[parent_id].children ? map[parent_id].children.push(item) : map[parent_id].children = [item]
+        &#125;
+    &#125;)
 
-<p>  2.函数表达式， 将匿名函数赋值给变量，这是这个匿名函数叫函数表达式</p>
-  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> functionVar = <span class="function"><span class="keyword">function</span> (<span class="params">params</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(params);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 带有函数名的函数表达式</span></span><br><span class="line"><span class="keyword">var</span> funtionWithName = <span class="function"><span class="keyword">function</span> <span class="title">functionName</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">typeof</span> functionName);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 上面代码在函数表达式中，加入了函数名functionName。这个functionName只在函数体内部可用，指代函数表达式本身，其他地方都不可用。这种写法的用处有两个，一是可以在函数体内部调用自身，二是方便除错（除错工具显示函数调用栈时，将显示函数名，而不再显示这里是一个匿名函数）</span></span><br><span class="line"><span class="comment">  * ReferenceError: functionName is not defined</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">functionName(<span class="string">&quot;这是参数有参数的函数表达式);</span></span><br></pre></td></tr></table></figure>
-
-<p>  3.Function 构造函数</p>
-  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> add = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">&quot;x&quot;</span>, <span class="string">&quot;y&quot;</span>, <span class="string">&quot; return x + y&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span> (<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  retuen x + u</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>函数的重复声明<br>如果同一个函数被多次声明， 后面的会覆盖前面的</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">firstFunc</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;这是第一个函数&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">firstFunc</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;这是重复声明的函数， 这个函数会覆盖第一个函数&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * result =&gt; 这是重复声明的函数， 这个函数会覆盖第一个函数</span></span><br><span class="line"><span class="comment"> * 原因： js中的函数本身属于一个挂载到window对象上的一个属性值</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">firstFunc();</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>属性和方法</p>
-</li>
-<li><p>递归</p>
-</li>
-<li><p>作用域</p>
-<p>在 es5 中 JavaScript 只有两种作用域， 一种是全局作用域，变量在整个程序中一直存在，所有地方都可以读取；另一种是函数作用域，变量只在函数内部存在</p>
-<p>函数外部声明的变量就是全局变量（global variable），它可以在函数内部读取。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">&quot;这是全局作用域的变量&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">globalFun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * result =&gt; 这是全局作用域的变量</span></span><br><span class="line"><span class="comment"> *  在函数体内可以访问具有全局作用域的变量</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">globalFun();</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funVar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> b = <span class="string">&quot;这是函数体内定义的变量&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * ReferenceError: b is not defined</span></span><br><span class="line"><span class="comment"> * 函数内定义的变量不能再函数体之外访问</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="built_in">console</span>.log(b);</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 如果在函数体内存在跟全局变量相同的局部变量，局部变量会覆盖全部变量</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> v = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> v = <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(v);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line">f();</span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(v);</span><br></pre></td></tr></table></figure>
-
-<p>与全局作用域一样，函数作用域内部也会产生“变量提升”现象。var 命令声明的变量，不管在什么位置，变量声明都会被提升到函数体的头部</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (x &gt; <span class="number">100</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> tmp = x - <span class="number">100</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> tmp;</span><br><span class="line">  <span class="keyword">if</span> (x &gt; <span class="number">100</span>) &#123;</span><br><span class="line">    tmp = x - <span class="number">100</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>函数本身也是一个值，也有自己的作用域。它的作用域与变量一样，就是其声明时所在的作用域，与其运行时所在的作用域无关</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="comment">// firstFun 函数的作用域是全局的</span></span><br><span class="line"><span class="keyword">var</span> firstFun = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(a);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">souncedFun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line">  firstFun();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * result =&gt; 1</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">souncedFun();</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>参数</p>
-</li>
-<li><p>闭包<br>定义在函数体内的函数</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parentFun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Uncaught ReferenceError: n is not defined</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="built_in">console</span>.log(a);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 总结： 函数内部可以直接读取全局变量，但是函数外部无法读取函数内部声明的变量。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 改造之后的函数体</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parentFun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * result =&gt; 1</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="built_in">console</span>.log(parentFun());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 防抖: 防抖是任务频繁触发的情况下，只有任务触发的间隔超过指定间隔的时候，任务才会执行，一般用于输入框实时搜索</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">fn, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timer = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (timer) &#123;</span><br><span class="line">      <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">    &#125;</span><br><span class="line">    timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      fn.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">    &#125;, time);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 节流: 节流是规定函数在指定的时间间隔内只执行一次，一般用于scroll事件</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> canRun = <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!canRun) &#123;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    canRun = <span class="literal">false</span>;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      fn.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">      canRun = <span class="literal">true</span>;</span><br><span class="line">    &#125;, time);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>立即调用函数<br>在 Javascript 中，圆括号()是一种运算符，跟在函数名之后，表示调用该函数</p>
+    <span class="keyword">return</span> arr1.filter(<span class="function"><span class="params">item</span> =&gt;</span> item.parent_id === <span class="number">0</span>)
+&#125;</code></pre>
 </li>
 </ul>
 ]]></content>
       <categories>
-        <category>JavaScript</category>
+        <category>Interview</category>
+        <category>js编程题</category>
       </categories>
       <tags>
-        <tag>JavaScript</tag>
+        <tag>Interview</tag>
       </tags>
   </entry>
   <entry>
-    <title>javascript深入浅出一</title>
-    <url>/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA2(%E5%BC%95%E6%93%8E%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B)/</url>
-    <content><![CDATA[<h3 id="js引擎的执行流程"><a href="#js引擎的执行流程" class="headerlink" title="js引擎的执行流程"></a>js引擎的执行流程</h3><img src="../../static/js引擎流程.png">
-
-<p><a href="https://zhuanlan.zhihu.com/p/96969423">参考资料</a><br><a href="https://juejin.im/post/6844903788629721096">js引擎</a></p>
-<ul>
-<li><p>js的词法分析</p>
-<p> JS文件只是一个源码，机器是无法执行的，词法分析就是把源码的字符串分割出来，生成一系列的token</p>
- <img src="../../static/js的词法分析.jpg" />
-</li>
-<li><p>词法分析完后，接下来的阶段就是进行语法分析。语法分析语法分析的输入就是词法分析的输出，输出是AST抽象语法树。当程序出现语法错误的时候，V8在语法分析阶段抛出异常</p>
-  <img src="../../static/js语法分析.jpg">
-
-</li>
-</ul>
-<p>v8引擎解阶段分为预解析和代码执行两阶段， 在预解阶段会有变量预解析和函数预解析</p>
-<ul>
-<li><p>js的字节码生阶段， 根据抽象语法树生成字节码</p>
- <img src="../../static/js的字节码生成.jpg">
-</li>
-<li><p>字节码的阶段</p>
+    <title>javascript编程系列(1)</title>
+    <url>/interview-05-10-%E9%9D%A2%E8%AF%95%E9%A2%98js-1/</url>
+    <content><![CDATA[<ul>
+<li><p>实现一个函数，可以对url中的query部分做拆解， 返回一个 key -&gt; value形式的对象<br>  <a href="../../code/querySearch.js">源代码</a></p>
+  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">querySearch</span>(<span class="params">url</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!url) <span class="keyword">return</span> &#123;&#125;</span><br><span class="line">    <span class="comment">// const queryParams = url.split(&#x27;?&#x27;)[1] </span></span><br><span class="line">    <span class="keyword">const</span> reg = <span class="regexp">/(?&lt;=\?).*(?=#)/gmi</span></span><br><span class="line">    <span class="keyword">const</span> queryParamsStr = reg.exec(url)[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">if</span> (!queryParamsStr) <span class="keyword">return</span> &#123;&#125;</span><br><span class="line">    <span class="keyword">return</span> queryParamsStr.split(<span class="string">&#x27;&amp;&#x27;</span>).reduce(<span class="function">(<span class="params">pre, str</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> [key, value = <span class="string">&#x27;&#x27;</span>] = str.split(<span class="string">&#x27;=&#x27;</span>)</span><br><span class="line">        key = key.trim()</span><br><span class="line">        value = value.trim()</span><br><span class="line">        pre[key] = value</span><br><span class="line">        <span class="keyword">return</span> pre</span><br><span class="line">    &#125;, &#123;&#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(querySearch(<span class="string">&#x27;http://sample.com/?a=1&amp;b=2&amp;c=xx&amp;d#hash&#x27;</span>)) <span class="comment">// &#123; a: &#x27;1&#x27;, b: &#x27;2&#x27;, c: &#x27;xx&#x27;, d: &#x27;&#x27; &#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 ]]></content>
       <categories>
-        <category>JavaScript</category>
+        <category>Interview</category>
+        <category>js编程题</category>
       </categories>
       <tags>
-        <tag>JavaScript</tag>
+        <tag>Interview</tag>
       </tags>
   </entry>
   <entry>
-    <title>javascript深入浅出零-js整体框架</title>
-    <url>/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA1(%E6%95%B4%E4%BD%93%E6%A1%86%E6%9E%B6)/</url>
-    <content><![CDATA[<h4 id="javascript-知识架构图"><a href="#javascript-知识架构图" class="headerlink" title="javascript 知识架构图"></a>javascript 知识架构图</h4><img src="../../static/JavaScript.png"/>]]></content>
+    <title>javascript深入浅出11(面向对象)</title>
+    <url>/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA11(%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1)/</url>
+    <content><![CDATA[<h4 id="1-对象属性"><a href="#1-对象属性" class="headerlink" title="1. 对象属性"></a>1. 对象属性</h4><p><em>数据属性:</em><br>configurable: 能否通过 delete 删除属性从而重新定义属性，默认值 true<br>enumerable: 是否可以通过 forin 循环， 默认值 true<br>writable: 能否修改属性的值， 默认值 true<br>value： 获取修改属性的值。 默认值 undifined<br>Object.defineProperty( 属性所在的对象， 需要修改的属性名， 描述符对象)</p>
+<p><em>访问器属性：</em><br>configurable: 能否通过 delete 删除属性从而重新定义属性，默认值 true<br>enumerable: 是否可以通过 forin 循环， 默认值 true<br>get: 获取属性值， 默认值 undifined<br>set：设置属性值。 默认值 undifined<br>访问器属性不能直接定义， 只能通过 Object.defineProperty 来定义<br>Object.defineProperties(target， {})</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 最新的定义访问器属性的方法</span></span><br><span class="line"><span class="keyword">var</span> book = &#123;</span><br><span class="line">  year: <span class="number">2004</span>,</span><br><span class="line">  editor: <span class="number">1</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(book, <span class="string">&quot;year&quot;</span>, &#123;</span><br><span class="line">  get: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>._year;</span><br><span class="line">  &#125;,</span><br><span class="line">  set: <span class="function"><span class="keyword">function</span>(<span class="params">newValue</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>._year = newValue + <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">book.year = <span class="number">2005</span>;</span><br><span class="line"><span class="built_in">console</span>.log(book.year); <span class="comment">//2006</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 旧版的定义访问器属性的方法</span></span><br><span class="line"><span class="keyword">var</span> book = &#123;</span><br><span class="line">  year: <span class="number">2004</span>,</span><br><span class="line">  editor: <span class="number">1</span></span><br><span class="line">&#125;;</span><br><span class="line">book.__defineGetter__(<span class="string">&quot;year&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.year;</span><br><span class="line">&#125;);</span><br><span class="line">book.__defineSetter__(<span class="string">&quot;year&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">newValue</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.year = newValue + <span class="number">1</span>;</span><br><span class="line">&#125;);</span><br><span class="line">book.year = <span class="number">2005</span>;</span><br><span class="line"><span class="built_in">console</span>.log(book.year); <span class="comment">//2006</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-创建对象"><a href="#2-创建对象" class="headerlink" title="2. 创建对象"></a>2. 创建对象</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age, job</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.name = name;</span><br><span class="line">  <span class="built_in">this</span>.age = age;</span><br><span class="line">  <span class="built_in">this</span>.job = job;</span><br><span class="line">  <span class="built_in">this</span>.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person(<span class="string">&quot;校长&quot;</span>, <span class="number">10</span>, <span class="string">&quot;softarea&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> person2 = <span class="keyword">new</span> Person(<span class="string">&quot;Greg&quot;</span>, <span class="number">20</span>, <span class="string">&quot;doctor&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(person2.constructor == Person); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">Person.prototype.name = <span class="string">&quot;nicholas&quot;</span>;</span><br><span class="line">Person.prototype.age = <span class="number">30</span>;</span><br><span class="line">Person.prototype.job = <span class="string">&quot;teacher&quot;</span>;</span><br><span class="line">Person.prototype.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person(<span class="string">&quot;校长&quot;</span>, <span class="number">10</span>, <span class="string">&quot;softarea&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> person2 = <span class="keyword">new</span> Person(<span class="string">&quot;Greg&quot;</span>, <span class="number">20</span>, <span class="string">&quot;doctor&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(Person.prototype.constructor); <span class="comment">//Person</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// isPrototypeOf： 验证对象之间是否存在关系</span></span><br><span class="line"><span class="built_in">console</span>.log(Person.prototype.isPrototypeOf(person2)); <span class="comment">//true</span></span><br><span class="line"><span class="comment">//hasOwnProperty: 验证对象属性是存在于实例中还是原型中</span></span><br><span class="line"><span class="built_in">console</span>.log(person2.hasOwnProperty(<span class="string">&quot;name&quot;</span>)); <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+]]></content>
       <categories>
         <category>JavaScript</category>
       </categories>
@@ -267,18 +457,92 @@
       </tags>
   </entry>
   <entry>
-    <title>javascript深入浅出二-js词法分析</title>
-    <url>/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA3(%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90)/</url>
-    <content><![CDATA[<h4 id="词法环境"><a href="#词法环境" class="headerlink" title="词法环境"></a>词法环境</h4><h5 id="之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定）"><a href="#之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定）" class="headerlink" title="之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定）"></a>之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定）</h5><h6 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h6><pre><code>- 全局词法环境
-- 函数词法环境
-- with词法环境
-- catch词法环境</code></pre><img src="https://user-gold-cdn.xitu.io/2018/12/3/1677429807aea76d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"/>
+    <title>javascript深入浅出9(闭包)</title>
+    <url>/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA9(%E9%97%AD%E5%8C%85)/</url>
+    <content><![CDATA[<h5 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h5><h6 id="js中的作用域只有全局和函数作用域，在某些特殊其情况下需要在函数之外获取函数内定义的一些变量和方法"><a href="#js中的作用域只有全局和函数作用域，在某些特殊其情况下需要在函数之外获取函数内定义的一些变量和方法" class="headerlink" title="js中的作用域只有全局和函数作用域，在某些特殊其情况下需要在函数之外获取函数内定义的一些变量和方法"></a>js中的作用域只有全局和函数作用域，在某些特殊其情况下需要在函数之外获取函数内定义的一些变量和方法</h6><h6 id="通俗的解释是函数返回函数，我的理解是"><a href="#通俗的解释是函数返回函数，我的理解是" class="headerlink" title="通俗的解释是函数返回函数，我的理解是"></a>通俗的解释是函数返回函数，我的理解是</h6><h6 id="闭包就是能够读取其他函数内部变量的函数。由于在-Javascript-语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”"><a href="#闭包就是能够读取其他函数内部变量的函数。由于在-Javascript-语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”" class="headerlink" title="闭包就是能够读取其他函数内部变量的函数。由于在 Javascript 语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”"></a>闭包就是能够读取其他函数内部变量的函数。由于在 Javascript 语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”</h6><p><b style="color:red;">所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。</b></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;全局属性&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> object = &#123;</span><br><span class="line">  name: <span class="string">&quot;这是对象中的值&quot;</span>,</span><br><span class="line">  getNameFunc: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">this</span>.name;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(object.getNameFunc()()); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
 
-
-<p> 伪代码</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">LexicalEnvironment</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.EnvironmentRecord =  <span class="keyword">new</span> EnvironmentRecord()<span class="comment">// 自己的词法环境</span></span><br><span class="line">    <span class="built_in">this</span>.outer = <span class="literal">undefined</span> <span class="comment">// 外部的词法环境的引用</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">EnvironmentRecord</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.bindings = <span class="keyword">new</span> <span class="built_in">Map</span>()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">EnvironmentRecord.prototype.rigister = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.bindings.set(name, <span class="literal">undefined</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">EnvironmentRecord.prototype.init = <span class="function"><span class="keyword">function</span>(<span class="params">name, value</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.bindings[name] = value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">EnvironmentRecord.prototype.getValue = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.bindings[name]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;The Window&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> object = &#123;</span><br><span class="line">  name: <span class="string">&quot;My Object&quot;</span>,</span><br><span class="line">  getNameFunc: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> that = <span class="built_in">this</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> that.name;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(object.getNameFunc()()); <span class="comment">// My Object</span></span><br></pre></td></tr></table></figure>
 
 ]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>javascript深入浅出8(作用域)</title>
+    <url>/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA8(%E4%BD%9C%E7%94%A8%E5%9F%9F)/</url>
+    <content><![CDATA[<h4 id="作用域-js中的作用域只有函数作用域和全局作用域"><a href="#作用域-js中的作用域只有函数作用域和全局作用域" class="headerlink" title="作用域: (js中的作用域只有函数作用域和全局作用域)"></a>作用域: (js中的作用域只有函数作用域和全局作用域)</h4><p><b>确定当前执行代码对标识符的访问权限</b></p>
+<ul>
+<li><p>函数的作用域: 函数产生一层函数作用域</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> b = a * <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">c</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a, b, c);</span><br><span class="line">  &#125;</span><br><span class="line">  bar(b * <span class="number">10</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 函数的作用域</span></span><br><span class="line"><span class="comment"> * 1, 全局window下foo</span></span><br><span class="line"><span class="comment"> * 2, foo下有a, b, bar</span></span><br><span class="line"><span class="comment"> * 3, bar下有c, 当需要查找b，a的值时在当前对象下不能找到会向上级foo下的作用域寻找</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">foo(<span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>模拟块级作用域</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mockBlaockScope</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">100</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(a); <span class="comment">// 100</span></span><br><span class="line">  &#125;)();</span><br><span class="line">  <span class="built_in">console</span>.log(a); <span class="comment">// a is not defined</span></span><br><span class="line">&#125;</span><br><span class="line">mockBlaockScope();</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h4><p>1, 使用 es5 模拟块级作用域</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mockScoptBlock</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="string">&quot;这是块级作用于内的函数&quot;</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(a);</span><br><span class="line">  &#125;)();</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(a); <span class="comment">// error, a is not defined</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2, 解决循环输出的问题</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">scopeFun();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">scopeFun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(i);</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//  output: 5,5,5,5,5</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 解决方案: 使用自执行函数生成函数内的作用域</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">scopeFun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">    (<span class="function"><span class="keyword">function</span> (<span class="params">a</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(a);</span><br><span class="line">      &#125;, <span class="number">1000</span>);</span><br><span class="line">    &#125;)(i);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>javascript深入浅出7(内存结构)</title>
+    <url>/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA7(%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84)/</url>
+    <content><![CDATA[<p>js的内存结构</p>
+<pre><code><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">a</span>: <span class="number">1</span>&#125;</span><br></pre></td></tr></table></figure></code></pre><p>  将一个对象赋值给obj变量，js引擎会先在队内存中生成一个对象，然将堆内存的地址赋值给变量obj， 所以实际上变量obj指向的是一个堆内存地址</p>
+   <p style="color: red;">也就是说，变量obj是一个地址（reference）。后面如果要读取obj.a，引擎先从obj拿到内存地址，然后再从该地址读出原始的对象，返回它的a属性</p>
+
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.a</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">     a: <span class="number">1</span>,</span><br><span class="line">     getValue: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="built_in">this</span>.a</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line">f() <span class="comment">// undefined</span></span><br><span class="line">obj.f() <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<img src="../../static/js中的this.png">
+]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>javascript深入浅出6(this)</title>
+    <url>/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA6(this)/</url>
+    <content><![CDATA[<p><a href="http://www.ruanyifeng.com/blog/2018/06/javascript-this.html">参考资源-阮一峰this讲解</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/this">参考资料-mdn</a></p>
+<ul>
+<li><p>普通函数的this指向函数运行时所在的环境</p>
+ <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>) <span class="comment">// window</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span> === <span class="built_in">window</span>) <span class="comment">// true</span></span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>箭头函数指向函数所在的作用域</p>
+</li>
+<li><p>js中this指向的情况</p>
+<ol>
+<li>函数作为对象的属性</li>
+<li><span style="color: red;">通过apply, bind等方法显示改变this的值</span></li>
+<li><span style="color: red;">通过new 关键词实例化函数, this指向初始化的函数</span></li>
+<li>自执行函数中的this指向window</li>
+<li>函数作为对象的属性，但是不通过对象的调用， this指向window</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>手写模拟apply, call函数<br>  <a href="https://github.com/mqyqingfeng/Blog/issues/11">参考资料</a><br>  <a href="'../../code/call.js">call</a><br>  <a href="'../../code/apply.js">apply</a></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/** apply(需要改变的this值， 参数数组)</span></span><br><span class="line"><span class="comment"> *  output: 返回函数执行的结果</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mockApply</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> [currentThis, params] = <span class="built_in">Array</span>.from(<span class="built_in">arguments</span>)</span><br><span class="line">    currentThis.fn = <span class="built_in">this</span></span><br><span class="line">    <span class="keyword">const</span> result = currentThis.fn(...params)</span><br><span class="line">    <span class="keyword">delete</span> currentThis.fn</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Function</span>.prototype.mockCall = mockApply</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line"><span class="keyword">var</span> obj1 = &#123;</span><br><span class="line">    a: <span class="number">1</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span> (<span class="params">param1, param2</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(param1) <span class="comment">// 测试1</span></span><br><span class="line">    <span class="built_in">console</span>.log(param2) <span class="comment">// ceshi12</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.a) <span class="comment">// 1</span></span><br><span class="line">    <span class="keyword">return</span> param1</span><br><span class="line">&#125;</span><br><span class="line">f.mockCall(obj1, [<span class="string">&#x27;测试1&#x27;</span>, <span class="string">&#x27;ceshi12&#x27;</span>])</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 模拟化call函数</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns </span>函数执行的结果</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mockCall</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> params = <span class="built_in">Array</span>.from(<span class="built_in">arguments</span>)</span><br><span class="line">    <span class="keyword">const</span> [ currentThis ]= params</span><br><span class="line">    currentThis.fn = <span class="built_in">this</span></span><br><span class="line">    <span class="keyword">const</span> result = currentThis.fn(...params.slice(<span class="number">1</span>))</span><br><span class="line">    <span class="keyword">delete</span> currentThis.fn</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Function</span>.prototype.mockCall = mockCall</span><br><span class="line"></span><br><span class="line"><span class="comment">//  测试</span></span><br><span class="line"><span class="keyword">var</span> getValue = <span class="function"><span class="keyword">function</span> (<span class="params">paralist</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.a) <span class="comment">// 1</span></span><br><span class="line">    <span class="built_in">console</span>.log(paralist) <span class="comment">// [&#x27;参数1&#x27;, &#x27;参数2&#x27;]</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.a</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a: <span class="number">1</span>,</span><br><span class="line">    getValue: getValue</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getValue.mockCall(obj, [<span class="string">&#x27;参数1&#x27;</span>, <span class="string">&#x27;参数2&#x27;</span>])</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@params</span>0: this 对象</span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@params</span>1： 参数列表</span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@return </span>: Function</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> a = &#123;</span><br><span class="line">    a: <span class="string">&#x27;eydgeye&#x27;</span>,</span><br><span class="line">    getValue: <span class="function"><span class="keyword">function</span> (<span class="params">c, b</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(c, b)</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">arguments</span>)</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>))</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.a)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> newBindFun = a.getValue.bind(a, <span class="number">12</span>, <span class="string">&#x27;teftdede&#x27;</span>)</span><br><span class="line">newBindFun()</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>JavaScript</category>
       </categories>
@@ -388,116 +652,6 @@ demoExecutionContextExe&#123;
         a: &apos;测试&apos; 
     &#125;, 
 &#125;</code></pre><p>`</p>
-]]></content>
-      <categories>
-        <category>JavaScript</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>javascript深入浅出6(this)</title>
-    <url>/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA6(this)/</url>
-    <content><![CDATA[<p><a href="http://www.ruanyifeng.com/blog/2018/06/javascript-this.html">参考资源-阮一峰this讲解</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/this">参考资料-mdn</a></p>
-<ul>
-<li><p>普通函数的this指向函数运行时所在的环境</p>
- <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>) <span class="comment">// window</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span> === <span class="built_in">window</span>) <span class="comment">// true</span></span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>箭头函数指向函数所在的作用域</p>
-</li>
-<li><p>js中this指向的情况</p>
-<ol>
-<li>函数作为对象的属性</li>
-<li><span style="color: red;">通过apply, bind等方法显示改变this的值</span></li>
-<li><span style="color: red;">通过new 关键词实例化函数, this指向初始化的函数</span></li>
-<li>自执行函数中的this指向window</li>
-<li>函数作为对象的属性，但是不通过对象的调用， this指向window</li>
-</ol>
-</li>
-</ul>
-<ul>
-<li>手写模拟apply, call函数<br>  <a href="https://github.com/mqyqingfeng/Blog/issues/11">参考资料</a><br>  <a href="'../../code/call.js">call</a><br>  <a href="'../../code/apply.js">apply</a></li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/** apply(需要改变的this值， 参数数组)</span></span><br><span class="line"><span class="comment"> *  output: 返回函数执行的结果</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mockApply</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> [currentThis, params] = <span class="built_in">Array</span>.from(<span class="built_in">arguments</span>)</span><br><span class="line">    currentThis.fn = <span class="built_in">this</span></span><br><span class="line">    <span class="keyword">const</span> result = currentThis.fn(...params)</span><br><span class="line">    <span class="keyword">delete</span> currentThis.fn</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Function</span>.prototype.mockCall = mockApply</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line"><span class="keyword">var</span> obj1 = &#123;</span><br><span class="line">    a: <span class="number">1</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span> (<span class="params">param1, param2</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(param1) <span class="comment">// 测试1</span></span><br><span class="line">    <span class="built_in">console</span>.log(param2) <span class="comment">// ceshi12</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.a) <span class="comment">// 1</span></span><br><span class="line">    <span class="keyword">return</span> param1</span><br><span class="line">&#125;</span><br><span class="line">f.mockCall(obj1, [<span class="string">&#x27;测试1&#x27;</span>, <span class="string">&#x27;ceshi12&#x27;</span>])</span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 模拟化call函数</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns </span>函数执行的结果</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mockCall</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> params = <span class="built_in">Array</span>.from(<span class="built_in">arguments</span>)</span><br><span class="line">    <span class="keyword">const</span> [ currentThis ]= params</span><br><span class="line">    currentThis.fn = <span class="built_in">this</span></span><br><span class="line">    <span class="keyword">const</span> result = currentThis.fn(...params.slice(<span class="number">1</span>))</span><br><span class="line">    <span class="keyword">delete</span> currentThis.fn</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Function</span>.prototype.mockCall = mockCall</span><br><span class="line"></span><br><span class="line"><span class="comment">//  测试</span></span><br><span class="line"><span class="keyword">var</span> getValue = <span class="function"><span class="keyword">function</span> (<span class="params">paralist</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.a) <span class="comment">// 1</span></span><br><span class="line">    <span class="built_in">console</span>.log(paralist) <span class="comment">// [&#x27;参数1&#x27;, &#x27;参数2&#x27;]</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.a</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a: <span class="number">1</span>,</span><br><span class="line">    getValue: getValue</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getValue.mockCall(obj, [<span class="string">&#x27;参数1&#x27;</span>, <span class="string">&#x27;参数2&#x27;</span>])</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@params</span>0: this 对象</span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@params</span>1： 参数列表</span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@return </span>: Function</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> a = &#123;</span><br><span class="line">    a: <span class="string">&#x27;eydgeye&#x27;</span>,</span><br><span class="line">    getValue: <span class="function"><span class="keyword">function</span> (<span class="params">c, b</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(c, b)</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">arguments</span>)</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>))</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.a)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> newBindFun = a.getValue.bind(a, <span class="number">12</span>, <span class="string">&#x27;teftdede&#x27;</span>)</span><br><span class="line">newBindFun()</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>JavaScript</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>javascript深入浅出7(内存结构)</title>
-    <url>/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA7(%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84)/</url>
-    <content><![CDATA[<p>js的内存结构</p>
-<pre><code><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">a</span>: <span class="number">1</span>&#125;</span><br></pre></td></tr></table></figure></code></pre><p>  将一个对象赋值给obj变量，js引擎会先在队内存中生成一个对象，然将堆内存的地址赋值给变量obj， 所以实际上变量obj指向的是一个堆内存地址</p>
-   <p style="color: red;">也就是说，变量obj是一个地址（reference）。后面如果要读取obj.a，引擎先从obj拿到内存地址，然后再从该地址读出原始的对象，返回它的a属性</p>
-
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.a</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">     a: <span class="number">1</span>,</span><br><span class="line">     getValue: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="built_in">this</span>.a</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line">f() <span class="comment">// undefined</span></span><br><span class="line">obj.f() <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-<img src="../../static/js中的this.png">
-]]></content>
-      <categories>
-        <category>JavaScript</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>javascript深入浅出8(作用域)</title>
-    <url>/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA8(%E4%BD%9C%E7%94%A8%E5%9F%9F)/</url>
-    <content><![CDATA[<h4 id="作用域-js中的作用域只有函数作用域和全局作用域"><a href="#作用域-js中的作用域只有函数作用域和全局作用域" class="headerlink" title="作用域: (js中的作用域只有函数作用域和全局作用域)"></a>作用域: (js中的作用域只有函数作用域和全局作用域)</h4><p><b>确定当前执行代码对标识符的访问权限</b></p>
-<ul>
-<li><p>函数的作用域: 函数产生一层函数作用域</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> b = a * <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">c</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a, b, c);</span><br><span class="line">  &#125;</span><br><span class="line">  bar(b * <span class="number">10</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 函数的作用域</span></span><br><span class="line"><span class="comment"> * 1, 全局window下foo</span></span><br><span class="line"><span class="comment"> * 2, foo下有a, b, bar</span></span><br><span class="line"><span class="comment"> * 3, bar下有c, 当需要查找b，a的值时在当前对象下不能找到会向上级foo下的作用域寻找</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">foo(<span class="number">10</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>模拟块级作用域</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mockBlaockScope</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">100</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(a); <span class="comment">// 100</span></span><br><span class="line">  &#125;)();</span><br><span class="line">  <span class="built_in">console</span>.log(a); <span class="comment">// a is not defined</span></span><br><span class="line">&#125;</span><br><span class="line">mockBlaockScope();</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h4 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h4><p>1, 使用 es5 模拟块级作用域</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mockScoptBlock</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="string">&quot;这是块级作用于内的函数&quot;</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(a);</span><br><span class="line">  &#125;)();</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(a); <span class="comment">// error, a is not defined</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>2, 解决循环输出的问题</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">scopeFun();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">scopeFun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(i);</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//  output: 5,5,5,5,5</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 解决方案: 使用自执行函数生成函数内的作用域</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">scopeFun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">    (<span class="function"><span class="keyword">function</span> (<span class="params">a</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(a);</span><br><span class="line">      &#125;, <span class="number">1000</span>);</span><br><span class="line">    &#125;)(i);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>JavaScript</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>javascript深入浅出9(闭包)</title>
-    <url>/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA9(%E9%97%AD%E5%8C%85)/</url>
-    <content><![CDATA[<h5 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h5><h6 id="js中的作用域只有全局和函数作用域，在某些特殊其情况下需要在函数之外获取函数内定义的一些变量和方法"><a href="#js中的作用域只有全局和函数作用域，在某些特殊其情况下需要在函数之外获取函数内定义的一些变量和方法" class="headerlink" title="js中的作用域只有全局和函数作用域，在某些特殊其情况下需要在函数之外获取函数内定义的一些变量和方法"></a>js中的作用域只有全局和函数作用域，在某些特殊其情况下需要在函数之外获取函数内定义的一些变量和方法</h6><h6 id="通俗的解释是函数返回函数，我的理解是"><a href="#通俗的解释是函数返回函数，我的理解是" class="headerlink" title="通俗的解释是函数返回函数，我的理解是"></a>通俗的解释是函数返回函数，我的理解是</h6><h6 id="闭包就是能够读取其他函数内部变量的函数。由于在-Javascript-语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”"><a href="#闭包就是能够读取其他函数内部变量的函数。由于在-Javascript-语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”" class="headerlink" title="闭包就是能够读取其他函数内部变量的函数。由于在 Javascript 语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”"></a>闭包就是能够读取其他函数内部变量的函数。由于在 Javascript 语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”</h6><p><b style="color:red;">所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。</b></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;全局属性&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> object = &#123;</span><br><span class="line">  name: <span class="string">&quot;这是对象中的值&quot;</span>,</span><br><span class="line">  getNameFunc: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">this</span>.name;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(object.getNameFunc()()); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;The Window&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> object = &#123;</span><br><span class="line">  name: <span class="string">&quot;My Object&quot;</span>,</span><br><span class="line">  getNameFunc: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> that = <span class="built_in">this</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> that.name;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(object.getNameFunc()()); <span class="comment">// My Object</span></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>JavaScript</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>javascript深入浅出11(面向对象)</title>
-    <url>/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA11(%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1)/</url>
-    <content><![CDATA[<h4 id="1-对象属性"><a href="#1-对象属性" class="headerlink" title="1. 对象属性"></a>1. 对象属性</h4><p><em>数据属性:</em><br>configurable: 能否通过 delete 删除属性从而重新定义属性，默认值 true<br>enumerable: 是否可以通过 forin 循环， 默认值 true<br>writable: 能否修改属性的值， 默认值 true<br>value： 获取修改属性的值。 默认值 undifined<br>Object.defineProperty( 属性所在的对象， 需要修改的属性名， 描述符对象)</p>
-<p><em>访问器属性：</em><br>configurable: 能否通过 delete 删除属性从而重新定义属性，默认值 true<br>enumerable: 是否可以通过 forin 循环， 默认值 true<br>get: 获取属性值， 默认值 undifined<br>set：设置属性值。 默认值 undifined<br>访问器属性不能直接定义， 只能通过 Object.defineProperty 来定义<br>Object.defineProperties(target， {})</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 最新的定义访问器属性的方法</span></span><br><span class="line"><span class="keyword">var</span> book = &#123;</span><br><span class="line">  year: <span class="number">2004</span>,</span><br><span class="line">  editor: <span class="number">1</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(book, <span class="string">&quot;year&quot;</span>, &#123;</span><br><span class="line">  get: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>._year;</span><br><span class="line">  &#125;,</span><br><span class="line">  set: <span class="function"><span class="keyword">function</span>(<span class="params">newValue</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>._year = newValue + <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">book.year = <span class="number">2005</span>;</span><br><span class="line"><span class="built_in">console</span>.log(book.year); <span class="comment">//2006</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 旧版的定义访问器属性的方法</span></span><br><span class="line"><span class="keyword">var</span> book = &#123;</span><br><span class="line">  year: <span class="number">2004</span>,</span><br><span class="line">  editor: <span class="number">1</span></span><br><span class="line">&#125;;</span><br><span class="line">book.__defineGetter__(<span class="string">&quot;year&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.year;</span><br><span class="line">&#125;);</span><br><span class="line">book.__defineSetter__(<span class="string">&quot;year&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">newValue</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.year = newValue + <span class="number">1</span>;</span><br><span class="line">&#125;);</span><br><span class="line">book.year = <span class="number">2005</span>;</span><br><span class="line"><span class="built_in">console</span>.log(book.year); <span class="comment">//2006</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="2-创建对象"><a href="#2-创建对象" class="headerlink" title="2. 创建对象"></a>2. 创建对象</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age, job</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.name = name;</span><br><span class="line">  <span class="built_in">this</span>.age = age;</span><br><span class="line">  <span class="built_in">this</span>.job = job;</span><br><span class="line">  <span class="built_in">this</span>.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person(<span class="string">&quot;校长&quot;</span>, <span class="number">10</span>, <span class="string">&quot;softarea&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> person2 = <span class="keyword">new</span> Person(<span class="string">&quot;Greg&quot;</span>, <span class="number">20</span>, <span class="string">&quot;doctor&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(person2.constructor == Person); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">Person.prototype.name = <span class="string">&quot;nicholas&quot;</span>;</span><br><span class="line">Person.prototype.age = <span class="number">30</span>;</span><br><span class="line">Person.prototype.job = <span class="string">&quot;teacher&quot;</span>;</span><br><span class="line">Person.prototype.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person(<span class="string">&quot;校长&quot;</span>, <span class="number">10</span>, <span class="string">&quot;softarea&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> person2 = <span class="keyword">new</span> Person(<span class="string">&quot;Greg&quot;</span>, <span class="number">20</span>, <span class="string">&quot;doctor&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(Person.prototype.constructor); <span class="comment">//Person</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// isPrototypeOf： 验证对象之间是否存在关系</span></span><br><span class="line"><span class="built_in">console</span>.log(Person.prototype.isPrototypeOf(person2)); <span class="comment">//true</span></span><br><span class="line"><span class="comment">//hasOwnProperty: 验证对象属性是存在于实例中还是原型中</span></span><br><span class="line"><span class="built_in">console</span>.log(person2.hasOwnProperty(<span class="string">&quot;name&quot;</span>)); <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>JavaScript</category>
@@ -774,163 +928,200 @@ undefined -&gt; true</code></pre></li>
       </tags>
   </entry>
   <entry>
-    <title>javascript编程系列(1)</title>
-    <url>/interview-05-10-%E9%9D%A2%E8%AF%95%E9%A2%98js-1/</url>
-    <content><![CDATA[<ul>
-<li><p>实现一个函数，可以对url中的query部分做拆解， 返回一个 key -&gt; value形式的对象<br>  <a href="../../code/querySearch.js">源代码</a></p>
-  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">querySearch</span>(<span class="params">url</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!url) <span class="keyword">return</span> &#123;&#125;</span><br><span class="line">    <span class="comment">// const queryParams = url.split(&#x27;?&#x27;)[1] </span></span><br><span class="line">    <span class="keyword">const</span> reg = <span class="regexp">/(?&lt;=\?).*(?=#)/gmi</span></span><br><span class="line">    <span class="keyword">const</span> queryParamsStr = reg.exec(url)[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">if</span> (!queryParamsStr) <span class="keyword">return</span> &#123;&#125;</span><br><span class="line">    <span class="keyword">return</span> queryParamsStr.split(<span class="string">&#x27;&amp;&#x27;</span>).reduce(<span class="function">(<span class="params">pre, str</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> [key, value = <span class="string">&#x27;&#x27;</span>] = str.split(<span class="string">&#x27;=&#x27;</span>)</span><br><span class="line">        key = key.trim()</span><br><span class="line">        value = value.trim()</span><br><span class="line">        pre[key] = value</span><br><span class="line">        <span class="keyword">return</span> pre</span><br><span class="line">    &#125;, &#123;&#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(querySearch(<span class="string">&#x27;http://sample.com/?a=1&amp;b=2&amp;c=xx&amp;d#hash&#x27;</span>)) <span class="comment">// &#123; a: &#x27;1&#x27;, b: &#x27;2&#x27;, c: &#x27;xx&#x27;, d: &#x27;&#x27; &#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    <title>javascript深入浅出二-js词法分析</title>
+    <url>/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA3(%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90)/</url>
+    <content><![CDATA[<h4 id="词法环境"><a href="#词法环境" class="headerlink" title="词法环境"></a>词法环境</h4><h5 id="之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定）"><a href="#之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定）" class="headerlink" title="之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定）"></a>之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定）</h5><h6 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h6><pre><code>- 全局词法环境
+- 函数词法环境
+- with词法环境
+- catch词法环境</code></pre><img src="https://user-gold-cdn.xitu.io/2018/12/3/1677429807aea76d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"/>
+
+
+<p> 伪代码</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">LexicalEnvironment</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.EnvironmentRecord =  <span class="keyword">new</span> EnvironmentRecord()<span class="comment">// 自己的词法环境</span></span><br><span class="line">    <span class="built_in">this</span>.outer = <span class="literal">undefined</span> <span class="comment">// 外部的词法环境的引用</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">EnvironmentRecord</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.bindings = <span class="keyword">new</span> <span class="built_in">Map</span>()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">EnvironmentRecord.prototype.rigister = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.bindings.set(name, <span class="literal">undefined</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">EnvironmentRecord.prototype.init = <span class="function"><span class="keyword">function</span>(<span class="params">name, value</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.bindings[name] = value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">EnvironmentRecord.prototype.getValue = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.bindings[name]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>javascript深入浅出零-js整体框架</title>
+    <url>/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA1(%E6%95%B4%E4%BD%93%E6%A1%86%E6%9E%B6)/</url>
+    <content><![CDATA[<h4 id="javascript-知识架构图"><a href="#javascript-知识架构图" class="headerlink" title="javascript 知识架构图"></a>javascript 知识架构图</h4><img src="../../static/JavaScript.png"/>]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>javascript深入浅出一</title>
+    <url>/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA2(%E5%BC%95%E6%93%8E%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B)/</url>
+    <content><![CDATA[<h3 id="js引擎的执行流程"><a href="#js引擎的执行流程" class="headerlink" title="js引擎的执行流程"></a>js引擎的执行流程</h3><img src="../../static/js引擎流程.png">
+
+<p><a href="https://zhuanlan.zhihu.com/p/96969423">参考资料</a><br><a href="https://juejin.im/post/6844903788629721096">js引擎</a></p>
+<ul>
+<li><p>js的词法分析</p>
+<p> JS文件只是一个源码，机器是无法执行的，词法分析就是把源码的字符串分割出来，生成一系列的token</p>
+ <img src="../../static/js的词法分析.jpg" />
+</li>
+<li><p>词法分析完后，接下来的阶段就是进行语法分析。语法分析语法分析的输入就是词法分析的输出，输出是AST抽象语法树。当程序出现语法错误的时候，V8在语法分析阶段抛出异常</p>
+  <img src="../../static/js语法分析.jpg">
+
+</li>
+</ul>
+<p>v8引擎解阶段分为预解析和代码执行两阶段， 在预解阶段会有变量预解析和函数预解析</p>
+<ul>
+<li><p>js的字节码生阶段， 根据抽象语法树生成字节码</p>
+ <img src="../../static/js的字节码生成.jpg">
+</li>
+<li><p>字节码的阶段</p>
 </li>
 </ul>
 ]]></content>
       <categories>
-        <category>Interview</category>
-        <category>js编程题</category>
+        <category>JavaScript</category>
       </categories>
       <tags>
-        <tag>Interview</tag>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
-    <title>javascript编程系列(2)</title>
-    <url>/interview-05-11-%E9%9D%A2%E8%AF%95%E9%A2%98js-2/</url>
-    <content><![CDATA[<ul>
-<li><p>实现一个函数，可以将数组转化为树状数据结构<br> <a href="../../code/buildTreeByArray.js">源码</a></p>
-<pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">buildTreeByArray</span>(<span class="params">arr1</span>) </span>&#123;
-    <span class="keyword">const</span> map = arr1.reduce(<span class="function">(<span class="params">pre, item</span>) =&gt;</span> &#123;
-        <span class="keyword">const</span> &#123; id &#125; = item
-        pre[id] = item
-        <span class="keyword">return</span> pre
-    &#125;, &#123;&#125;)
-
-    arr1.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;
-        <span class="keyword">const</span> &#123; parent_id &#125; = item
-        <span class="keyword">if</span> (parent_id !== <span class="number">0</span>) &#123;
-            map[parent_id].children ? map[parent_id].children.push(item) : map[parent_id].children = [item]
-        &#125;
-    &#125;)
-
-    <span class="keyword">return</span> arr1.filter(<span class="function"><span class="params">item</span> =&gt;</span> item.parent_id === <span class="number">0</span>)
-&#125;</code></pre>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Interview</category>
-        <category>js编程题</category>
-      </categories>
-      <tags>
-        <tag>Interview</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>javascript编程系列(3)</title>
-    <url>/interview-05-11-%E9%9D%A2%E8%AF%95%E9%A2%98js-3/</url>
-    <content><![CDATA[<ul>
-<li>实现一个arrange函数， 可以实现和工作的调度</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Interview</category>
-        <category>js编程题</category>
-      </categories>
-      <tags>
-        <tag>Interview</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>javascript编程系列(4)</title>
-    <url>/interview-05-12-%E9%9D%A2%E8%AF%95%E9%A2%98js-4/</url>
-    <content><![CDATA[<ul>
-<li><p>在一堆正整数中， 找到最长的一组斐波拉契烈段</p>
-<p>  <a href="../../code/findFibonacci.js">源码</a></p>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findFibonacci</span>(<span class="params">inputArr</span>) </span>&#123;</span><br><span class="line">    inputArr.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b)</span><br><span class="line">    <span class="keyword">let</span> startIndex = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> item = []</span><br><span class="line">    <span class="keyword">let</span> current = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> next = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> result = []</span><br><span class="line">    <span class="keyword">let</span> lastValue = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> endIndex = inputArr.length</span><br><span class="line">    <span class="keyword">const</span> numberMap = inputArr.reduce(<span class="function">(<span class="params">pre, num, index</span>) =&gt;</span> &#123;</span><br><span class="line">        pre[num] = index</span><br><span class="line">        <span class="keyword">return</span> pre</span><br><span class="line">    &#125;, &#123;&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> isFibona = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> value = current + next</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> numberMap[value] !== <span class="string">&#x27;undefined&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (item.length &lt; <span class="number">2</span>) &#123;</span><br><span class="line">                item.push(current)</span><br><span class="line">            &#125; </span><br><span class="line">            item.push(next)</span><br><span class="line">            current = next</span><br><span class="line">            next = value</span><br><span class="line">            lastValue = value</span><br><span class="line">            <span class="keyword">return</span> numberMap[value]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">while</span>(<span class="params">startIndex &lt; endIndex</span>)</span> &#123;</span><br><span class="line">        current = inputArr[startIndex]</span><br><span class="line">        next = <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> (item.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            result.push(item)</span><br><span class="line">        &#125;</span><br><span class="line">        item = []</span><br><span class="line">        <span class="keyword">let</span> nextIndex = startIndex + <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = nextIndex; i &lt;= endIndex - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            next = inputArr[i]</span><br><span class="line">            <span class="keyword">const</span> index = isFibona()</span><br><span class="line">            <span class="keyword">if</span> (index) &#123;</span><br><span class="line">                i = index - <span class="number">1</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        item.push(lastValue)</span><br><span class="line">        startIndex++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> data = result.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a.length - b.length)</span><br><span class="line">    <span class="keyword">return</span> data[data.length -<span class="number">1</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> inputArr = [<span class="number">13</span>, <span class="number">9</span>, <span class="number">3</span>, <span class="number">8</span>, <span class="number">5</span>, <span class="number">25</span>, <span class="number">31</span>, <span class="number">11</span>, <span class="number">21</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(findFibonacci(inputArr))</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Interview</category>
-        <category>js编程题</category>
-      </categories>
-      <tags>
-        <tag>Interview</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>javascript编程系列(5)</title>
-    <url>/interview-05-14-%E9%9D%A2%E8%AF%95%E9%A2%98js-5/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>Interview</category>
-        <category>js编程题</category>
-      </categories>
-      <tags>
-        <tag>Interview</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>面试题css(1)</title>
-    <url>/interview-css-05-26-%E9%9D%A2%E8%AF%95%E9%A2%98css-1/</url>
-    <content><![CDATA[<ol>
-<li><p>常见的css属性  <a href="https://leohxj.gitbooks.io/front-end-database/html-and-css-basic/common-use-css-property.html">常见的属性</a></p>
-</li>
-<li><p>css 盒模型 <a href="https://css.doyoe.com/">盒模型</a></p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">标准盒模型： width &#x3D; content</span><br><span class="line">ie盒模型： width &#x3D; content + padding + border</span><br><span class="line">不同的浏览器渲染默认对盒模型的渲染是不同的</span><br><span class="line">box-sizing: </span><br></pre></td></tr></table></figure>
-</li>
-<li><p>文档流</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">从上到下，从左到右</span><br></pre></td></tr></table></figure></li>
-<li><p>display取值</p>
-  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. block    独占一行， 可设置宽高内外边距， 默认宽度由父容器决定，默认高度有内容决定</span><br><span class="line">2. inline-block  不独占一行</span><br><span class="line">3. inline 宽度和高度都有内容决定，与其他元素共占一行。</span><br><span class="line">4. table-call</span><br><span class="line">5. none</span><br><span class="line">6. flex 弹性盒不		 </span><br></pre></td></tr></table></figure></li>
-<li><p>css 定位</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">relative:  相对不自己本身</span><br><span class="line">absolute: 相对于不是static定位的父级元素</span><br><span class="line">fixed: 相对于可视窗口</span><br><span class="line">static: 默认的</span><br></pre></td></tr></table></figure></li>
-<li><p>css浮动 <a href="http://www.iyunlu.com/view/css-xhtml/55.html">清除浮动</a></p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 	在浮动元素后添加额外的标签设置为 clear： both</span><br><span class="line">2. 父元素设置： overflow： hidden</span><br><span class="line">3. 使用 after伪类： content:&quot;.&quot;; display:block; height:0; visibility:hidden; clear:both;	</span><br></pre></td></tr></table></figure>
-
-</li>
+    <title>git命令详解</title>
+    <url>/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</url>
+    <content><![CDATA[<h4 id="git-安装"><a href="#git-安装" class="headerlink" title="git 安装"></a>git 安装</h4><ol>
+<li>homebrew 安装<br><a href="https://www.jianshu.com/p/7edb6b838a2e">git 安装</a><br><a href="https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%89%93%E6%A0%87%E7%AD%BE">git 资料</a></li>
 </ol>
-<p>5.css选择器<a href="https://leohxj.gitbooks.io/front-end-database/html-and-css-basic/css-selector.html">选择器和权重</a></p>
-<p>6.css权重 <a href="http://www.w3cplus.com/css/css-specificity-things-you-should-know.html">权重</a></p>
-<pre><code>从0开始，一个行内样式+1000，一个id+100，一个属性选择器/class或者伪类+10，一个元素名，或者伪元素+1</code></pre><p>7.css书写规范 <a href="http://www.shejidaren.com/css-written-specifications.html">规范</a></p>
-<p>8.flexbox 和 网格布局</p>
-<p>9.请写出如何垂直水平居中div</p>
-<pre><code>分为已知宽高和未知宽高</code></pre><p>10.请简述css3有哪些新特性？</p>
-<pre><code>border-radius,  text-shadow, transform, gradient</code></pre>]]></content>
-      <categories>
-        <category>Interview</category>
-        <category>CSS编程</category>
-      </categories>
-      <tags>
-        <tag>Interview</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HTML编程系列(1)</title>
-    <url>/interview-html-05-26-%E9%9D%A2%E8%AF%95%E9%A2%98html-1/</url>
-    <content><![CDATA[<ol>
-<li><p>简述一下你对HTML语义化的理解</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 用正确的标签做正确的事， </span><br><span class="line">2. 有利于搜索引擎的搜索，</span><br><span class="line">3. 有利于阅读源代码或者开发人员更容易将网站分块和阅读</span><br></pre></td></tr></table></figure></li>
-<li><p>请写出行内元素? 块级元素， 空元素有哪些？</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.行内元素： span,  a,  b,  img,  input, 	select,	strong</span><br><span class="line">2.块级元素： div, 	ol,	li,	h1-h6,	p, 	ul,	table</span><br><span class="line">3. 空元素：	br,	hr,	img, input, link,	 meta</span><br></pre></td></tr></table></figure></li>
-<li><p>HTML5的form如何关闭自动完成功能？</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">不需要提示的form或者某个input设置属性为：  autocomplete&#x3D;off</span><br></pre></td></tr></table></figure></li>
-<li><p>html5有哪些新特性？</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 新增 画板元素 canvas, </span><br><span class="line">2. 视频音频： video, audio,</span><br><span class="line">3. 语义化的标签 header, footer, nav, section, article, calendar(日历), date(日期)， time, email, url, search, </span><br><span class="line">4. 地理定位： Geolocation ( 浏览器对象 navigator)</span><br><span class="line">		navigator.geolocation.getCurrentPosition</span><br><span class="line">5. 网络： websocket， webworker （向服务器发送事件）</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装Homebrew</span></span><br><span class="line">/usr/bin/ruby -e <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>&quot;</span></span><br><span class="line"><span class="comment"># 安装git</span></span><br><span class="line">brew install git</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>git 常用命令：</p>
+<ul>
+<li>git init: 初始化一个 Git 仓库</li>
+<li>git clone: 从远端拉取一个 git 仓库到本地</li>
+<li>git tag: 查看 tag 列表</li>
+<li>git tag ${tagName}: 在当前提交上打上 tag</li>
+<li>git push origin ${tagName}: 把 tagName 提交到代码服务器</li>
+<li>git tag –delete ${tagName}: 删除本地 tag</li>
+<li>git push origin :${tagName} &amp;&amp; git tag –delete ${tagName}: 删除本地和远程的标签</li>
+<li>git symbolic-ref –short HEAD： 获取当前分支的名字</li>
+<li>git remote get-url origin： 获取远程 git 仓库地址</li>
+<li>git tag -l –points-at HEAD： 获取当前 commit 上的 tag</li>
+<li>git branch： 查看所有的分支</li>
+<li>git branch ${tagName} ： 删除本地分支</li>
+<li>git branch -ｒ： 查看远端所有的分支</li>
+<li>git branch -a: 查看本地和远端的分支</li>
+<li>git branch -d: 删除本地分支</li>
+<li>git push origin –delete ${branchName}: 删除远端分支</li>
+</ul>
 </li>
-<li><p>请描述一下 cookies，sessionStorage 和 localStorage 的区别？</p>
-</li>
-<li><p>doctype是什么,举例常见doctype及特点</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">doctype: 文档类型</span><br><span class="line">浏览器渲染模式：</span><br><span class="line">	非怪异（标准）模式</span><br><span class="line">	怪异模式</span><br><span class="line">	部分怪异（近乎标准）模式</span><br><span class="line">1. HTML 4.01 strict doctype 适用于验证文档是否符合 HTML 4.01 规范</span><br><span class="line">	</span><br><span class="line">	&lt;!DOCTYPE HTML PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD HTML 4.01&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;html4&#x2F;strict.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">2. HTML 4.01 transitional doctype</span><br><span class="line"></span><br><span class="line">	&lt;!DOCTYPE HTML PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD HTML 4.01 Transitional&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;html4&#x2F;loose.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">3. HTML 4.01 frameset doctype</span><br><span class="line"></span><br><span class="line">	&lt;!DOCTYPE HTML PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD HTML 4.01 Transitional&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;html4&#x2F;loose.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">4. XML 1.0 strict doctype</span><br><span class="line"></span><br><span class="line">	&lt;!DOCTYPE html PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD XHTML 1.0 Strict&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;xhtml1&#x2F;DTD&#x2F;xhtml1-strict.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">5. XML 1.0 transitional doctype</span><br><span class="line"></span><br><span class="line">	&lt;!DOCTYPE html PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD XHTML 1.0 Transitional&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;xhtml1&#x2F;DTD&#x2F;xhtml1-transitional.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">6. XML 1.0 frameset doctype	</span><br><span class="line"></span><br><span class="line">	&lt;!DOCTYPE html PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD XHTML 1.0 Transitional&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;xhtml1&#x2F;DTD&#x2F;xhtml1-transitional.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">html 与 xhtml : </span><br><span class="line">	html大小写不敏感， xhtml： 元素和属性名大小写敏感，且一律为小写</span><br><span class="line">	html： 空元素可以不关闭标签，  xhtml： 每个元素都需要闭合。如果元素内容为空，则需要自闭合</span><br><span class="line">	html： 允许使用缩写属性， xhtml： 不允许使用缩写属性，每个属性都需要声明属性名与属性值</span><br></pre></td></tr></table></figure></li>
-<li><p>meta 标签</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 	X-UA-Compatible是IE 浏览器一个专有&lt;meta&gt;属性，它告诉IE采用何种IE版本去渲染网页 </span><br><span class="line">	 &lt;meta http-equiv&#x3D;&quot;X-UA-Compatible&quot; content&#x3D;&quot;IE&#x3D;edge,chrome&#x3D;1&quot; &#x2F;&gt;</span><br><span class="line">2. content  设置或返回 &lt;meta&gt; 元素的 content 属性的值</span><br><span class="line">3. name 	把 content 属性连接到某个名称。</span><br><span class="line">4. scheme 设置或返回用于解释 content 属性的值的格式</span><br><span class="line">5. httpEquiv： 把 content 属性连接到一个 HTTP 头部。</span><br><span class="line"></span><br><span class="line">[ref](https:&#x2F;&#x2F;segmentfault.com&#x2F;a&#x2F;1190000004279791)</span><br></pre></td></tr></table></figure></li>
-<li><p>浏览器的重绘和回退？</p>
-<pre><code>重绘： 不影响它周围或内部布局的属性， 只是修改元素本身的颜色，文字颜色等
-回退： 影响它周围或内部布局的属性</code></pre></li>
 </ol>
 ]]></content>
       <categories>
-        <category>Interview</category>
-        <category>HTML</category>
+        <category>GIT</category>
       </categories>
       <tags>
-        <tag>HTML</tag>
+        <tag>GIT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>EcmaScript6-generator</title>
+    <url>/ecmascript6-generator/</url>
+    <content><![CDATA[<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>Generator 函数是 ES6 提供的一种异步编程解决方案，语法行为与传统函数完全不同。本章详细介绍 Generator 函数的语法和 API，它的异步编程应用请看《Generator 函数的异步应用》一章。</p>
+<p>Generator 函数有多种理解角度。语法上，首先可以把它理解成，Generator 函数是一个状态机，封装了多个内部状态。</p>
+<p>执行 Generator 函数会返回一个遍历器对象，也就是说，Generator 函数除了状态机，还是一个遍历器对象生成函数。返回的遍历器对象，可以依次遍历 Generator 函数内部的每一个状态。</p>
+<p>形式上，Generator 函数是一个普通函数，但是有两个特征。<br>一是，<code>function</code>关键字与函数名之间有一个星号；<br>二是，函数体内部使用<code>yield</code>表达式，定义不同的内部状态（<code>yield</code>在英语里的意思就是“产出”）。</p>
+<a id="more"></a>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">helloWorldGenerator</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">yield</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">  <span class="keyword">yield</span> <span class="string">&quot;world&quot;</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;ending&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> hw = helloWorldGenerator();</span><br></pre></td></tr></table></figure>
+
+<p>上面代码定义了一个 Generator 函数<code>helloWorldGenerator</code>，它内部有两个<code>yield</code>表达式（<code>hello</code>和<code>world</code>），即该函数有三个状态：hello，world 和 return 语句（结束执行）。</p>
+<p>然后，Generator 函数的调用方法与普通函数一样，也是在函数名后面加上一对圆括号。不同的是，调用 Generator 函数后，该函数并不执行，返回的也不是函数运行结果，而是一个指向内部状态的指针对象，也就是上一章介绍的遍历器对象（Iterator Object）。</p>
+<p>下一步，必须调用遍历器对象的<code>next</code>方法，使得指针移向下一个状态。也就是说，每次调用<code>next</code>方法，内部指针就从函数头部或上一次停下来的地方开始执行，直到遇到下一个<code>yield</code>表达式（或<code>return</code>语句）为止。换言之，Generator 函数是分段执行的，<code>yield</code>表达式是暂停执行的标记，而<code>next</code>方法可以恢复执行。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">hw.next();</span><br><span class="line"><span class="comment">// &#123; value: &#x27;hello&#x27;, done: false &#125;</span></span><br><span class="line"></span><br><span class="line">hw.next();</span><br><span class="line"><span class="comment">// &#123; value: &#x27;world&#x27;, done: false &#125;</span></span><br><span class="line"></span><br><span class="line">hw.next();</span><br><span class="line"><span class="comment">// &#123; value: &#x27;ending&#x27;, done: true &#125;</span></span><br><span class="line"></span><br><span class="line">hw.next();</span><br><span class="line"><span class="comment">// &#123; value: undefined, done: true &#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>上面代码一共调用了四次<code>next</code>方法。</p>
+<p>第一次调用，Generator 函数开始执行，直到遇到第一个<code>yield</code>表达式为止。<code>next</code>方法返回一个对象，它的<code>value</code>属性就是当前<code>yield</code>表达式的值<code>hello</code>，<code>done</code>属性的值<code>false</code>，表示遍历还没有结束。</p>
+<p>第二次调用，Generator 函数从上次<code>yield</code>表达式停下的地方，一直执行到下一个<code>yield</code>表达式。<code>next</code>方法返回的对象的<code>value</code>属性就是当前<code>yield</code>表达式的值<code>world</code>，<code>done</code>属性的值<code>false</code>，表示遍历还没有结束。</p>
+<p>第三次调用，Generator 函数从上次<code>yield</code>表达式停下的地方，一直执行到<code>return</code>语句（如果没有<code>return</code>语句，就执行到函数结束）。<code>next</code>方法返回的对象的<code>value</code>属性，就是紧跟在<code>return</code>语句后面的表达式的值（如果没有<code>return</code>语句，则<code>value</code>属性的值为<code>undefined</code>），<code>done</code>属性的值<code>true</code>，表示遍历已经结束。</p>
+<p>第四次调用，此时 Generator 函数已经运行完毕，<code>next</code>方法返回对象的<code>value</code>属性为<code>undefined</code>，<code>done</code>属性为<code>true</code>。以后再调用<code>next</code>方法，返回的都是这个值。</p>
+<p>总结一下，调用 Generator 函数，返回一个遍历器对象，代表 Generator 函数的内部指针。以后，每次调用遍历器对象的<code>next</code>方法，就会返回一个有着<code>value</code>和<code>done</code>两个属性的对象。<code>value</code>属性表示当前的内部状态的值，是<code>yield</code>表达式后面那个表达式的值；<code>done</code>属性是一个布尔值，表示是否遍历结束。</p>
+<p>ES6 没有规定，<code>function</code>关键字与函数名之间的星号，写在哪个位置。这导致下面的写法都能通过。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> * <span class="title">foo</span>(<span class="params">x, y</span>) </span>&#123; ··· &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params">x, y</span>) </span>&#123; ··· &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">foo</span>(<span class="params">x, y</span>) </span>&#123; ··· &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span>*<span class="title">foo</span>(<span class="params">x, y</span>) </span>&#123; ··· &#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于 Generator 函数仍然是普通函数，所以一般的写法是上面的第三种，即星号紧跟在<code>function</code>关键字后面。本书也采用这种写法。</p>
+]]></content>
+      <categories>
+        <category>EcmaScript6</category>
+      </categories>
+      <tags>
+        <tag>EcmaScript6</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>javascript函数</title>
+    <url>/javascript%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<ul>
+<li><p>概述</p>
+<hr style="margin: 5px 0px; background-image: none;     border-top: 1px solid #fff;"/>
+
+<p>函数是一段可以反复调用的代码块。函数还能接受输入的参数，不同的参数会返回不同的值</p>
+</li>
+<li><p>声明(Function Declaration)</p>
+<hr style="margin: 5px 0px; background-image: none;     border-top: 1px solid #fff;"/>
+
+<p>1.function 命令声明的代码区块，就是一个函数。function 命令后面是函数名，函数名后面是一对圆括号，里面是传入函数的参数。函数体放在大括号里面</p>
+</li>
+</ul>
+  <a id="more"></a>
+
+  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">print</span>(<span class="params">param</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(param);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  2.函数表达式， 将匿名函数赋值给变量，这是这个匿名函数叫函数表达式</p>
+  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> functionVar = <span class="function"><span class="keyword">function</span> (<span class="params">params</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(params);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 带有函数名的函数表达式</span></span><br><span class="line"><span class="keyword">var</span> funtionWithName = <span class="function"><span class="keyword">function</span> <span class="title">functionName</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">typeof</span> functionName);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 上面代码在函数表达式中，加入了函数名functionName。这个functionName只在函数体内部可用，指代函数表达式本身，其他地方都不可用。这种写法的用处有两个，一是可以在函数体内部调用自身，二是方便除错（除错工具显示函数调用栈时，将显示函数名，而不再显示这里是一个匿名函数）</span></span><br><span class="line"><span class="comment">  * ReferenceError: functionName is not defined</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">functionName(<span class="string">&quot;这是参数有参数的函数表达式);</span></span><br></pre></td></tr></table></figure>
+
+<p>  3.Function 构造函数</p>
+  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> add = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">&quot;x&quot;</span>, <span class="string">&quot;y&quot;</span>, <span class="string">&quot; return x + y&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span> (<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  retuen x + u</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>函数的重复声明<br>如果同一个函数被多次声明， 后面的会覆盖前面的</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">firstFunc</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;这是第一个函数&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">firstFunc</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;这是重复声明的函数， 这个函数会覆盖第一个函数&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * result =&gt; 这是重复声明的函数， 这个函数会覆盖第一个函数</span></span><br><span class="line"><span class="comment"> * 原因： js中的函数本身属于一个挂载到window对象上的一个属性值</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">firstFunc();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>属性和方法</p>
+</li>
+<li><p>递归</p>
+</li>
+<li><p>作用域</p>
+<p>在 es5 中 JavaScript 只有两种作用域， 一种是全局作用域，变量在整个程序中一直存在，所有地方都可以读取；另一种是函数作用域，变量只在函数内部存在</p>
+<p>函数外部声明的变量就是全局变量（global variable），它可以在函数内部读取。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">&quot;这是全局作用域的变量&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">globalFun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * result =&gt; 这是全局作用域的变量</span></span><br><span class="line"><span class="comment"> *  在函数体内可以访问具有全局作用域的变量</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">globalFun();</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funVar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> b = <span class="string">&quot;这是函数体内定义的变量&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * ReferenceError: b is not defined</span></span><br><span class="line"><span class="comment"> * 函数内定义的变量不能再函数体之外访问</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="built_in">console</span>.log(b);</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 如果在函数体内存在跟全局变量相同的局部变量，局部变量会覆盖全部变量</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> v = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> v = <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(v);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line">f();</span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(v);</span><br></pre></td></tr></table></figure>
+
+<p>与全局作用域一样，函数作用域内部也会产生“变量提升”现象。var 命令声明的变量，不管在什么位置，变量声明都会被提升到函数体的头部</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (x &gt; <span class="number">100</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> tmp = x - <span class="number">100</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> tmp;</span><br><span class="line">  <span class="keyword">if</span> (x &gt; <span class="number">100</span>) &#123;</span><br><span class="line">    tmp = x - <span class="number">100</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>函数本身也是一个值，也有自己的作用域。它的作用域与变量一样，就是其声明时所在的作用域，与其运行时所在的作用域无关</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="comment">// firstFun 函数的作用域是全局的</span></span><br><span class="line"><span class="keyword">var</span> firstFun = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(a);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">souncedFun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line">  firstFun();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * result =&gt; 1</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">souncedFun();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>参数</p>
+</li>
+<li><p>闭包<br>定义在函数体内的函数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parentFun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Uncaught ReferenceError: n is not defined</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="built_in">console</span>.log(a);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 总结： 函数内部可以直接读取全局变量，但是函数外部无法读取函数内部声明的变量。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 改造之后的函数体</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parentFun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * result =&gt; 1</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="built_in">console</span>.log(parentFun());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 防抖: 防抖是任务频繁触发的情况下，只有任务触发的间隔超过指定间隔的时候，任务才会执行，一般用于输入框实时搜索</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">fn, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timer = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (timer) &#123;</span><br><span class="line">      <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">    &#125;</span><br><span class="line">    timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      fn.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">    &#125;, time);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 节流: 节流是规定函数在指定的时间间隔内只执行一次，一般用于scroll事件</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> canRun = <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!canRun) &#123;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    canRun = <span class="literal">false</span>;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      fn.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">      canRun = <span class="literal">true</span>;</span><br><span class="line">    &#125;, time);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>立即调用函数<br>在 Javascript 中，圆括号()是一种运算符，跟在函数名之后，表示调用该函数</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
 </search>
