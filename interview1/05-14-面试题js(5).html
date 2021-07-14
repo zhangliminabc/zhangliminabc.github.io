@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"zhangliminabc.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":240,"display":"always","offset":18,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="实现一个函数，可以对url中的query部分做拆解， 返回一个 key -&gt; value形式的对象">
-<meta property="og:type" content="article">
-<meta property="og:title" content="javascript编程系列(1)">
-<meta property="og:url" content="http://zhangliminabc.github.io/interview-05-10-%E9%9D%A2%E8%AF%95%E9%A2%98js-1/index.html">
+  <meta name="description" content="何以解忧， 唯有暴富">
+<meta property="og:type" content="website">
+<meta property="og:title" content="javascript编程系列(5)">
+<meta property="og:url" content="http://zhangliminabc.github.io/interview1/05-14-%E9%9D%A2%E8%AF%95%E9%A2%98js(5).html">
 <meta property="og:site_name" content="浅笑整个夏季">
-<meta property="og:description" content="实现一个函数，可以对url中的query部分做拆解， 返回一个 key -&gt; value形式的对象">
+<meta property="og:description" content="何以解忧， 唯有暴富">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-05-10T13:07:57.000Z">
-<meta property="article:modified_time" content="2021-05-10T13:07:57.000Z">
+<meta property="article:published_time" content="2021-05-14T09:45:41.000Z">
+<meta property="article:modified_time" content="2021-05-14T09:45:41.000Z">
 <meta property="article:author" content="浅笑整个夏季">
 <meta property="article:tag" content="Interview">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://zhangliminabc.github.io/interview-05-10-%E9%9D%A2%E8%AF%95%E9%A2%98js-1/">
+<link rel="canonical" href="http://zhangliminabc.github.io/interview1/05-14-%E9%9D%A2%E8%AF%95%E9%A2%98js(5)">
 
 
 <script id="page-configurations">
@@ -41,12 +41,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : true,
+    isPost : false,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>javascript编程系列(1) | 浅笑整个夏季</title>
+  <title>javascript编程系列(5) | 浅笑整个夏季
+</title>
   
 
 
@@ -123,12 +124,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">33</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">27</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -178,147 +179,43 @@
       <div class="main-inner">
         <div class="content-wrap">
           
+  
+  
 
-          <div class="content post posts-expand">
+          <div class="content page posts-expand">
             
 
     
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/interview-05-10-%E9%9D%A2%E8%AF%95%E9%A2%98js-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="浅笑整个夏季">
-      <meta itemprop="description" content="何以解忧， 唯有暴富">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅笑整个夏季">
-    </span>
+    
+    
+    <div class="post-block" lang="zh-CN">
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          javascript编程系列(1)
-        </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+<h1 class="post-title" itemprop="name headline">javascript编程系列(5)
+</h1>
 
-              <time title="创建时间：2021-05-10 21:07:57" itemprop="dateCreated datePublished" datetime="2021-05-10T21:07:57+08:00">2021-05-10</time>
-            </span>
-          <!--
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/interview/" itemprop="url" rel="index"><span itemprop="name">Interview</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/interview/js%E7%BC%96%E7%A8%8B%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">js编程题</span></a>
-                </span>
-            </span>
-            -->
+<div class="post-meta">
+  
 
-          
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span><br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>653</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-            <div class="post-description">实现一个函数，可以对url中的query部分做拆解， 返回一个 key -> value形式的对象</div>
+</div>
 
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+</header>
 
       
-        <ul>
-<li><p>实现一个函数，可以对url中的query部分做拆解， 返回一个 key -&gt; value形式的对象<br>  <a href="../../code/querySearch.js">源代码</a></p>
-  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">querySearch</span>(<span class="params">url</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!url) <span class="keyword">return</span> &#123;&#125;</span><br><span class="line">    <span class="comment">// const queryParams = url.split(&#x27;?&#x27;)[1] </span></span><br><span class="line">    <span class="keyword">const</span> reg = <span class="regexp">/(?&lt;=\?).*(?=#)/gmi</span></span><br><span class="line">    <span class="keyword">const</span> queryParamsStr = reg.exec(url)[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">if</span> (!queryParamsStr) <span class="keyword">return</span> &#123;&#125;</span><br><span class="line">    <span class="keyword">return</span> queryParamsStr.split(<span class="string">&#x27;&amp;&#x27;</span>).reduce(<span class="function">(<span class="params">pre, str</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> [key, value = <span class="string">&#x27;&#x27;</span>] = str.split(<span class="string">&#x27;=&#x27;</span>)</span><br><span class="line">        key = key.trim()</span><br><span class="line">        value = value.trim()</span><br><span class="line">        pre[key] = value</span><br><span class="line">        <span class="keyword">return</span> pre</span><br><span class="line">    &#125;, &#123;&#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(querySearch(<span class="string">&#x27;http://sample.com/?a=1&amp;b=2&amp;c=xx&amp;d#hash&#x27;</span>)) <span class="comment">// &#123; a: &#x27;1&#x27;, b: &#x27;2&#x27;, c: &#x27;xx&#x27;, d: &#x27;&#x27; &#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-
-    </div>
-
-    
-    
-    
       
-  <div class="popular-posts-header">热点文章</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/interview-css-05-26-面试题css-1/" rel="bookmark">面试题css(1)</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/interview-05-14-面试题js-5/" rel="bookmark">javascript编程系列(5)</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/interview-05-12-面试题js-4/" rel="bookmark">javascript编程系列(4)</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/interview-05-11-面试题js-3/" rel="bookmark">javascript编程系列(3)</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/interview-05-11-面试题js-2/" rel="bookmark">javascript编程系列(2)</a></div>
-    </li>
-  </ul>
-
-
-      <footer class="post-footer">
+      
+      <div class="post-body">
           
-          <div class="post-tags">
-              <a href="/tags/interview/" rel="tag"><i class="fa fa-tag"></i> Interview</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/javascript%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA11(%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1)/" rel="prev" title="javascript深入浅出11(面向对象)">
-      <i class="fa fa-chevron-left"></i> javascript深入浅出11(面向对象)
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/interview-05-11-%E9%9D%A2%E8%AF%95%E9%A2%98js-2/" rel="next" title="javascript编程系列(2)">
-      javascript编程系列(2) <i class="fa fa-chevron-right"></i>
-    </a></div>
+      </div>
+      
+      
+      
     </div>
-      </footer>
     
-  </article>
-  
-  
-  
 
+    
+    
+    
 
 
           </div>
@@ -382,19 +279,19 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -439,13 +336,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">41k</span>
+    <span title="站点总字数">38k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">37 分钟</span>
+    <span title="站点阅读时长">35 分钟</span>
 </div>
 
         

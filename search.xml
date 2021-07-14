@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>vuex源码分析</title>
+    <url>/vue-07-12-vuex%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<p>先抛出问题<br>1， vuex是什么<br>2， vuex是如何实现注入的，为什么每个组件都能通过访问$store访问store<br>3， vuex是如何处理模块以及模块嵌套的<br>4， vuex是如何保证只能通过matation实现改变state数据的</p>
+<p>先看看官网怎么定义vuex<br>    vuex是一个专为vue应用程序开发的状态管理模式；采用集中式存储管理应用的所有组件的状态</p>
+<p>进行源码分析之前，先了解一下官方文档中提供的核心思想，它代表着整个vuex框架的运行流程</p>
+<img align="center" src="../../static/vuex.png">
+
+<ul>
+<li><p>Vue components: vue组件，负责接收用户操作等交互行为，执行dispatch方法触发对应的action</p>
+</li>
+<li><p>dispatch：操作行为触发方法，是唯一能执行action的方法。</p>
+</li>
+<li><p>actions: 操作行为处理模块， 负责处理Vue Components接收到的所有交互行为。包含同步/异步操作，支持多个同名方法，按照注册的顺序依次触发。向后台API请求的操作就在这个模块中进行，包括触发其他action以及提交mutation的操作。该模块提供了Promise的封装，以支持action的链式触发</p>
+</li>
+<li><p>commit：状态改变提交操作方法。对mutation进行提交，是唯一能执行mutation的方法。</p>
+</li>
+<li><p>mutations：状态改变操作方法。是Vuex修改state的唯一推荐方法，其他修改方式在严格模式下将会报错。该方法只能进行同步操作，且方法名只能全局唯一。操作之中会有一些hook暴露出来，以进行state的监控等。</p>
+</li>
+<li><p>state：页面状态管理容器对象。集中存储Vue components中data对象的零散数据，全局唯一，以进行统一的状态管理。页面显示所需的数据从该对象中进行读取，利用Vue的细粒度数据响应机制来进行高效的状态更新。</p>
+</li>
+<li><p>getters：state对象读取方法。图中没有单独列出该模块，应该被包含在了render中，Vue Components通过该方法读取全局state对象。</p>
+</li>
+</ul>
+<p>先分析store函数</p>
+<p>1, 先分析构造函数中的内容</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">constructor</span>(<span class="params">options = &#123;&#125;</span>)</span> &#123;</span><br><span class="line">	<span class="comment">// 判断</span></span><br><span class="line">	<span class="keyword">if</span> (!Vue &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">window</span> !== <span class="string">&#x27;undefined&#x27;</span> &amp;&amp; <span class="built_in">window</span>.Vue) &#123;</span><br><span class="line">		install(<span class="built_in">window</span>.Vue)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>源码分析：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">&#x27;vuex&#x27;</span>;</span><br><span class="line">Vue.use(Vuex)</span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Vuex.store(&#123;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">	store</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// vue.use实现：实际上会执行插件中的install方法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> (<span class="params">plugin: <span class="built_in">Function</span> | <span class="built_in">Object</span></span>) </span>&#123;</span><br><span class="line"><span class="comment">/* istanbul ignore if */</span></span><br><span class="line"><span class="keyword">if</span> (plugin.installed) &#123;</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// additional parameters</span></span><br><span class="line"><span class="keyword">const</span> args = toArray(<span class="built_in">arguments</span>, <span class="number">1</span>)</span><br><span class="line">args.unshift(<span class="built_in">this</span>)</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> plugin.install === <span class="string">&#x27;function&#x27;</span>) &#123;</span><br><span class="line">	<span class="comment">// 实际执行插件的install方法</span></span><br><span class="line">	plugin.install.apply(plugin, args)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	plugin.apply(<span class="literal">null</span>, args)</span><br><span class="line">&#125;</span><br><span class="line">plugin.installed = <span class="literal">true</span></span><br><span class="line"><span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<ol>
+<li>vuex初始化装载分析 </li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> Vue</span><br><span class="line"><span class="comment">// </span></span><br><span class="line"><span class="keyword">if</span> (!Vue &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">window</span> !== <span class="string">&#x27;undefined&#x27;</span> &amp;&amp; <span class="built_in">window</span>.Vue) &#123;</span><br><span class="line">	install(<span class="built_in">window</span>.vue)</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>判断若处于浏览器环境下且加载过Vue，则执行install方法。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 判断若处于浏览器环境下且加载过Vue，则执行install方法</span></span><br><span class="line">  <span class="keyword">if</span> (!Vue &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">window</span> !== <span class="string">&#x27;undefined&#x27;</span> &amp;&amp; <span class="built_in">window</span>.Vue) &#123;</span><br><span class="line">    install(<span class="built_in">window</span>.Vue)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>install函数， 将Vue变量赋值为全局的_vue变量</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">install</span> (<span class="params">_Vue</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (Vue &amp;&amp; _Vue === Vue) &#123;</span><br><span class="line">		<span class="keyword">if</span> (__DEV__) &#123;</span><br><span class="line">		<span class="built_in">console</span>.error(</span><br><span class="line">			<span class="string">&#x27;[vuex] already installed. Vue.use(Vuex) should be called only once.&#x27;</span></span><br><span class="line">		)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	Vue = _Vue</span><br><span class="line">	applyMixin(Vue)</span><br><span class="line">&#125;</span><br><span class="line">applyMixin</span><br></pre></td></tr></table></figure>
+
+<p>applyMixin函数, 判断vue版本，通过hook注入或者重写原型链上的_init方法</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>(<span class="params">Vue</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> version = <span class="built_in">Number</span>(Vue.version.split(<span class="string">&#x27;.&#x27;</span>)[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">if</span> (version &gt;= <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="comment">// 其实就是对象的合并</span></span><br><span class="line">        Vue.mixin(&#123; <span class="attr">beforeCreate</span>: vuexInit &#125;)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// override init and inject vuex init procedure</span></span><br><span class="line">        <span class="comment">// for 1.x backwards compatibility.</span></span><br><span class="line">        <span class="comment">// 查找vue原型链上的init方法</span></span><br><span class="line">        <span class="keyword">const</span> _init = Vue.prototype._init</span><br><span class="line">        Vue.prototype._init = <span class="function"><span class="keyword">function</span>(<span class="params">options = &#123;&#125;</span>) </span>&#123;</span><br><span class="line">            options.init = options.init ?</span><br><span class="line">                [vuexInit].concat(options.init) :</span><br><span class="line">                vuexInit</span><br><span class="line">            _init.call(<span class="built_in">this</span>, options)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Vuex init hook, injected into each instances init hooks list.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">   <span class="comment">// 将初始化vue跟组件时传入的store设置到this对象上的$store属性上，子组件从起父组件引用$store属性，层次嵌套进行设置</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">vuexInit</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> options = <span class="built_in">this</span>.$options</span><br><span class="line">            <span class="comment">// store injection</span></span><br><span class="line">        <span class="keyword">if</span> (options.store) &#123;</span><br><span class="line">            <span class="built_in">this</span>.$store = <span class="keyword">typeof</span> options.store === <span class="string">&#x27;function&#x27;</span> ?</span><br><span class="line">                options.store() :</span><br><span class="line">                options.store</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (options.parent &amp;&amp; options.parent.$store) &#123;</span><br><span class="line">            <span class="built_in">this</span>.$store = options.parent.$store</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;	</span><br></pre></td></tr></table></figure>
+
+<p>&lt;img align=”center” src=”../../vuex-store注入.png&gt;</p>
+]]></content>
+      <categories>
+        <category>vuex</category>
+        <category>vue</category>
+      </categories>
+      <tags>
+        <tag>vuex</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>javascript深入浅出13(es5-generator)</title>
     <url>/ecmascript-07-06-es%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA13-es5-generator/</url>
     <content><![CDATA[<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>Generator 函数是 ES6 提供的一种异步编程解决方案，语法行为与传统函数完全不同。本章详细介绍 Generator 函数的语法和 API，它的异步编程应用请看《Generator 函数的异步应用》一章。</p>
@@ -245,166 +300,6 @@
       </categories>
       <tags>
         <tag>NodeJs</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>面试题css(1)</title>
-    <url>/interview-css-05-26-%E9%9D%A2%E8%AF%95%E9%A2%98css-1/</url>
-    <content><![CDATA[<ol>
-<li><p>常见的css属性  <a href="https://leohxj.gitbooks.io/front-end-database/html-and-css-basic/common-use-css-property.html">常见的属性</a></p>
-</li>
-<li><p>css 盒模型 <a href="https://css.doyoe.com/">盒模型</a></p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">标准盒模型： width &#x3D; content</span><br><span class="line">ie盒模型： width &#x3D; content + padding + border</span><br><span class="line">不同的浏览器渲染默认对盒模型的渲染是不同的</span><br><span class="line">box-sizing: </span><br></pre></td></tr></table></figure>
-</li>
-<li><p>文档流</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">从上到下，从左到右</span><br></pre></td></tr></table></figure></li>
-<li><p>display取值</p>
-  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. block    独占一行， 可设置宽高内外边距， 默认宽度由父容器决定，默认高度有内容决定</span><br><span class="line">2. inline-block  不独占一行</span><br><span class="line">3. inline 宽度和高度都有内容决定，与其他元素共占一行。</span><br><span class="line">4. table-call</span><br><span class="line">5. none</span><br><span class="line">6. flex 弹性盒不		 </span><br></pre></td></tr></table></figure></li>
-<li><p>css 定位</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">relative:  相对不自己本身</span><br><span class="line">absolute: 相对于不是static定位的父级元素</span><br><span class="line">fixed: 相对于可视窗口</span><br><span class="line">static: 默认的</span><br></pre></td></tr></table></figure></li>
-<li><p>css浮动 <a href="http://www.iyunlu.com/view/css-xhtml/55.html">清除浮动</a></p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 	在浮动元素后添加额外的标签设置为 clear： both</span><br><span class="line">2. 父元素设置： overflow： hidden</span><br><span class="line">3. 使用 after伪类： content:&quot;.&quot;; display:block; height:0; visibility:hidden; clear:both;	</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<p>5.css选择器<a href="https://leohxj.gitbooks.io/front-end-database/html-and-css-basic/css-selector.html">选择器和权重</a></p>
-<p>6.css权重 <a href="http://www.w3cplus.com/css/css-specificity-things-you-should-know.html">权重</a></p>
-<pre><code>从0开始，一个行内样式+1000，一个id+100，一个属性选择器/class或者伪类+10，一个元素名，或者伪元素+1</code></pre><p>7.css书写规范 <a href="http://www.shejidaren.com/css-written-specifications.html">规范</a></p>
-<p>8.flexbox 和 网格布局</p>
-<p>9.请写出如何垂直水平居中div</p>
-<pre><code>分为已知宽高和未知宽高</code></pre><p>10.请简述css3有哪些新特性？</p>
-<pre><code>border-radius,  text-shadow, transform, gradient</code></pre>]]></content>
-      <categories>
-        <category>Interview</category>
-        <category>CSS编程</category>
-      </categories>
-      <tags>
-        <tag>Interview</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HTML编程系列(1)</title>
-    <url>/interview-html-05-26-%E9%9D%A2%E8%AF%95%E9%A2%98html-1/</url>
-    <content><![CDATA[<ol>
-<li><p>简述一下你对HTML语义化的理解</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 用正确的标签做正确的事， </span><br><span class="line">2. 有利于搜索引擎的搜索，</span><br><span class="line">3. 有利于阅读源代码或者开发人员更容易将网站分块和阅读</span><br></pre></td></tr></table></figure></li>
-<li><p>请写出行内元素? 块级元素， 空元素有哪些？</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.行内元素： span,  a,  b,  img,  input, 	select,	strong</span><br><span class="line">2.块级元素： div, 	ol,	li,	h1-h6,	p, 	ul,	table</span><br><span class="line">3. 空元素：	br,	hr,	img, input, link,	 meta</span><br></pre></td></tr></table></figure></li>
-<li><p>HTML5的form如何关闭自动完成功能？</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">不需要提示的form或者某个input设置属性为：  autocomplete&#x3D;off</span><br></pre></td></tr></table></figure></li>
-<li><p>html5有哪些新特性？</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 新增 画板元素 canvas, </span><br><span class="line">2. 视频音频： video, audio,</span><br><span class="line">3. 语义化的标签 header, footer, nav, section, article, calendar(日历), date(日期)， time, email, url, search, </span><br><span class="line">4. 地理定位： Geolocation ( 浏览器对象 navigator)</span><br><span class="line">		navigator.geolocation.getCurrentPosition</span><br><span class="line">5. 网络： websocket， webworker （向服务器发送事件）</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>请描述一下 cookies，sessionStorage 和 localStorage 的区别？</p>
-</li>
-<li><p>doctype是什么,举例常见doctype及特点</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">doctype: 文档类型</span><br><span class="line">浏览器渲染模式：</span><br><span class="line">	非怪异（标准）模式</span><br><span class="line">	怪异模式</span><br><span class="line">	部分怪异（近乎标准）模式</span><br><span class="line">1. HTML 4.01 strict doctype 适用于验证文档是否符合 HTML 4.01 规范</span><br><span class="line">	</span><br><span class="line">	&lt;!DOCTYPE HTML PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD HTML 4.01&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;html4&#x2F;strict.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">2. HTML 4.01 transitional doctype</span><br><span class="line"></span><br><span class="line">	&lt;!DOCTYPE HTML PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD HTML 4.01 Transitional&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;html4&#x2F;loose.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">3. HTML 4.01 frameset doctype</span><br><span class="line"></span><br><span class="line">	&lt;!DOCTYPE HTML PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD HTML 4.01 Transitional&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;html4&#x2F;loose.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">4. XML 1.0 strict doctype</span><br><span class="line"></span><br><span class="line">	&lt;!DOCTYPE html PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD XHTML 1.0 Strict&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;xhtml1&#x2F;DTD&#x2F;xhtml1-strict.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">5. XML 1.0 transitional doctype</span><br><span class="line"></span><br><span class="line">	&lt;!DOCTYPE html PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD XHTML 1.0 Transitional&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;xhtml1&#x2F;DTD&#x2F;xhtml1-transitional.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">6. XML 1.0 frameset doctype	</span><br><span class="line"></span><br><span class="line">	&lt;!DOCTYPE html PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD XHTML 1.0 Transitional&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;xhtml1&#x2F;DTD&#x2F;xhtml1-transitional.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">html 与 xhtml : </span><br><span class="line">	html大小写不敏感， xhtml： 元素和属性名大小写敏感，且一律为小写</span><br><span class="line">	html： 空元素可以不关闭标签，  xhtml： 每个元素都需要闭合。如果元素内容为空，则需要自闭合</span><br><span class="line">	html： 允许使用缩写属性， xhtml： 不允许使用缩写属性，每个属性都需要声明属性名与属性值</span><br></pre></td></tr></table></figure></li>
-<li><p>meta 标签</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 	X-UA-Compatible是IE 浏览器一个专有&lt;meta&gt;属性，它告诉IE采用何种IE版本去渲染网页 </span><br><span class="line">	 &lt;meta http-equiv&#x3D;&quot;X-UA-Compatible&quot; content&#x3D;&quot;IE&#x3D;edge,chrome&#x3D;1&quot; &#x2F;&gt;</span><br><span class="line">2. content  设置或返回 &lt;meta&gt; 元素的 content 属性的值</span><br><span class="line">3. name 	把 content 属性连接到某个名称。</span><br><span class="line">4. scheme 设置或返回用于解释 content 属性的值的格式</span><br><span class="line">5. httpEquiv： 把 content 属性连接到一个 HTTP 头部。</span><br><span class="line"></span><br><span class="line">[ref](https:&#x2F;&#x2F;segmentfault.com&#x2F;a&#x2F;1190000004279791)</span><br></pre></td></tr></table></figure></li>
-<li><p>浏览器的重绘和回退？</p>
-<pre><code>重绘： 不影响它周围或内部布局的属性， 只是修改元素本身的颜色，文字颜色等
-回退： 影响它周围或内部布局的属性</code></pre></li>
-</ol>
-]]></content>
-      <categories>
-        <category>Interview</category>
-        <category>HTML</category>
-      </categories>
-      <tags>
-        <tag>HTML</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>javascript编程系列(5)</title>
-    <url>/interview-05-14-%E9%9D%A2%E8%AF%95%E9%A2%98js-5/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>Interview</category>
-        <category>js编程题</category>
-      </categories>
-      <tags>
-        <tag>Interview</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>javascript编程系列(4)</title>
-    <url>/interview-05-12-%E9%9D%A2%E8%AF%95%E9%A2%98js-4/</url>
-    <content><![CDATA[<ul>
-<li><p>在一堆正整数中， 找到最长的一组斐波拉契烈段</p>
-<p>  <a href="../../code/findFibonacci.js">源码</a></p>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findFibonacci</span>(<span class="params">inputArr</span>) </span>&#123;</span><br><span class="line">    inputArr.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b)</span><br><span class="line">    <span class="keyword">let</span> startIndex = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> item = []</span><br><span class="line">    <span class="keyword">let</span> current = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> next = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> result = []</span><br><span class="line">    <span class="keyword">let</span> lastValue = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> endIndex = inputArr.length</span><br><span class="line">    <span class="keyword">const</span> numberMap = inputArr.reduce(<span class="function">(<span class="params">pre, num, index</span>) =&gt;</span> &#123;</span><br><span class="line">        pre[num] = index</span><br><span class="line">        <span class="keyword">return</span> pre</span><br><span class="line">    &#125;, &#123;&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> isFibona = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> value = current + next</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> numberMap[value] !== <span class="string">&#x27;undefined&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (item.length &lt; <span class="number">2</span>) &#123;</span><br><span class="line">                item.push(current)</span><br><span class="line">            &#125; </span><br><span class="line">            item.push(next)</span><br><span class="line">            current = next</span><br><span class="line">            next = value</span><br><span class="line">            lastValue = value</span><br><span class="line">            <span class="keyword">return</span> numberMap[value]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">while</span>(<span class="params">startIndex &lt; endIndex</span>)</span> &#123;</span><br><span class="line">        current = inputArr[startIndex]</span><br><span class="line">        next = <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> (item.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            result.push(item)</span><br><span class="line">        &#125;</span><br><span class="line">        item = []</span><br><span class="line">        <span class="keyword">let</span> nextIndex = startIndex + <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = nextIndex; i &lt;= endIndex - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            next = inputArr[i]</span><br><span class="line">            <span class="keyword">const</span> index = isFibona()</span><br><span class="line">            <span class="keyword">if</span> (index) &#123;</span><br><span class="line">                i = index - <span class="number">1</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        item.push(lastValue)</span><br><span class="line">        startIndex++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> data = result.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a.length - b.length)</span><br><span class="line">    <span class="keyword">return</span> data[data.length -<span class="number">1</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> inputArr = [<span class="number">13</span>, <span class="number">9</span>, <span class="number">3</span>, <span class="number">8</span>, <span class="number">5</span>, <span class="number">25</span>, <span class="number">31</span>, <span class="number">11</span>, <span class="number">21</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(findFibonacci(inputArr))</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Interview</category>
-        <category>js编程题</category>
-      </categories>
-      <tags>
-        <tag>Interview</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>javascript编程系列(3)</title>
-    <url>/interview-05-11-%E9%9D%A2%E8%AF%95%E9%A2%98js-3/</url>
-    <content><![CDATA[<ul>
-<li>实现一个arrange函数， 可以实现和工作的调度</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Interview</category>
-        <category>js编程题</category>
-      </categories>
-      <tags>
-        <tag>Interview</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>javascript编程系列(2)</title>
-    <url>/interview-05-11-%E9%9D%A2%E8%AF%95%E9%A2%98js-2/</url>
-    <content><![CDATA[<ul>
-<li><p>实现一个函数，可以将数组转化为树状数据结构<br> <a href="../../code/buildTreeByArray.js">源码</a></p>
-<pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">buildTreeByArray</span>(<span class="params">arr1</span>) </span>&#123;
-    <span class="keyword">const</span> map = arr1.reduce(<span class="function">(<span class="params">pre, item</span>) =&gt;</span> &#123;
-        <span class="keyword">const</span> &#123; id &#125; = item
-        pre[id] = item
-        <span class="keyword">return</span> pre
-    &#125;, &#123;&#125;)
-
-    arr1.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;
-        <span class="keyword">const</span> &#123; parent_id &#125; = item
-        <span class="keyword">if</span> (parent_id !== <span class="number">0</span>) &#123;
-            map[parent_id].children ? map[parent_id].children.push(item) : map[parent_id].children = [item]
-        &#125;
-    &#125;)
-
-    <span class="keyword">return</span> arr1.filter(<span class="function"><span class="params">item</span> =&gt;</span> item.parent_id === <span class="number">0</span>)
-&#125;</code></pre>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Interview</category>
-        <category>js编程题</category>
-      </categories>
-      <tags>
-        <tag>Interview</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>javascript编程系列(1)</title>
-    <url>/interview-05-10-%E9%9D%A2%E8%AF%95%E9%A2%98js-1/</url>
-    <content><![CDATA[<ul>
-<li><p>实现一个函数，可以对url中的query部分做拆解， 返回一个 key -&gt; value形式的对象<br>  <a href="../../code/querySearch.js">源代码</a></p>
-  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">querySearch</span>(<span class="params">url</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!url) <span class="keyword">return</span> &#123;&#125;</span><br><span class="line">    <span class="comment">// const queryParams = url.split(&#x27;?&#x27;)[1] </span></span><br><span class="line">    <span class="keyword">const</span> reg = <span class="regexp">/(?&lt;=\?).*(?=#)/gmi</span></span><br><span class="line">    <span class="keyword">const</span> queryParamsStr = reg.exec(url)[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">if</span> (!queryParamsStr) <span class="keyword">return</span> &#123;&#125;</span><br><span class="line">    <span class="keyword">return</span> queryParamsStr.split(<span class="string">&#x27;&amp;&#x27;</span>).reduce(<span class="function">(<span class="params">pre, str</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> [key, value = <span class="string">&#x27;&#x27;</span>] = str.split(<span class="string">&#x27;=&#x27;</span>)</span><br><span class="line">        key = key.trim()</span><br><span class="line">        value = value.trim()</span><br><span class="line">        pre[key] = value</span><br><span class="line">        <span class="keyword">return</span> pre</span><br><span class="line">    &#125;, &#123;&#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(querySearch(<span class="string">&#x27;http://sample.com/?a=1&amp;b=2&amp;c=xx&amp;d#hash&#x27;</span>)) <span class="comment">// &#123; a: &#x27;1&#x27;, b: &#x27;2&#x27;, c: &#x27;xx&#x27;, d: &#x27;&#x27; &#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Interview</category>
-        <category>js编程题</category>
-      </categories>
-      <tags>
-        <tag>Interview</tag>
       </tags>
   </entry>
   <entry>
