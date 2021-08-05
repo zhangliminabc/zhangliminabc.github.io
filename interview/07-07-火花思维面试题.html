@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"zhangliminabc.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":240,"display":"always","offset":18,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="1, rem的原理 2, 浏览器敲入回车到渲染的原理 3, vue源码 4, promise的原理 5, react 的原理 6, 排版分帧渲染原理 7, 电子书性能优化原理 8, async&#x2F; await和 promise的区别 9, 我的技术栈是什么 10, axiou内部的封装">
+  <meta name="description" content="1, rem的原理 &#x2F; flex &#x2F; px 的区别 2, 浏览器敲入回车到渲染的原理    a, 域名解析： DNS协议根据对应的域名解析找到对应的ip地址    b, TCP的三次握手    c, 浏览器拿到响应文件后开始解析，浏览器的解析 3, vue源码 4, promise的原理    构造函数调用 + 回调的执行 + settimeout实现异步    浏览器的事件循环 5, react">
 <meta property="og:type" content="website">
 <meta property="og:title" content="火花思维面试题">
 <meta property="og:url" content="http://zhangliminabc.github.io/interview/07-07-%E7%81%AB%E8%8A%B1%E6%80%9D%E7%BB%B4%E9%9D%A2%E8%AF%95%E9%A2%98.html">
 <meta property="og:site_name" content="浅笑整个夏季">
-<meta property="og:description" content="1, rem的原理 2, 浏览器敲入回车到渲染的原理 3, vue源码 4, promise的原理 5, react 的原理 6, 排版分帧渲染原理 7, 电子书性能优化原理 8, async&#x2F; await和 promise的区别 9, 我的技术栈是什么 10, axiou内部的封装">
+<meta property="og:description" content="1, rem的原理 &#x2F; flex &#x2F; px 的区别 2, 浏览器敲入回车到渲染的原理    a, 域名解析： DNS协议根据对应的域名解析找到对应的ip地址    b, TCP的三次握手    c, 浏览器拿到响应文件后开始解析，浏览器的解析 3, vue源码 4, promise的原理    构造函数调用 + 回调的执行 + settimeout实现异步    浏览器的事件循环 5, react">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-07-07T11:34:47.000Z">
 <meta property="article:modified_time" content="2021-07-07T11:34:47.000Z">
@@ -124,12 +124,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">12</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">27</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">29</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -205,16 +205,35 @@
       
       
       <div class="post-body">
-          <p>1, rem的原理</p>
-<p>2, 浏览器敲入回车到渲染的原理</p>
+          <p>1, rem的原理 / flex / px 的区别</p>
+<p>2, 浏览器敲入回车到渲染的原理<br>    a, 域名解析： DNS协议根据对应的域名解析找到对应的ip地址<br>    b, TCP的三次握手<br>    c, 浏览器拿到响应文件后开始解析，浏览器的解析</p>
 <p>3, vue源码</p>
-<p>4, promise的原理</p>
+<p>4, promise的原理<br>    构造函数调用 + 回调的执行 + settimeout实现异步<br>    浏览器的事件循环</p>
 <p>5, react 的原理</p>
-<p>6, 排版分帧渲染原理</p>
-<p>7, 电子书性能优化原理</p>
-<p>8, async/ await和 promise的区别</p>
-<p>9, 我的技术栈是什么</p>
+<p>6, 排版分帧渲染原理<br>    将任务最小化，避免过长时间的占用主线程， </p>
+<pre><code>requestionAnimation</code></pre><p>7, 电子书性能优化原理<br>    1， 虚拟滚动（渲染可视区域的元素， 通过监听浏览器的滚动事件）</p>
+<p>8, async/ await和 promise的区别<br>    async/ await 是 promise + genarator 的产物</p>
+<pre><code>1 promise是ES6，async/await是ES7
+2 async/await相对于promise来讲，写法更加优雅
+3 reject状态：
+    1）promise错误可以通过catch来捕捉，建议尾部捕获错误，
+    2）async/await既可以用.then又可以用try-catch捕捉</code></pre><p>9, 我的技术栈是什么</p>
 <p>10, axiou内部的封装</p>
+<p>航旅纵横：</p>
+<p>1，js加载的 defer 和 async的 区别<br>    defer: dom tree + css rule tree 渲染完成之后<br>    aysnc: 是异步加载，加载完成就会执行</p>
+<p>2，css的flex布局</p>
+<p>3， vuex是如何注入到vue中的</p>
+<p>4， webpack的配置</p>
+<p>5， 浏览器渲染原理<br>        dom tree + css rule tree = render tree</p>
+<p>水滴筹</p>
+<p>1， 0.1 + 0.2 为啥不为0.3</p>
+<p>2， 怎样从数值中找到小数点最多的小树</p>
+<p>3， axiou的二次封装</p>
+<p>4， 多次请求如何避免</p>
+<p>5， 开发自定义的plugin</p>
+<p>6， plugin 和 组件的区别</p>
+<p>7, 短期的职业规划</p>
+<p>8, 对团队的氛围的要求</p>
 
       </div>
       
@@ -289,19 +308,19 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">29</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -346,13 +365,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">38k</span>
+    <span title="站点总字数">45k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">35 分钟</span>
+    <span title="站点阅读时长">41 分钟</span>
 </div>
 
         
