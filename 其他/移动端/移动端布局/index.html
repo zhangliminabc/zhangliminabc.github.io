@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"zhangliminabc.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":240,"display":"always","offset":18,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Babel是什么？将ES5+的语法向后兼容转换成js语法，以便运行在老版或者旧版浏览器中 Babel能做什么？ 语法转化 源码转化">
+  <meta name="description" content="viewport: 在移动设备上, viewport是设备屏幕用来显示我们网页的那一块区域viewport怎么设置？viewport大小就等于可视区域的大小吗? 带着上面的问题我们进一步研究… viewport怎么设置?1&lt;mate name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width,initial-scale&#x3D;1.0,max">
 <meta property="og:type" content="article">
-<meta property="og:title" content="bable深入系列1">
-<meta property="og:url" content="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/%E5%B7%A5%E7%A8%8B%E5%8C%96/bable%E6%B7%B1%E5%85%A5%E7%B3%BB%E5%88%97(1)/index.html">
+<meta property="og:title" content="深入之移动端布局">
+<meta property="og:url" content="http://zhangliminabc.github.io/%E5%85%B6%E4%BB%96/%E7%A7%BB%E5%8A%A8%E7%AB%AF/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80/index.html">
 <meta property="og:site_name" content="浅笑整个夏季">
-<meta property="og:description" content="Babel是什么？将ES5+的语法向后兼容转换成js语法，以便运行在老版或者旧版浏览器中 Babel能做什么？ 语法转化 源码转化">
+<meta property="og:description" content="viewport: 在移动设备上, viewport是设备屏幕用来显示我们网页的那一块区域viewport怎么设置？viewport大小就等于可视区域的大小吗? 带着上面的问题我们进一步研究… viewport怎么设置?1&lt;mate name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width,initial-scale&#x3D;1.0,max">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-08-26T02:57:35.000Z">
-<meta property="article:modified_time" content="2021-08-26T02:57:35.000Z">
+<meta property="article:published_time" content="2021-09-05T13:08:52.000Z">
+<meta property="article:modified_time" content="2021-09-05T13:08:52.000Z">
 <meta property="article:author" content="浅笑整个夏季">
-<meta property="article:tag" content="Babel">
+<meta property="article:tag" content="移动端">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/%E5%B7%A5%E7%A8%8B%E5%8C%96/bable%E6%B7%B1%E5%85%A5%E7%B3%BB%E5%88%97(1)/">
+<link rel="canonical" href="http://zhangliminabc.github.io/%E5%85%B6%E4%BB%96/%E7%A7%BB%E5%8A%A8%E7%AB%AF/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>bable深入系列1 | 浅笑整个夏季</title>
+  <title>深入之移动端布局 | 浅笑整个夏季</title>
   
 
 
@@ -123,12 +123,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">16</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">15</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">69</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">61</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -186,7 +186,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/%E5%B7%A5%E7%A8%8B%E5%8C%96/bable%E6%B7%B1%E5%85%A5%E7%B3%BB%E5%88%97(1)/">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%85%B6%E4%BB%96/%E7%A7%BB%E5%8A%A8%E7%AB%AF/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -199,7 +199,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          bable深入系列1
+          深入之移动端布局
         </h1>
 
         <div class="post-meta">
@@ -209,7 +209,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-08-26 10:57:35" itemprop="dateCreated datePublished" datetime="2021-08-26T10:57:35+08:00">2021-08-26</time>
+              <time title="创建时间：2021-09-05 21:08:52" itemprop="dateCreated datePublished" datetime="2021-09-05T21:08:52+08:00">2021-09-05</time>
             </span>
           <!--
             <span class="post-meta-item">
@@ -218,7 +218,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/babel/" itemprop="url" rel="index"><span itemprop="name">Babel</span></a>
+                  <a href="/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">移动端</span></a>
                 </span>
             </span>
             -->
@@ -236,7 +236,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>62</span>
+              <span>1.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -255,24 +255,44 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h4 id="Babel是什么？"><a href="#Babel是什么？" class="headerlink" title="Babel是什么？"></a>Babel是什么？</h4><p>将ES5+的语法向后兼容转换成js语法，以便运行在老版或者旧版浏览器中</p>
-<h4 id="Babel能做什么？"><a href="#Babel能做什么？" class="headerlink" title="Babel能做什么？"></a>Babel能做什么？</h4><ol>
-<li>语法转化</li>
-<li>源码转化</li>
-</ol>
+        <h4 id="viewport-在移动设备上-viewport是设备屏幕用来显示我们网页的那一块区域"><a href="#viewport-在移动设备上-viewport是设备屏幕用来显示我们网页的那一块区域" class="headerlink" title="viewport: 在移动设备上, viewport是设备屏幕用来显示我们网页的那一块区域"></a>viewport: 在移动设备上, viewport是设备屏幕用来显示我们网页的那一块区域</h4><p>viewport怎么设置？<br>viewport大小就等于可视区域的大小吗?</p>
+<p>带着上面的问题我们进一步研究…</p>
+<h6 id="viewport怎么设置"><a href="#viewport怎么设置" class="headerlink" title="viewport怎么设置?"></a>viewport怎么设置?</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;mate name=<span class="string">&quot;viewport&quot;</span> content=<span class="string">&quot;width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
 
+<p>viewport跟mate标签相关， 那content中的值代表什么意思那？<br>|  属性   | 定义  | 值 |<br>|  —-  | —-  | —- |<br>| width | 规定页面的宽度 | 可以为字符串值也可以为正整数 |<br>| initial-scale | 页面初始缩放比例 | 为数字也可以为小树 |<br>| maximum-scale  | 页面最大缩放比例 | 为数字也可以为小数 |<br>| minimum-scale | 页面最小缩放比例 | 为数字也可以为小 |<br>| user-scalable | 是否允许用户进行拖动缩放 | yes or no |</p>
+<p>关于viewport就先熟悉到这里</p>
+<p>css中的常用单位px和我们移动设备屏幕上的像素(pixel)有什么关系？ css里面的1px == 移动设备上的1pixel吗？</p>
+<h5 id="物理像素"><a href="#物理像素" class="headerlink" title="物理像素"></a>物理像素</h5><p>设备的物理像素是移动设备在出厂时就固定了的像素，整个屏幕由一个挨着一个的间隙级小的像素组成； 分辨率 === 物理像素</p>
+<h5 id="逻辑像素"><a href="#逻辑像素" class="headerlink" title="逻辑像素"></a>逻辑像素</h5><p>逻辑像素是屏幕接受程序控制的最小单位; css中的1px === 1个逻辑像素</p>
+<h6 id="设备像素比-物理像素-逻辑像素"><a href="#设备像素比-物理像素-逻辑像素" class="headerlink" title="设备像素比 = 物理像素 / 逻辑像素"></a>设备像素比 = 物理像素 / 逻辑像素</h6><p>好了, 上面介绍了关于移动端的相关概念，接下来我们讨论一下对于移动端设配的方案</p>
+<h6 id="rem-动态设置根元素的大小-等比例缩放"><a href="#rem-动态设置根元素的大小-等比例缩放" class="headerlink" title="rem: 动态设置根元素的大小(等比例缩放)"></a>rem: 动态设置根元素的大小(等比例缩放)</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// set 1rem = viewWidth / 10</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setRemUnit</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="keyword">const</span> rem = <span class="built_in">document</span>.documentElement.clientWidth / <span class="number">10</span></span><br><span class="line"> docEl.style.fontSize = rem + <span class="string">&#x27;px&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setRemUnit()</span><br></pre></td></tr></table></figure>
+
+<p>postcss-pxtorem: 将单位转为rem</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;postcss-pxtorem&#x27;</span>: &#123;</span><br><span class="line">       rootValue: <span class="number">37.5</span>,</span><br><span class="line">       propList: [<span class="string">&#x27;*&#x27;</span>, <span class="string">&#x27;!font-size&#x27;</span>],</span><br><span class="line">       selectorBlackList: [<span class="string">&#x27;van-circle__layer&#x27;</span>, <span class="string">&#x27;ignore&#x27;</span>],</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>淘宝lib-flexible库:<br>a. 先获取页面中viewport中的mate标签上的初始化缩放值，计算出dpr和缩放<br>b. 没有dpr和缩放的话， 通过获取设备像素比dpr计算出缩放值<br>c. 如果没有mate标签就创建带有缩放的viewport的mate标签<br>d. 获取可视区域的宽度 / 10, 得到rem值然后设为html上的根元素的字体大小</p>
+<h6 id="vw-vh-方案"><a href="#vw-vh-方案" class="headerlink" title="vw / vh 方案"></a>vw / vh 方案</h6><p>将可视区域等比划分为100分</p>
+<p>如果视图窗口375px， 那么1vw = 3.75px</p>
+<p>可以通过 postcss-px-to-viewport: 将px值转为vw/vh值</p>
+<h6 id="媒体查询适应"><a href="#媒体查询适应" class="headerlink" title="媒体查询适应"></a>媒体查询适应</h6><h6 id="flex-rem"><a href="#flex-rem" class="headerlink" title="flex + rem"></a>flex + rem</h6>
     </div>
 
     
     
     
       
+  <div class="popular-posts-header">热点文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/其他/移动端/webview/" rel="bookmark">webview</a></div>
+    </li>
+  </ul>
 
 
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/babel/" rel="tag"><i class="fa fa-tag"></i> Babel</a>
+              <a href="/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF/" rel="tag"><i class="fa fa-tag"></i> 移动端</a>
           </div>
 
         
@@ -281,12 +301,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/%E6%80%A7%E8%83%BD/%E5%9B%BE%E7%89%87%E4%BC%98%E5%8C%96/" rel="prev" title="图片优化">
-      <i class="fa fa-chevron-left"></i> 图片优化
+    <a href="/%E6%A1%86%E6%9E%B6/vue%E6%B7%B1%E5%85%A5%E4%B9%8B(2)-%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E4%B9%8Bcomputed/" rel="prev" title="vue深入之computed源码">
+      <i class="fa fa-chevron-left"></i> vue深入之computed源码
     </a></div>
       <div class="post-nav-item">
-    <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(18)-%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/" rel="next" title="函数柯里化">
-      函数柯里化 <i class="fa fa-chevron-right"></i>
+    <a href="/page/" rel="next" title="前端知识框架总结">
+      前端知识框架总结 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -346,7 +366,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Babel%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">Babel是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Babel%E8%83%BD%E5%81%9A%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">Babel能做什么？</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#viewport-%E5%9C%A8%E7%A7%BB%E5%8A%A8%E8%AE%BE%E5%A4%87%E4%B8%8A-viewport%E6%98%AF%E8%AE%BE%E5%A4%87%E5%B1%8F%E5%B9%95%E7%94%A8%E6%9D%A5%E6%98%BE%E7%A4%BA%E6%88%91%E4%BB%AC%E7%BD%91%E9%A1%B5%E7%9A%84%E9%82%A3%E4%B8%80%E5%9D%97%E5%8C%BA%E5%9F%9F"><span class="nav-number">1.</span> <span class="nav-text">viewport: 在移动设备上, viewport是设备屏幕用来显示我们网页的那一块区域</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#viewport%E6%80%8E%E4%B9%88%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.0.1.</span> <span class="nav-text">viewport怎么设置?</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%83%8F%E7%B4%A0"><span class="nav-number">1.1.</span> <span class="nav-text">物理像素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%83%8F%E7%B4%A0"><span class="nav-number">1.2.</span> <span class="nav-text">逻辑像素</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%AE%BE%E5%A4%87%E5%83%8F%E7%B4%A0%E6%AF%94-%E7%89%A9%E7%90%86%E5%83%8F%E7%B4%A0-%E9%80%BB%E8%BE%91%E5%83%8F%E7%B4%A0"><span class="nav-number">1.2.1.</span> <span class="nav-text">设备像素比 &#x3D; 物理像素 &#x2F; 逻辑像素</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#rem-%E5%8A%A8%E6%80%81%E8%AE%BE%E7%BD%AE%E6%A0%B9%E5%85%83%E7%B4%A0%E7%9A%84%E5%A4%A7%E5%B0%8F-%E7%AD%89%E6%AF%94%E4%BE%8B%E7%BC%A9%E6%94%BE"><span class="nav-number">1.2.2.</span> <span class="nav-text">rem: 动态设置根元素的大小(等比例缩放)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#vw-vh-%E6%96%B9%E6%A1%88"><span class="nav-number">1.2.3.</span> <span class="nav-text">vw &#x2F; vh 方案</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%AA%92%E4%BD%93%E6%9F%A5%E8%AF%A2%E9%80%82%E5%BA%94"><span class="nav-number">1.2.4.</span> <span class="nav-text">媒体查询适应</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#flex-rem"><span class="nav-number">1.2.5.</span> <span class="nav-text">flex + rem</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -360,19 +380,19 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-count">61</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -417,13 +437,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">86k</span>
+    <span title="站点总字数">91k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:18</span>
+    <span title="站点阅读时长">1:23</span>
 </div>
 
         

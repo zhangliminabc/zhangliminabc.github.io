@@ -124,12 +124,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">16</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">15</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">69</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">61</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -237,14 +237,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.5k</span>
+              <span>1.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -258,14 +258,21 @@
       
         <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">st&#x3D;&gt;start: diff算法</span><br><span class="line">op&#x3D;&gt;operation: 形参 oldVnode, newVnode</span><br><span class="line"></span><br><span class="line">op2&#x3D;&gt;operation: oldVnode的标签是否为undefined</span><br><span class="line"></span><br><span class="line">con1&#x3D;&gt;condition: 标签和key值是否相同(sameVnode)</span><br><span class="line"></span><br><span class="line">op3&#x3D;&gt;operation: pathVnode</span><br><span class="line">con2&#x3D;&gt;condition: oldVnode &#x3D;&#x3D;&#x3D; newVnode yes or no?</span><br><span class="line"></span><br><span class="line">con3&#x3D;&gt;condition: newVnode是否有text？</span><br><span class="line">con4&#x3D;&gt;condition: oldVnode.text !&#x3D;&#x3D; newVnode.text ?</span><br><span class="line">op6&#x3D;&gt;operation: removeOldVnodeChildren(删除老节点下的子元素) &#x2F; setTextContent(elm, newVnode.text)(以新节点为基准更新text值)</span><br><span class="line"></span><br><span class="line">op7&#x3D;&gt;operation: 新vnode无内容，有children</span><br><span class="line"></span><br><span class="line">con5&#x3D;&gt;condition: 新vnode有子节点， 老vnode也有子节点</span><br><span class="line">op8&#x3D;&gt;operation: updateChildren</span><br><span class="line"></span><br><span class="line">con6&#x3D;&gt;condition: 新vnode有子节点； 老oldVNode没有无子节点</span><br><span class="line">op9&#x3D;&gt;operation: addVnodes以新节点为基准添加子节点到对应的元素中</span><br><span class="line"></span><br><span class="line">con7&#x3D;&gt;condition: 老的vnode有子节点, 新vnode没有子节点</span><br><span class="line">op10&#x3D;&gt;operation: removeVnodes遍历老节点下的子节点移除</span><br><span class="line"></span><br><span class="line">con8&#x3D;&gt;condition: 老vnode有内容</span><br><span class="line">op11&#x3D;&gt;operation: setTextContent</span><br><span class="line"></span><br><span class="line">p4&#x3D;&gt;operation: 基于newVnode创建元素插入</span><br><span class="line"></span><br><span class="line">end&#x3D;&gt;end: 结束</span><br><span class="line"></span><br><span class="line">st-&gt;op-&gt;con1</span><br><span class="line"></span><br><span class="line">con1(yes)-&gt;op3-&gt;con2</span><br><span class="line">con1(no)-&gt;op4</span><br><span class="line"></span><br><span class="line">con2(yes)-&gt;end</span><br><span class="line">con2(no)-&gt;con3</span><br><span class="line"></span><br><span class="line">con3(yes)-&gt;con4</span><br><span class="line">con3(no)-&gt;op7-&gt;con5</span><br><span class="line"></span><br><span class="line">con4(yes)-&gt;op6-&gt;end</span><br><span class="line">con4(no)-&gt;end</span><br><span class="line"></span><br><span class="line">con5(yes)-&gt;op8</span><br><span class="line">con5(no)-&gt;con6</span><br><span class="line"></span><br><span class="line">con6(yes)-&gt;op9</span><br><span class="line">con6(no)-&gt;con7</span><br><span class="line"></span><br><span class="line">con7(yes)-&gt;op10</span><br><span class="line">con7(no)-&gt;con8</span><br><span class="line"></span><br><span class="line">con8(yes)-&gt;op11</span><br><span class="line">con8(no)-&gt;end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-
 <h4 id="虚拟dom的作用？"><a href="#虚拟dom的作用？" class="headerlink" title="虚拟dom的作用？"></a>虚拟dom的作用？</h4><p>为了不必要的dom操作，优化性能</p>
 <p>数据改变 -&gt;虚拟DOM(计算变更)-&gt; 操作DOM -&gt; 视图更新</p>
 <h4 id="v-for中的key的作用？"><a href="#v-for中的key的作用？" class="headerlink" title="v-for中的key的作用？"></a>v-for中的key的作用？</h4><p>在进行计算dom变动的时候可以对同级元素可以更高效的计算出变动，对性能的优化</p>
-<h4 id="简述diff过程"><a href="#简述diff过程" class="headerlink" title="简述diff过程"></a>简述diff过程</h4><p>diff原理：</p>
-<p>不同标签直接替换</p>
-<p>同级相同变量通过key计算变动</p>
-<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903950886371342">https://juejin.cn/post/6844903950886371342</a></p>
+<h4 id="简述diff过程-不同标签直接替换-同级相同标签通过key计算变动"><a href="#简述diff过程-不同标签直接替换-同级相同标签通过key计算变动" class="headerlink" title="简述diff过程(不同标签直接替换 / 同级相同标签通过key计算变动)"></a>简述diff过程(不同标签直接替换 / 同级相同标签通过key计算变动)</h4><ol>
+<li>接收两个入参，参数都是vnode</li>
+<li>先判断标签和key相同就认为是相同node，会执行pathVnode函数</li>
+<li>判断两个节点是否相同</li>
+<li>新节点如果有文本, 老节点text 不等于 新节点的text， 设置节点内容</li>
+<li>新节点没有文本可能会有children，</li>
+<li>新老节点都有child， 执行updatechild方法，</li>
+<li>新节点有child， 老节点没有child， 老节点有内容，会清空老节点内容，以新节点为基准遍历添加添加元素</li>
+<li>老节点有child， 新节点没有; 遍历移除老节点下的child</li>
+<li>老节点有文本， 清空老节点下的文本</li>
+<li>updatechild：首尾指针</li>
+</ol>
 
     </div>
 
@@ -277,9 +284,6 @@
   <ul class="popular-posts">
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/框架/vue深入之(2)-数据响应之computed/" rel="bookmark">vue深入之computed源码</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/框架/08-05-vue源码解读(3)/" rel="bookmark">vue源码解读(3)</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/框架/08-04-vue源码解析(2)/" rel="bookmark">vue源码解析(2)</a></div>
@@ -371,7 +375,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%99%9A%E6%8B%9Fdom%E7%9A%84%E4%BD%9C%E7%94%A8%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">虚拟dom的作用？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#v-for%E4%B8%AD%E7%9A%84key%E7%9A%84%E4%BD%9C%E7%94%A8%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">v-for中的key的作用？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E8%BF%B0diff%E8%BF%87%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">简述diff过程</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%99%9A%E6%8B%9Fdom%E7%9A%84%E4%BD%9C%E7%94%A8%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">虚拟dom的作用？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#v-for%E4%B8%AD%E7%9A%84key%E7%9A%84%E4%BD%9C%E7%94%A8%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">v-for中的key的作用？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E8%BF%B0diff%E8%BF%87%E7%A8%8B-%E4%B8%8D%E5%90%8C%E6%A0%87%E7%AD%BE%E7%9B%B4%E6%8E%A5%E6%9B%BF%E6%8D%A2-%E5%90%8C%E7%BA%A7%E7%9B%B8%E5%90%8C%E6%A0%87%E7%AD%BE%E9%80%9A%E8%BF%87key%E8%AE%A1%E7%AE%97%E5%8F%98%E5%8A%A8"><span class="nav-number">3.</span> <span class="nav-text">简述diff过程(不同标签直接替换 &#x2F; 同级相同标签通过key计算变动)</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -385,19 +389,19 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-count">61</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -442,13 +446,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">86k</span>
+    <span title="站点总字数">91k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:18</span>
+    <span title="站点阅读时长">1:23</span>
 </div>
 
         
