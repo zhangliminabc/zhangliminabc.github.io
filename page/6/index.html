@@ -121,12 +121,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">15</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">18</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">61</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">73</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -183,7 +183,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E6%A1%86%E6%9E%B6/08-04-vue%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90(2)/">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%85%B6%E4%BB%96/%E7%A7%BB%E5%8A%A8%E7%AB%AF/%E8%B7%A8%E7%AB%AF%E9%80%9A%E4%BF%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -197,7 +197,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/%E6%A1%86%E6%9E%B6/08-04-vue%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90(2)/" class="post-title-link" itemprop="url">vue源码解析(2)</a>
+            <a href="/%E5%85%B6%E4%BB%96/%E7%A7%BB%E5%8A%A8%E7%AB%AF/%E8%B7%A8%E7%AB%AF%E9%80%9A%E4%BF%A1/" class="post-title-link" itemprop="url">跨端通信</a>
         </h2>
 
         <div class="post-meta">
@@ -207,7 +207,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-08-04 15:30:24" itemprop="dateCreated datePublished" datetime="2021-08-04T15:30:24+08:00">2021-08-04</time>
+              <time title="创建时间：2021-08-17 12:06:51" itemprop="dateCreated datePublished" datetime="2021-08-17T12:06:51+08:00">2021-08-17</time>
             </span>
           <!--
             <span class="post-meta-item">
@@ -216,7 +216,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a>
+                  <a href="/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">移动端</span></a>
                 </span>
             </span>
             -->
@@ -227,439 +227,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="Vue数据响应原理"><a href="#Vue数据响应原理" class="headerlink" title="Vue数据响应原理"></a>Vue数据响应原理</h4><p>core/instance/state</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">initState</span>(<span class="params">vm: Component</span>) </span>&#123;</span><br><span class="line">	vm._watchers = [];</span><br><span class="line">	<span class="keyword">const</span> opt = vm.$options</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (opts.props) &#123;</span><br><span class="line">		initProps(vm, opts.props);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (opts.methods) &#123;</span><br><span class="line">		initMethods(vm, opts.methods);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (opts.data) &#123;</span><br><span class="line">		initData(vm)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		observe( (vm._data = &#123;&#125;), <span class="literal">true</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (opts.computed) &#123;</span><br><span class="line">		initComputed(vm, opts.computed)</span><br><span class="line">	&#125; </span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (opts.watch &amp;&amp; opts.watch !== nativeWatch) &#123;</span><br><span class="line">		initWatch(vvm, opts.watch)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h5 id="先解析data的数据响应"><a href="#先解析data的数据响应" class="headerlink" title="先解析data的数据响应"></a>先解析data的数据响应</h5><p>core/instance/state</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">initData</span>(<span class="params">vm: Component</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">let</span> data = vm.$options.data</span><br><span class="line">		<span class="comment">// 为vm上添加 _data属性</span></span><br><span class="line">		data = vm._data === <span class="keyword">typeof</span> data === <span class="string">&#x27;function&#x27;</span> ? getData(data, vm) : data || &#123;&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 判断data 是否是一个普通的对象， 使用的是原型上的toString方法</span></span><br><span class="line">		<span class="keyword">if</span> (!isPlainObject(data)) &#123;</span><br><span class="line">			data = &#123;&#125;</span><br><span class="line">			process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span> &amp;&amp; warn(<span class="string">&quot; data function should return an object&quot;</span>)</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">const</span> keys = <span class="built_in">Object</span>.keys(data)</span><br><span class="line">		<span class="keyword">const</span> props= vm.$options.props</span><br><span class="line">		<span class="keyword">const</span> methods= vm.$options.methods</span><br><span class="line"></span><br><span class="line">		<span class="keyword">let</span> i = keys.length</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="title">while</span>(<span class="params">i--</span>)</span> &#123;</span><br><span class="line"></span><br><span class="line">				<span class="keyword">const</span> key = keys[i]</span><br><span class="line">				<span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&quot;production&quot;</span>) &#123;</span><br><span class="line">						<span class="keyword">if</span> (methods &amp;&amp; hasOwn(methods, key)) &#123;</span><br><span class="line">							warn(</span><br><span class="line">								<span class="string">`Method &quot;<span class="subst">$&#123;key&#125;</span>&quot; has already been defined as a data property.`</span>,</span><br><span class="line">								vm</span><br><span class="line">							);</span><br><span class="line">						&#125;</span><br><span class="line">				&#125;</span><br><span class="line">				</span><br><span class="line">				<span class="keyword">if</span> (props &amp;&amp; hasOwn(props, key)) &#123;</span><br><span class="line">					process.env.NODE_ENV !== <span class="string">&quot;production&quot;</span> &amp;&amp;</span><br><span class="line">						warn(</span><br><span class="line">							<span class="string">`The data property &quot;<span class="subst">$&#123;key&#125;</span>&quot; is already declared as a prop. `</span> +</span><br><span class="line">								<span class="string">`Use prop default value instead.`</span>,</span><br><span class="line">							vm</span><br><span class="line">						);</span><br><span class="line">				&#125; <span class="keyword">else</span> <span class="keyword">if</span> (!isReserved(key)) &#123;</span><br><span class="line">					<span class="comment">// 为vm上添加对应的属性值，这就是为什么data中的数据为什么使用this能访问到的原因</span></span><br><span class="line">					proxy(vm, <span class="string">`_data`</span>, key);</span><br><span class="line">				&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		observe(data, <span class="literal">true</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>再来看看 Observe方法中做了什么</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">observe</span>(<span class="params">value: any, asRootData: ?boolean</span>): <span class="title">Observer</span> | <span class="title">void</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!isObject(value) || value <span class="keyword">instanceof</span> VNode) &#123; </span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">let</span> ob: Observer | <span class="keyword">void</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (hasOwn(value, <span class="string">&quot;__ob__&quot;</span>) &amp;&amp; value.__ob__ <span class="keyword">instanceof</span> Observer) &#123;</span><br><span class="line">		ob = value.__ob__;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// Object.isExtensible: 判断一个对象是否可以扩展， 返回boolean值</span></span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> ( shouldObserve &amp;&amp; !isServerRendering &amp;&amp; (<span class="built_in">Array</span>.isArray(value)  || isPlainObject(value)) &amp;&amp; <span class="built_in">Object</span>.isExtensible(value) &amp;&amp; !value.isVue) &#123;</span><br><span class="line"></span><br><span class="line">		ob = <span class="keyword">new</span> Observer(value)</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<p>在来看看Observer类做了什么， 首先该类有三个方法 构造函数、walk、 observeArray</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">	value: any,</span><br><span class="line">	dep: Dep,</span><br><span class="line">	vmCount: number</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 构造函数</span></span><br><span class="line">	<span class="function"><span class="title">constructor</span>(<span class="params">value: any</span>)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.value = value;</span><br><span class="line">		<span class="comment">//</span></span><br><span class="line">		<span class="built_in">this</span>.dep = <span class="keyword">new</span> Dep()</span><br><span class="line">		<span class="built_in">this</span>.vmCount = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">		df(value, <span class="string">&#x27;__ob__&#x27;</span>, <span class="built_in">this</span>)</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(value)) &#123;</span><br><span class="line">			<span class="keyword">if</span> (hasProto) &#123;</span><br><span class="line">				<span class="comment">// 该方法就是 将 value的 __proto__ 设置为 arrayMethods</span></span><br><span class="line">				protoAugment(value, arrayMethods)</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				copyAugment(value, arrayMethods, arrayKeys)</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="built_in">this</span>.observeArray(value)</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="built_in">this</span>.walk(value)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">observeArray</span>(<span class="params">items: any</span>)</span> &#123;</span><br><span class="line">		<span class="function"><span class="title">for</span>(<span class="params"> <span class="keyword">let</span> i = <span class="number">0</span>, l = items.length; i &lt; l; i++</span>)</span> &#123;</span><br><span class="line">			oberve(items[i])</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">walk</span>(<span class="params">obj: <span class="built_in">Object</span></span>)</span> &#123;</span><br><span class="line">		<span class="keyword">const</span> keys = <span class="built_in">Object</span>.keys(obj)</span><br><span class="line">		<span class="function"><span class="title">for</span>(<span class="params"><span class="keyword">let</span> i = <span class="number">0</span>; i &lt;= keys.length; i++</span>)</span> &#123;</span><br><span class="line">			definaReactive(obj, keys[i])</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>接下来我们看一下 definaReactive方法做了什么</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">definaReactive</span>(<span class="params"> obj: <span class="built_in">Object</span>, key: string, val: any, customSetter?: ? Funtion, shallow ?: boolean</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">const</span> dep = <span class="keyword">new</span> Dep()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">const</span> prototype = <span class="built_in">Object</span>.getOwnPropertyDescriptor(obj, key)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (prototype &amp;&amp; prototype.configuration === <span class="literal">false</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">const</span> getter = prototype &amp;&amp; prototype.get</span><br><span class="line">	<span class="keyword">const</span> setter = prototype &amp;&amp; prototype.set</span><br><span class="line">	<span class="keyword">if</span> ( (!getter || setter) &amp;&amp; <span class="built_in">arguments</span>.length === <span class="number">2</span>) &#123;</span><br><span class="line">		val = obj[key]</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">let</span> childOb = !shallow &amp;&amp; observe(val)</span><br><span class="line">	<span class="built_in">Object</span>.defineProperty(obj, key, &#123;</span><br><span class="line">		enumerable: <span class="literal">true</span>,</span><br><span class="line">		configurable: <span class="literal">true</span>,</span><br><span class="line">		get: <span class="function"><span class="keyword">function</span> <span class="title">reactiveGetter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">			<span class="keyword">const</span> value = getter ? getter.call(obj) :val</span><br><span class="line">			<span class="keyword">if</span> (Dep.target) &#123;</span><br><span class="line">				dep.depend();</span><br><span class="line">				<span class="keyword">if</span> (childOb) &#123;</span><br><span class="line">					childOb.dep.depend();</span><br><span class="line">					<span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(value)) &#123;</span><br><span class="line">						dependArray(value)</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> value</span><br><span class="line">		&#125;,</span><br><span class="line">		set: <span class="function"><span class="keyword">function</span> <span class="title">reactiveSetter</span>(<span class="params">newVal</span>) </span>&#123;</span><br><span class="line">				<span class="keyword">const</span> value = getter ? getter.call(obj) : val</span><br><span class="line">				<span class="keyword">if</span> (newVal ===  value || (newVal !== newVal &amp;&amp; value !== value)) &#123;</span><br><span class="line">					<span class="keyword">return</span>;</span><br><span class="line">				&#125;</span><br><span class="line"></span><br><span class="line">				<span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&quot;production&quot;</span> &amp;&amp; customSettr) &#123;</span><br><span class="line">					customSetter()</span><br><span class="line">				&#125;</span><br><span class="line"></span><br><span class="line">				<span class="keyword">if</span> (getter &amp;&amp; !setter) <span class="keyword">return</span> </span><br><span class="line">				<span class="keyword">if</span> (setter) &#123;</span><br><span class="line">					setter.call(obj, newVal)</span><br><span class="line">				&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">					val = newVal</span><br><span class="line">				&#125;</span><br><span class="line">				childOb = ! shallow &amp;&amp; observe(newVal)</span><br><span class="line">				dep.notify()</span><br><span class="line">			&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E6%A1%86%E6%9E%B6/08-03-vue%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90(1)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="浅笑整个夏季">
-      <meta itemprop="description" content="何以解忧， 唯有暴富">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅笑整个夏季">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E6%A1%86%E6%9E%B6/08-03-vue%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90(1)/" class="post-title-link" itemprop="url">vue源码解析(1)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-03 16:28:15" itemprop="dateCreated datePublished" datetime="2021-08-03T16:28:15+08:00">2021-08-03</time>
-            </span>
-          <!--
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a>
-                </span>
-            </span>
-            -->
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.7k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="创建Vue实例的两步"><a href="#创建Vue实例的两步" class="headerlink" title="创建Vue实例的两步"></a>创建Vue实例的两步</h2><h5 id="创建Vue实例只需要两步"><a href="#创建Vue实例只需要两步" class="headerlink" title="创建Vue实例只需要两步"></a>创建Vue实例只需要两步</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> 	<span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span>;</span><br><span class="line"><span class="keyword">new</span> Vue(options)</span><br></pre></td></tr></table></figure>
-
-<h3 id="创建Vue类-为Vue构造函数上添加属性和方法，但是函数未执行"><a href="#创建Vue类-为Vue构造函数上添加属性和方法，但是函数未执行" class="headerlink" title="创建Vue类(为Vue构造函数上添加属性和方法，但是函数未执行)"></a>创建Vue类(为Vue构造函数上添加属性和方法，但是函数未执行)</h3><p>在导入Vue构造函数之前会生成一个Vue的构造函数</p>
-<p>platforms/web/entry-runtime.js</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;./runtime/index&#x27;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Vue</span><br></pre></td></tr></table></figure>
-
-<p>platforms/web/runtime</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * extend(to, _from)方法将_from对象上的属性添加到to对象中并返回to对象</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">extend(Vue.options.directives, platformDirectives)</span><br><span class="line">extend(Vue.options.components, platformComponents)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加__patch__ 方法</span></span><br><span class="line">Vue.prototype.__patch__ = isBrower ? patch : noop</span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加mount方法</span></span><br><span class="line">Vue.prototype.$mount = <span class="function"><span class="keyword">function</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">	el: string | Element, </span></span></span><br><span class="line"><span class="function"><span class="params">	hydrating ?: boolean</span>)</span>&#123;</span><br><span class="line">		el = el &amp;&amp; isBrower ? query(el) : <span class="literal">undefined</span></span><br><span class="line">		<span class="keyword">return</span> mountComponent(<span class="built_in">this</span>, el, hydrating)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Vue</span><br></pre></td></tr></table></figure>
-
-<p>core/index</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;./instance/index&#x27;</span></span><br><span class="line">initGlobalAPI(Vue)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Vue</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>core/global-api</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 添加 set、delete、nextTick方法</span></span><br><span class="line">Vue.set = set</span><br><span class="line">Vue.delete = del</span><br><span class="line">Vue.nextTick = nextTick</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建空的options对象</span></span><br><span class="line">Vue.options = <span class="built_in">Object</span>.create(<span class="literal">null</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// ASSET_TYPES: component/ filer / directive</span></span><br><span class="line"><span class="comment">//  创建空的components、directives、filters容器</span></span><br><span class="line">ASSET_TYPES.forEach(<span class="function">(<span class="params">type</span>) =&gt;</span> &#123;</span><br><span class="line">	Vue.options[type + <span class="string">&#x27;s&#x27;</span>]  = <span class="built_in">Object</span>.create(<span class="literal">null</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化use,</span></span><br><span class="line">initUse(Vue)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化 mixin</span></span><br><span class="line">initMixin(Vue)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化 extend</span></span><br><span class="line">initExtend(Vue)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始 filter、component、directive</span></span><br><span class="line">initAssetRegisters(Vue)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>instance/index : Vue构造函数， 在vue的构造函数中只调用了_init方法</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Vue</span>(<span class="params">options</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (process.env.NODE_EVN !== <span class="string">&#x27;production&#x27;</span> &amp;&amp; !(<span class="built_in">this</span> <span class="keyword">instanceof</span> Vue) ) &#123;</span><br><span class="line">			warn(<span class="string">&#x27;Vue is a constructor ans should be called with the `new` keyword&#x27;</span>)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 关键</span></span><br><span class="line">		<span class="built_in">this</span>._init(options)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 为Vue原型上添加 _init方法</span></span><br><span class="line">initMixin(Vue)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加 $data 、 $props、 $watch 、 $set 、 $delete 属性</span></span><br><span class="line">stateMixin(Vue)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加 $on、$emit、 $off 、 $once事件</span></span><br><span class="line">eventsMixin(Vue)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加 _update、 $foreceupdate、 $destory 方法</span></span><br><span class="line">liftcycleMixin(Vue)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加 $nextTick、 _render 函数</span></span><br><span class="line">renderMixin(Vue)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Vue</span><br></pre></td></tr></table></figure>
-
-<p>总结： 至此，我们就构建出了一个 Vue 类，这个类上的方法都已经添加完毕; 总结一下，我们创建的Vue类都包含了哪些内容</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Vue</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>._init()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//全局config对象，我们几乎不会用到</span></span><br><span class="line">Vue.config = &#123;</span><br><span class="line">  keyCodes,</span><br><span class="line">  _lifecycleHooks: [<span class="string">&#x27;beforeCreate&#x27;</span>, <span class="string">&#x27;created&#x27;</span>, ...]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 默认的options配置，我们每个组件都会继承这个配置。</span></span><br><span class="line">Vue.options = &#123;</span><br><span class="line">  beforeCreate, <span class="comment">// 比如 vue-router 就会注册这个回调，因此会每一个组件继承</span></span><br><span class="line">  components, <span class="comment">// 前面提到了，默认组件有三个 `KeepAlive`,`transition`, `transitionGroup`，这里注册的组件就是全局组件，因为任何一个组件中不用声明就能用了。所以全局组件的原理就是这么简单</span></span><br><span class="line">  directives, <span class="comment">// 默认只有 `v-show` 和 `v-model`</span></span><br><span class="line">  filters <span class="comment">// 不推荐使用了</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//一些全局方法</span></span><br><span class="line">Vue.use <span class="comment">// 注册插件</span></span><br><span class="line">Vue.component <span class="comment">// 注册组件</span></span><br><span class="line">Vue.directive <span class="comment">// 注册指令</span></span><br><span class="line">Vue.nextTick <span class="comment">//下一个tick执行函数</span></span><br><span class="line">Vue.set/<span class="keyword">delete</span> <span class="comment">// 数据的修改操作</span></span><br><span class="line">Vue.mixin <span class="comment">// 混入mixin用的</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Vue.prototype 上有几种不同作用的方法</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//由initMixin 添加的 `_init` 方法，是Vue实例初始化的入口方法，会调用其他的功能初始话函数</span></span><br><span class="line">Vue.prototype._init</span><br><span class="line"></span><br><span class="line"><span class="comment">// 由 initState 添加的三个用来进行数据操作的方法</span></span><br><span class="line">Vue.prototype.$data</span><br><span class="line">Vue.prototype.$props</span><br><span class="line">Vue.prototype.$watch</span><br><span class="line"></span><br><span class="line"><span class="comment">// 由initEvents添加的事件方法</span></span><br><span class="line">Vue.prototype.$on</span><br><span class="line">Vue.prototype.$off</span><br><span class="line">Vue.prototype.$one</span><br><span class="line">Vue.prototype.$emit</span><br><span class="line"></span><br><span class="line"><span class="comment">// 由 lifecycle添加的生命周期相关的方法</span></span><br><span class="line">Vue.prototype._update</span><br><span class="line">Vue.prototype.$forceUpdate</span><br><span class="line">Vue.prototype.$destroy</span><br><span class="line"></span><br><span class="line"><span class="comment">//在 platform 中添加的生命周期方法</span></span><br><span class="line">Vue.prototype.$mount</span><br><span class="line"></span><br><span class="line"><span class="comment">// 由renderMixin添加的`$nextTick` 和 `_render` 以及一堆renderHelper</span></span><br><span class="line">Vue.prototype.$nextTick</span><br><span class="line">Vue.prototype._render</span><br><span class="line">Vue.prototype._b</span><br><span class="line">Vue.prototype._e</span><br><span class="line"><span class="comment">//...</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h4 id="Vue创建阶段：-通过-new-Vue创建Vue的实例；实例的创建，肯定是从构造函数开始的，然后会进行一系列的初始化操作，我们依次看一下创建过程都进行了什么初始化操作"><a href="#Vue创建阶段：-通过-new-Vue创建Vue的实例；实例的创建，肯定是从构造函数开始的，然后会进行一系列的初始化操作，我们依次看一下创建过程都进行了什么初始化操作" class="headerlink" title="Vue创建阶段： 通过 new Vue创建Vue的实例；实例的创建，肯定是从构造函数开始的，然后会进行一系列的初始化操作，我们依次看一下创建过程都进行了什么初始化操作"></a>Vue创建阶段： 通过 new Vue创建Vue的实例；实例的创建，肯定是从构造函数开始的，然后会进行一系列的初始化操作，我们依次看一下创建过程都进行了什么初始化操作</h4><p>core/instance/init.js</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Vue.prototype._init  = <span class="function"><span class="keyword">function</span> (<span class="params">options: object</span>) </span>&#123;</span><br><span class="line">	<span class="comment">// vm是this的别名</span></span><br><span class="line">	<span class="keyword">const</span> vm: Component = <span class="built_in">this</span></span><br><span class="line"></span><br><span class="line">	vm._uid = uid++</span><br><span class="line"></span><br><span class="line">	<span class="keyword">let</span> startTag, endTag;</span><br><span class="line">	<span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span> &amp;&amp; config.performance &amp;&amp; mark) &#123;</span><br><span class="line">		starTag = <span class="string">`vue-perf-start: <span class="subst">$&#123;vm._uid&#125;</span>`</span></span><br><span class="line">		endTag = <span class="string">`vue-perf-end: <span class="subst">$&#123;vm._uid&#125;</span>`</span></span><br><span class="line">		mark(startTag)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	vm._isVue = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (options &amp;&amp; options._isComponent) &#123;</span><br><span class="line">		initInternalComponent(vm, options)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		vm.$options = margeOptions(</span><br><span class="line">			resolveConstructorOptions(vm.constructor),</span><br><span class="line">			options || &#123;&#125;,</span><br><span class="line">			vm</span><br><span class="line">		)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span>) &#123;</span><br><span class="line">		initProxy(vm)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		vm._renderProxy = vm</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	vm._self = vm</span><br><span class="line"></span><br><span class="line">	<span class="comment">/** </span></span><br><span class="line"><span class="comment">	 * 做了一些生命周期的初始化工作，初始化了很多变量</span></span><br><span class="line"><span class="comment">	 * 最主要是设置了父子组件的引用关系，也就是设置了 </span></span><br><span class="line"><span class="comment">	 * `$parent` 和 `$children`、 $root、 $refs、</span></span><br><span class="line"><span class="comment">	 *  _watcher、 _inactive、 _directInactive、 </span></span><br><span class="line"><span class="comment">	 * _isMounted、_isDestroyed、 _isBeingDestroyed</span></span><br><span class="line"><span class="comment">	 * 的值</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	initLifecycle(vm)</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 注册事件，注意这里注册的不是自己的，而是父组件的。因为很明显父组件的监听器才会注册到孩子身上</span></span><br><span class="line"><span class="comment">	 * _events、_hasHookEvent</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	initEvents(vm)</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * 做一些 render 的准备工作，比如处理父子继承关系等，并没有真的开始 render</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	initRender(vm)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 执行beforecreate事件</span></span><br><span class="line">	callHook(vm, <span class="string">&#x27;beforeCreate&#x27;</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 从options中获取对应的inject值遍历处理</span></span><br><span class="line">	initInjections(vm)</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 数据校验( $options中的数据校验)</span></span><br><span class="line"><span class="comment">	 * props、 method、 data、 computed、watch</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	initState(vm)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// resolve provide after data/props</span></span><br><span class="line">	initProvide(vm)</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 执行created函数</span></span><br><span class="line">	callHook(vm, <span class="string">&#x27;created&#x27;</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 如果传入了el元素执行mountd方法</span></span><br><span class="line">	<span class="keyword">if</span> (vm.$options.el) &#123;</span><br><span class="line">		vm.$mount(vm.$options.el)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>vue的实例化</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">	router,</span><br><span class="line">	store,</span><br><span class="line">	i18n,</span><br><span class="line">	render: <span class="function"><span class="params">h</span> =&gt;</span> h(App)</span><br><span class="line">&#125;).$mount(<span class="string">&#x27;#app&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E6%A1%86%E6%9E%B6/07-12-vuex%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="浅笑整个夏季">
-      <meta itemprop="description" content="何以解忧， 唯有暴富">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅笑整个夏季">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E6%A1%86%E6%9E%B6/07-12-vuex%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">vuex源码分析</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-12 19:44:21" itemprop="dateCreated datePublished" datetime="2021-07-12T19:44:21+08:00">2021-07-12</time>
-            </span>
-          <!--
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vuex/" itemprop="url" rel="index"><span itemprop="name">vuex</span></a>
-                </span>
-            </span>
-            -->
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>先抛出问题<br>1， vuex是什么<br>2， vuex是如何实现注入的，为什么每个组件都能通过访问$store访问store<br>3， vuex是如何处理模块以及模块嵌套的<br>4， vuex是如何保证只能通过matation实现改变state数据的</p>
-<p>先看看官网怎么定义vuex<br>    vuex是一个专为vue应用程序开发的状态管理模式；采用集中式存储管理应用的所有组件的状态</p>
-<p>进行源码分析之前，先了解一下官方文档中提供的核心思想，它代表着整个vuex框架的运行流程</p>
-<img align="center" src="../../static/vuex.png">
-
-<ul>
-<li><p>Vue components: vue组件，负责接收用户操作等交互行为，执行dispatch方法触发对应的action</p>
-</li>
-<li><p>dispatch：操作行为触发方法，是唯一能执行action的方法。</p>
-</li>
-<li><p>actions: 操作行为处理模块， 负责处理Vue Components接收到的所有交互行为。包含同步/异步操作，支持多个同名方法，按照注册的顺序依次触发。向后台API请求的操作就在这个模块中进行，包括触发其他action以及提交mutation的操作。该模块提供了Promise的封装，以支持action的链式触发</p>
-</li>
-<li><p>commit：状态改变提交操作方法。对mutation进行提交，是唯一能执行mutation的方法。</p>
-</li>
-<li><p>mutations：状态改变操作方法。是Vuex修改state的唯一推荐方法，其他修改方式在严格模式下将会报错。该方法只能进行同步操作，且方法名只能全局唯一。操作之中会有一些hook暴露出来，以进行state的监控等。</p>
-</li>
-<li><p>state：页面状态管理容器对象。集中存储Vue components中data对象的零散数据，全局唯一，以进行统一的状态管理。页面显示所需的数据从该对象中进行读取，利用Vue的细粒度数据响应机制来进行高效的状态更新。</p>
-</li>
-<li><p>getters：state对象读取方法。图中没有单独列出该模块，应该被包含在了render中，Vue Components通过该方法读取全局state对象。</p>
-</li>
-</ul>
-<p>先分析store函数</p>
-<p>1, 先分析构造函数中的内容</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">constructor</span>(<span class="params">options = &#123;&#125;</span>)</span> &#123;</span><br><span class="line">	<span class="comment">// 判断</span></span><br><span class="line">	<span class="keyword">if</span> (!Vue &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">window</span> !== <span class="string">&#x27;undefined&#x27;</span> &amp;&amp; <span class="built_in">window</span>.Vue) &#123;</span><br><span class="line">		install(<span class="built_in">window</span>.Vue)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>源码分析：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">&#x27;vuex&#x27;</span>;</span><br><span class="line">Vue.use(Vuex)</span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Vuex.store(&#123;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">	store</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// vue.use实现：实际上会执行插件中的install方法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> (<span class="params">plugin: <span class="built_in">Function</span> | <span class="built_in">Object</span></span>) </span>&#123;</span><br><span class="line"><span class="comment">/* istanbul ignore if */</span></span><br><span class="line"><span class="keyword">if</span> (plugin.installed) &#123;</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// additional parameters</span></span><br><span class="line"><span class="keyword">const</span> args = toArray(<span class="built_in">arguments</span>, <span class="number">1</span>)</span><br><span class="line">args.unshift(<span class="built_in">this</span>)</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> plugin.install === <span class="string">&#x27;function&#x27;</span>) &#123;</span><br><span class="line">	<span class="comment">// 实际执行插件的install方法</span></span><br><span class="line">	plugin.install.apply(plugin, args)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	plugin.apply(<span class="literal">null</span>, args)</span><br><span class="line">&#125;</span><br><span class="line">plugin.installed = <span class="literal">true</span></span><br><span class="line"><span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<ol>
-<li>vuex初始化装载分析 </li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> Vue</span><br><span class="line"><span class="comment">// </span></span><br><span class="line"><span class="keyword">if</span> (!Vue &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">window</span> !== <span class="string">&#x27;undefined&#x27;</span> &amp;&amp; <span class="built_in">window</span>.Vue) &#123;</span><br><span class="line">	install(<span class="built_in">window</span>.vue)</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
-
-<p>判断若处于浏览器环境下且加载过Vue，则执行install方法。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 判断若处于浏览器环境下且加载过Vue，则执行install方法</span></span><br><span class="line">  <span class="keyword">if</span> (!Vue &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">window</span> !== <span class="string">&#x27;undefined&#x27;</span> &amp;&amp; <span class="built_in">window</span>.Vue) &#123;</span><br><span class="line">    install(<span class="built_in">window</span>.Vue)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>install函数， 将Vue变量赋值为全局的_vue变量</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">install</span> (<span class="params">_Vue</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (Vue &amp;&amp; _Vue === Vue) &#123;</span><br><span class="line">		<span class="keyword">if</span> (__DEV__) &#123;</span><br><span class="line">		<span class="built_in">console</span>.error(</span><br><span class="line">			<span class="string">&#x27;[vuex] already installed. Vue.use(Vuex) should be called only once.&#x27;</span></span><br><span class="line">		)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	Vue = _Vue</span><br><span class="line">	applyMixin(Vue)</span><br><span class="line">&#125;</span><br><span class="line">applyMixin</span><br></pre></td></tr></table></figure>
-
-<p>applyMixin函数, 判断vue版本，通过hook注入或者重写原型链上的_init方法</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>(<span class="params">Vue</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> version = <span class="built_in">Number</span>(Vue.version.split(<span class="string">&#x27;.&#x27;</span>)[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">if</span> (version &gt;= <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="comment">// 其实就是对象的合并</span></span><br><span class="line">        Vue.mixin(&#123; <span class="attr">beforeCreate</span>: vuexInit &#125;)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// override init and inject vuex init procedure</span></span><br><span class="line">        <span class="comment">// for 1.x backwards compatibility.</span></span><br><span class="line">        <span class="comment">// 查找vue原型链上的init方法</span></span><br><span class="line">        <span class="keyword">const</span> _init = Vue.prototype._init</span><br><span class="line">        Vue.prototype._init = <span class="function"><span class="keyword">function</span>(<span class="params">options = &#123;&#125;</span>) </span>&#123;</span><br><span class="line">            options.init = options.init ?</span><br><span class="line">                [vuexInit].concat(options.init) :</span><br><span class="line">                vuexInit</span><br><span class="line">            _init.call(<span class="built_in">this</span>, options)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Vuex init hook, injected into each instances init hooks list.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">   <span class="comment">// 将初始化vue跟组件时传入的store设置到this对象上的$store属性上，子组件从起父组件引用$store属性，层次嵌套进行设置</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">vuexInit</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> options = <span class="built_in">this</span>.$options</span><br><span class="line">            <span class="comment">// store injection</span></span><br><span class="line">        <span class="keyword">if</span> (options.store) &#123;</span><br><span class="line">            <span class="built_in">this</span>.$store = <span class="keyword">typeof</span> options.store === <span class="string">&#x27;function&#x27;</span> ?</span><br><span class="line">                options.store() :</span><br><span class="line">                options.store</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (options.parent &amp;&amp; options.parent.$store) &#123;</span><br><span class="line">            <span class="built_in">this</span>.$store = options.parent.$store</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;	</span><br></pre></td></tr></table></figure>
-
-<p>&lt;img align=”center” src=”../../vuex-store注入.png&gt;</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/ecmascript/07-06-es%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA13(es5-generator)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="浅笑整个夏季">
-      <meta itemprop="description" content="何以解忧， 唯有暴富">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅笑整个夏季">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/ecmascript/07-06-es%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA13(es5-generator)/" class="post-title-link" itemprop="url">javascript深入浅出13(es5-generator)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-06 21:36:17" itemprop="dateCreated datePublished" datetime="2021-07-06T21:36:17+08:00">2021-07-06</time>
-            </span>
-          <!--
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/es6/" itemprop="url" rel="index"><span itemprop="name">ES6</span></a>
-                </span>
-            </span>
-            -->
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>Generator 函数是 ES6 提供的一种异步编程解决方案，语法行为与传统函数完全不同。本章详细介绍 Generator 函数的语法和 API，它的异步编程应用请看《Generator 函数的异步应用》一章。</p>
-<p>Generator 函数有多种理解角度。语法上，首先可以把它理解成，Generator 函数是一个状态机，封装了多个内部状态。</p>
-<p>执行 Generator 函数会返回一个遍历器对象，也就是说，Generator 函数除了状态机，还是一个遍历器对象生成函数。返回的遍历器对象，可以依次遍历 Generator 函数内部的每一个状态。</p>
-<p>形式上，Generator 函数是一个普通函数，但是有两个特征。<br>一是，<code>function</code>关键字与函数名之间有一个星号；<br>二是，函数体内部使用<code>yield</code>表达式，定义不同的内部状态（<code>yield</code>在英语里的意思就是“产出”）。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/ecmascript/07-06-es%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA13(es5-generator)/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%85%B6%E4%BB%96/%E7%AE%97%E6%B3%95/07-06-%E9%87%8D%E5%AD%A6%E7%AE%97%E6%B3%95(1)-%E6%A0%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="浅笑整个夏季">
-      <meta itemprop="description" content="何以解忧， 唯有暴富">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅笑整个夏季">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%85%B6%E4%BB%96/%E7%AE%97%E6%B3%95/07-06-%E9%87%8D%E5%AD%A6%E7%AE%97%E6%B3%95(1)-%E6%A0%88/" class="post-title-link" itemprop="url">重学算法(1)-栈</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-06 14:04:07" itemprop="dateCreated datePublished" datetime="2021-07-06T14:04:07+08:00">2021-07-06</time>
-            </span>
-          <!--
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-            -->
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>142</span>
+              <span>25</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -678,11 +246,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h4><h4 id="什么是栈"><a href="#什么是栈" class="headerlink" title="什么是栈"></a>什么是栈</h4><p>后进者先出，先进者后出，简称 后进先出（LIFO） </p>
-1, 新添加的或待删除的元素都保存在栈的末尾，称作栈顶，另一端就叫栈底。
-2, 在栈里，新元素都靠近栈顶，旧元素都接近栈底。
-3, 从栈的操作特性来看，是一种 操作受限的线性表，只允许在一端插入和删除数据。
-4, 不包含任何元素的栈称为空栈。
+          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">st&#x3D;&gt; start: 客户端调用</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -704,7 +268,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/ecmascript/06-09-es%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E7%B3%BB%E5%88%97-2/">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%85%B6%E4%BB%96/webrtc/webrtc%E4%B9%8B%E5%AA%92%E4%BD%93%E5%8D%8F%E5%95%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -718,7 +282,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/ecmascript/06-09-es%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E7%B3%BB%E5%88%97-2/" class="post-title-link" itemprop="url">es深入浅出系列(2)</a>
+            <a href="/%E5%85%B6%E4%BB%96/webrtc/webrtc%E4%B9%8B%E5%AA%92%E4%BD%93%E5%8D%8F%E5%95%86/" class="post-title-link" itemprop="url">webrtc之媒体协商</a>
         </h2>
 
         <div class="post-meta">
@@ -728,214 +292,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-06-09 21:22:41" itemprop="dateCreated datePublished" datetime="2021-06-09T21:22:41+08:00">2021-06-09</time>
-            </span>
-          <!--
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/es6/" itemprop="url" rel="index"><span itemprop="name">ES6</span></a>
-                </span>
-            </span>
-            -->
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>279</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="解构"><a href="#解构" class="headerlink" title="解构"></a>解构</h3><p>ES6 允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为解构（Destructuring）。</p>
-<p>以前，为变量赋值，只能直接指定值。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">let</span> c = <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
-
-<p>ES6 允许写成下面这样。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [a, b, c] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br></pre></td></tr></table></figure>
-
-<h4 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h4><p>解构赋值允许指定默认值。</p>
-<p>注意，ES6 内部使用严格相等运算符（<code>===</code>），判断一个位置是否有值。所以，只有当一个数组成员严格等于<code>undefined</code>，默认值才会生效。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [firstItem = []] = []</span><br><span class="line"></span><br><span class="line">firstItem <span class="comment">// []; 解构赋值在解构出来的值为undefined时，默认值才会生效</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/ecmascript/06-09-es%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E7%B3%BB%E5%88%97-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="浅笑整个夏季">
-      <meta itemprop="description" content="何以解忧， 唯有暴富">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅笑整个夏季">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/ecmascript/06-09-es%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E7%B3%BB%E5%88%97-1/" class="post-title-link" itemprop="url">es深入浅出系列(1)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-06-09 20:45:56" itemprop="dateCreated datePublished" datetime="2021-06-09T20:45:56+08:00">2021-06-09</time>
-            </span>
-          <!--
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/es6/" itemprop="url" rel="index"><span itemprop="name">ES6</span></a>
-                </span>
-            </span>
-            -->
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="let和const系列"><a href="#let和const系列" class="headerlink" title="let和const系列"></a>let和const系列</h4><h3 id="let-命令"><a href="#let-命令" class="headerlink" title="let 命令"></a>let 命令</h3><p>ES6 新增了<code>let</code>命令，用来声明变量。它的用法类似于<code>var</code>，但是所声明的变量，只在<code>let</code>命令所在的代码块内有效。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="keyword">let</span> a = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> b = <span class="number">11</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">a <span class="comment">// ReferenceError: a is not undefined</span></span><br><span class="line">b <span class="comment">// 11</span></span><br></pre></td></tr></table></figure>
-
-<p>上面代码在代码块之中，分别用<code>let</code>和<code>var</code>声明了两个变量。然后在代码块之外调用这两个变量，结果<code>let</code>声明的变量报错，<code>var</code>声明的变量返回了正确的值。这表明，<code>let</code>声明的变量只在它所在的代码块有效。</p>
-<h3 id="const命令"><a href="#const命令" class="headerlink" title="const命令"></a>const命令</h3><p>  const声明一个只读的常量。一旦声明，常量的值就不能改变。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const PI &#x3D; 3.1415</span><br><span class="line"></span><br><span class="line">PI &#x2F;&#x2F; 3.1415</span><br><span class="line"></span><br><span class="line">pI &#x3D; 3 &#x2F;&#x2F; TypeError: Assignment to constant variable</span><br></pre></td></tr></table></figure>
-
-<p>const语法对于引用类型是可以更改和增加其属性值， 因为对于引用类型在内存中存储的是一个引用地址； 对于const命令不能将引用地址更改</p>
-<p>1, let 和 const 的出现解决了什么问题？</p>
-<pre><code>在es5中只有全局作用域和函数作用域，带来很多不合理的场景
-
-第一种场景： 内层变量覆盖外层变量
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a)</span><br><span class="line">    <span class="keyword">var</span> a = <span class="string">&#x27;这不是时间&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f() <span class="comment">// 这不是时间， 原因在于用var 声明的变量存在变量提升， 导致函数执行时在当前函数作用域中就能找到对应的a变量因此进行了输出</span></span><br></pre></td></tr></table></figure>
-
-第二中场景： 变量泄露为全局变量
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="string">&#x27;hello&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">for</span>(<span class="params"> <span class="keyword">var</span> i = <span class="number">0</span>; i &lt;= s.length-<span class="number">1</span>; i++</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(s[i])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(i) <span class="comment">// 5; 原因在于 变量i用var 声明， 导致循环执行结束之后，变量i并没有销毁, 泄露成了全局变量</span></span><br></pre></td></tr></table></figure></code></pre><p>2, let 和const的共同点<br>    1, 没有变量提升<br>    2, 增加了块级作用域<br>    3, 必须先定义后使用, 都存在暂时性死区(在代码块内，使用<code>let</code>和 <code>const</code>命令声明变量之前，该变量都是不可用的变)<br>    4, 在同一个块级作用域中不能重复定义相同的变量</p>
-<p>注意点：</p>
-<ul>
-<li>允许在块级作用域中声明函数</li>
-<li>函数声明类似于 ‘var’，即会提升到全局作用域或者函数作用域的头部（var的变量声明）</li>
-<li>函数声明还会提升到所在的块级作用域的头部</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">// 浏览器的 ES6 环境</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">&#x27;I am outside!&#x27;</span>); &#125;</span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="literal">false</span>) &#123;</span><br><span class="line">    <span class="comment">// 重复声明一次函数f</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">&#x27;I am inside!&#x27;</span>); &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  f();</span><br><span class="line">&#125;());</span><br><span class="line"><span class="comment">// Uncaught TypeError: f is not a function</span></span><br></pre></td></tr></table></figure>
-
-<p>相当于运行以下代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 浏览器的 ES6 环境</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">&#x27;I am outside!&#x27;</span>); &#125;</span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> f = <span class="literal">undefined</span>;</span><br><span class="line">  <span class="keyword">if</span> (<span class="literal">false</span>) &#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">&#x27;I am inside!&#x27;</span>); &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  f();</span><br><span class="line">&#125;());</span><br><span class="line"><span class="comment">// Uncaught TypeError: f is not a function</span></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%85%B6%E4%BB%96/webrtc/webrtc%E4%BB%8B%E7%BB%8D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="浅笑整个夏季">
-      <meta itemprop="description" content="何以解忧， 唯有暴富">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅笑整个夏季">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%85%B6%E4%BB%96/webrtc/webrtc%E4%BB%8B%E7%BB%8D/" class="post-title-link" itemprop="url">webrtc基础概念介绍</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-06-07 19:55:07" itemprop="dateCreated datePublished" datetime="2021-06-07T19:55:07+08:00">2021-06-07</time>
+              <time title="创建时间：2021-08-17 11:06:05" itemprop="dateCreated datePublished" datetime="2021-08-17T11:06:05+08:00">2021-08-17</time>
             </span>
           <!--
             <span class="post-meta-item">
@@ -955,7 +312,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>298</span>
+              <span>573</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -974,22 +331,442 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="webrtc-是一个支持实时语音、视频和数据传输的开源系统"><a href="#webrtc-是一个支持实时语音、视频和数据传输的开源系统" class="headerlink" title="webrtc 是一个支持实时语音、视频和数据传输的开源系统"></a>webrtc 是一个支持实时语音、视频和数据传输的开源系统</h4><h4 id="实现流程"><a href="#实现流程" class="headerlink" title="实现流程"></a>实现流程</h4><img src="../../static/webrtc.webp">
+          <h4 id="媒体协商是让双方找到共同支持的媒体能力"><a href="#媒体协商是让双方找到共同支持的媒体能力" class="headerlink" title="媒体协商是让双方找到共同支持的媒体能力"></a>媒体协商是让双方找到共同支持的媒体能力</h4><h6 id="媒体协商的过程"><a href="#媒体协商的过程" class="headerlink" title="媒体协商的过程"></a>媒体协商的过程</h6><p>在通讯双方都创建好 RTCPeerConnection 对象后，它们就可以开始进行媒体协商了。<br>不过在进行媒体协商之前，有两个重要的概念，即 Offer 与 Answer ，你必须要弄清楚。Offer 与 Answer 是什么呢？对于 1 对 1 通信的双方来说，我们称首先发送媒体协商消息的一方为呼叫方，而另一方则为被呼叫方。</p>
+<p>Offer，在双方通讯时，呼叫方发送的 SDP 消息称为 Offer。<br>Answer，在双方通讯时，被呼叫方发送的 SDP 消息称为 Answer</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">RTC</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">construct</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.rtc = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 初始化</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="title">initRtcPer</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.rtc = <span class="keyword">new</span> RTCPeerConnection();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">createOffer</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; rtc &#125; = <span class="built_in">this</span>;</span><br><span class="line">        rtc.createOffer(</span><br><span class="line">            (sessionDescription) =&gt; &#123;</span><br><span class="line">                rtc.setLocalDescription(sessionDescription);</span><br><span class="line">            &#125;,</span><br><span class="line">            (err) =&gt; &#123;&#125;,</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%85%B6%E4%BB%96/webrtc/webrtc%E4%B9%8B%E5%BD%95%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="浅笑整个夏季">
+      <meta itemprop="description" content="何以解忧， 唯有暴富">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浅笑整个夏季">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%85%B6%E4%BB%96/webrtc/webrtc%E4%B9%8B%E5%BD%95%E5%88%B6/" class="post-title-link" itemprop="url">webrtc之录制</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-17 10:05:11" itemprop="dateCreated datePublished" datetime="2021-08-17T10:05:11+08:00">2021-08-17</time>
+            </span>
+          <!--
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webrtc/" itemprop="url" rel="index"><span itemprop="name">webrtc</span></a>
+                </span>
+            </span>
+            -->
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="js存储二进制数据的类型"><a href="#js存储二进制数据的类型" class="headerlink" title="js存储二进制数据的类型"></a>js存储二进制数据的类型</h4><p>ArrayBuffer: 表示通用的、固定长度的二进制数据缓冲区(实例化之后才能存在内存中)</p>
+<p>ArrayBufferView: 表示不同类型的Array的描述</p>
+<p>blob: js的大型二进制对象类型</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * array: ArrayBuffer、ArrayBufferView、Blob、DOMString</span></span><br><span class="line"><span class="comment"> *  options: 指定存储成的媒体类型</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> ablob = <span class="keyword">new</span> Blob(array, options);</span><br></pre></td></tr></table></figure>
+
+<h5 id="录制音视频流"><a href="#录制音视频流" class="headerlink" title="录制音视频流"></a>录制音视频流</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">Recorder</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.buffer = [];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">handler</span>(<span class="params">e</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (e &amp;&amp; e.data &amp;&amp; e.data.size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="built_in">this</span>.buffer.push(e.data);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 开始录制</span></span><br><span class="line">    <span class="function"><span class="title">startRecorder</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> option = &#123;</span><br><span class="line">            mimeType: <span class="string">&#x27;video/webm;codecs=vp8&#x27;</span>,</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">let</span> mediaRecorder = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (!MediaRecorder.isTypeSupported(option.mimeType)) &#123;</span><br><span class="line">            <span class="built_in">console</span>.error(<span class="string">`<span class="subst">$&#123;option.mimeType&#125;</span> is not supported!`</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//创建录制对象</span></span><br><span class="line">            mediaRecorder = <span class="keyword">new</span> MediaRecorder(<span class="built_in">window</span>.stream, option);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">            <span class="built_in">console</span>.error(<span class="string">&#x27;Failed to create MediaRecorder:&#x27;</span>, e);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        mediaRecorder.ondataavailable = <span class="built_in">this</span>.handler;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建录制的url</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@returns</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="title">createUrl</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; buffer &#125; = <span class="built_in">this</span>;</span><br><span class="line">        <span class="keyword">const</span> url = <span class="keyword">new</span> Blob(buffer, &#123; <span class="attr">type</span>: <span class="string">&#x27;video/webm&#x27;</span> &#125;);</span><br><span class="line">        <span class="keyword">return</span> url;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%85%B6%E4%BB%96/%E7%A7%BB%E5%8A%A8%E7%AB%AF/webview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="浅笑整个夏季">
+      <meta itemprop="description" content="何以解忧， 唯有暴富">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浅笑整个夏季">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%85%B6%E4%BB%96/%E7%A7%BB%E5%8A%A8%E7%AB%AF/webview/" class="post-title-link" itemprop="url">webview</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-16 19:15:14" itemprop="dateCreated datePublished" datetime="2021-08-16T19:15:14+08:00">2021-08-16</time>
+            </span>
+          <!--
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">移动端</span></a>
+                </span>
+            </span>
+            -->
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="Webview-是一个基于webkit的引擎，可以解析DOM-元素，展示html页面的控件，它和浏览器展示页面的原理是相同的，所以可以把它当做浏览器看待"><a href="#Webview-是一个基于webkit的引擎，可以解析DOM-元素，展示html页面的控件，它和浏览器展示页面的原理是相同的，所以可以把它当做浏览器看待" class="headerlink" title="Webview 是一个基于webkit的引擎，可以解析DOM 元素，展示html页面的控件，它和浏览器展示页面的原理是相同的，所以可以把它当做浏览器看待"></a>Webview 是一个基于webkit的引擎，可以解析DOM 元素，展示html页面的控件，它和浏览器展示页面的原理是相同的，所以可以把它当做浏览器看待</h4><h4 id="webview-是一个可加载网页的对象-类似于浏览器的功能"><a href="#webview-是一个可加载网页的对象-类似于浏览器的功能" class="headerlink" title="webview: 是一个可加载网页的对象, 类似于浏览器的功能"></a>webview: 是一个可加载网页的对象, 类似于浏览器的功能</h4><h4 id="h5-调用-native"><a href="#h5-调用-native" class="headerlink" title="h5 调用 native"></a>h5 调用 native</h4><ol>
+<li>ios下的 uiwebview 和 wkwebview</li>
+</ol>
+<p>uiwebview和wkwebview能够拦截h5内发起的网络请求； 在h5内发起约好的特定协议的网络请求带上需要传递給ios的参数, 客户端拦截到指定协议请求后解析url上的参数</p>
+<ol>
+<li><p>网络拦截</p>
+<img src="../../../static/h5-native.png">
+</li>
+<li><p>native想webview中注入全局变量并挂载到window上</p>
+</li>
+</ol>
+<hr>
+<h4 id="native-调用-h5"><a href="#native-调用-h5" class="headerlink" title="native 调用 h5"></a>native 调用 h5</h4><ol>
+<li>h5根据约定将一组API绑定到window对象上， native通过evaluateJavaScript函数调用window对象中的方法</li>
+</ol>
+<img src="../../../static/jsbrige.png">
+
+<h4 id="通信实现"><a href="#通信实现" class="headerlink" title="通信实现"></a>通信实现</h4><h5 id="h5调用native"><a href="#h5调用native" class="headerlink" title="h5调用native"></a>h5调用native</h5><ol>
+<li>通过拦截url的形式(更加类似于jsonp)</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">JSBridge</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.callback = [];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">initIframe</span>(<span class="params"><span class="built_in">module</span>, params</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> iframe = <span class="built_in">document</span>.createElement(<span class="string">&#x27;iframe&#x27;</span>);</span><br><span class="line">        iframe.style.display = <span class="string">&#x27;none&#x27;</span>;</span><br><span class="line">        <span class="keyword">const</span> value = <span class="built_in">JSON</span>.parse(params);</span><br><span class="line">        <span class="keyword">const</span> src = <span class="string">`myiframe://mathod=<span class="subst">$&#123;<span class="built_in">module</span>&#125;</span>?param=<span class="subst">$&#123;value&#125;</span>`</span>;</span><br><span class="line">        iframe.src = src;</span><br><span class="line">        <span class="built_in">document</span>.body.appendChild(iframe);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * h5调用native</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="title">invokeNative</span>(<span class="params"><span class="built_in">module</span>, params, handler</span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.callback.push(&#123; <span class="built_in">module</span>, params, handler &#125;);</span><br><span class="line">        <span class="built_in">this</span>.initIframe(<span class="built_in">module</span>, params);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * native 调用 h5, evaluateJavascript</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="title">invokeH5</span>(<span class="params"><span class="built_in">module</span>, params</span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.callback</span><br><span class="line">            .filter(<span class="function">(<span class="params">item</span>) =&gt;</span> item.module === <span class="built_in">module</span>)</span><br><span class="line">            .forEach(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">const</span> &#123; handler &#125; = item;</span><br><span class="line">                handler(params);</span><br><span class="line">            &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>native注入上下文</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> bridge =</span><br><span class="line">   <span class="built_in">window</span>.bridge ||</span><br><span class="line">   (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">       <span class="keyword">const</span> result = &#123;</span><br><span class="line">           call, <span class="comment">// H5调用native</span></span><br><span class="line">           response, <span class="comment">//native调用js</span></span><br><span class="line">           pf: <span class="literal">null</span>,</span><br><span class="line">           enable: <span class="literal">false</span>,</span><br><span class="line">       &#125;;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">let</span> nativeBrigge = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">const</span> callback = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">const</span> bridgeAndroid = <span class="built_in">window</span>.bridgeAndroid;</span><br><span class="line">       <span class="keyword">const</span> bridgeIOS = <span class="built_in">window</span>.bridgeIOS;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> (bridgeAndroid) &#123;</span><br><span class="line">           nativeBrigge = bridgeAndroid;</span><br><span class="line">           result.pf = <span class="string">&#x27;android&#x27;</span>;</span><br><span class="line">           result.enable = <span class="literal">true</span>;</span><br><span class="line">       &#125; <span class="keyword">else</span> <span class="keyword">if</span> (bridgeIOS) &#123;</span><br><span class="line">           nativeBrigge = bridgeIOS;</span><br><span class="line">           result.pf = <span class="string">&#x27;ios&#x27;</span>;</span><br><span class="line">           result.enable = <span class="literal">true</span>;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">const</span> lastCallId = <span class="built_in">Date</span>.now();</span><br><span class="line"></span><br><span class="line">       <span class="function"><span class="keyword">function</span> <span class="title">initCallbackId</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="string">`birdge:<span class="subst">$&#123;lastCallId&#125;</span>`</span>;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="comment">// js 调用native方法</span></span><br><span class="line">       <span class="function"><span class="keyword">function</span> <span class="title">call</span>(<span class="params"><span class="built_in">module</span>, params, success, failure, once = <span class="literal">true</span></span>) </span>&#123;</span><br><span class="line">           <span class="keyword">const</span> callId = initCallbackId();</span><br><span class="line">           callback[callId] = &#123;</span><br><span class="line">               <span class="built_in">module</span>,</span><br><span class="line">               params,</span><br><span class="line">               success,</span><br><span class="line">               failure,</span><br><span class="line">               once,</span><br><span class="line">           &#125;;</span><br><span class="line">           <span class="keyword">const</span> data = <span class="built_in">JSON</span>.stringify(&#123; <span class="built_in">module</span>, params, callId &#125;);</span><br><span class="line">           <span class="keyword">if</span> (result.pf === <span class="string">&#x27;android&#x27;</span>) &#123;</span><br><span class="line">               nativeBrigge.call(data);</span><br><span class="line">           &#125; <span class="keyword">else</span> <span class="keyword">if</span> (result.pf === <span class="string">&#x27;ios&#x27;</span>) &#123;</span><br><span class="line">               nativeBrigge.postMessage(data);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="comment">// native调用js代码</span></span><br><span class="line">       <span class="function"><span class="keyword">function</span> <span class="title">response</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">           <span class="keyword">const</span> &#123; callId, erroCode, error, data &#125; = params;</span><br><span class="line">           <span class="keyword">const</span> item = callback[callId];</span><br><span class="line">           <span class="keyword">if</span> (!item) <span class="keyword">return</span>;</span><br><span class="line">           <span class="keyword">const</span> &#123; success, failure, once &#125; = item;</span><br><span class="line">           <span class="keyword">if</span> (erroCode === -<span class="number">1</span>) &#123;</span><br><span class="line">               failure(error);</span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">               success(data);</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">if</span> (once) &#123;</span><br><span class="line">               <span class="keyword">delete</span> callback[callId];</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">return</span> (<span class="built_in">window</span>.bridge = bridge);</span><br><span class="line">   &#125;)();</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%85%B6%E4%BB%96/http/08-15-http%E4%B9%8Bcors/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="浅笑整个夏季">
+      <meta itemprop="description" content="何以解忧， 唯有暴富">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浅笑整个夏季">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%85%B6%E4%BB%96/http/08-15-http%E4%B9%8Bcors/" class="post-title-link" itemprop="url">http-cors</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-15 18:15:36" itemprop="dateCreated datePublished" datetime="2021-08-15T18:15:36+08:00">2021-08-15</time>
+            </span>
+          <!--
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/http/" itemprop="url" rel="index"><span itemprop="name">http</span></a>
+                </span>
+            </span>
+            -->
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="浏览器的简单请求和非简单请求"><a href="#浏览器的简单请求和非简单请求" class="headerlink" title="浏览器的简单请求和非简单请求"></a>浏览器的简单请求和非简单请求</h3><ul>
+<li>简单请求：<br>  1, 请求方法为HEAD、GET、OST<ol start="2">
+<li>HTTP头信息不超出以下几个字段<br>Accept / Accept-Language / Content-Language / Last-Event-ID<br>Content-Type：只限于三个值application/x-www-form-urlencoded、multipart/form-data、text/plain</li>
+</ol>
+</li>
+</ul>
+<p>针对简单请求浏览器的请求流程是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">st&#x3D;&gt;start: start</span><br><span class="line">op&#x3D;&gt;operation: 简单请求</span><br><span class="line">sub1&#x3D;&gt;subroutine: 浏览器为请求添加origin字段，origin字段代表本次请求来自那(协议 + 域名 + 端口)</span><br><span class="line">cond&#x3D;&gt;condition: 是否在同一源内</span><br><span class="line">sub2&#x3D;&gt;subroutine: 在同一源内, 服务器在响应头中添加 Access-Control-Allow-Origin&#x2F;Access-Control-Expose-Headers&#x2F;Access-Control-Allow-Credentials&#x2F;Content-Type字段</span><br><span class="line">sub3&#x3D;&gt;subroutine: 不在同一源内，报错</span><br><span class="line">end&#x3D;&gt;end: 请求结束</span><br><span class="line">e&#x3D;&gt;end</span><br><span class="line">st-&gt;op-&gt;sub1-&gt;cond</span><br><span class="line">cond(yes)-&gt;sub2-&gt;end</span><br><span class="line">cond(no)-&gt;sub3-&gt;end</span><br></pre></td></tr></table></figure>
 
 <ol>
-<li>webrtc的终端设备，负责音视频采集、编解码、NAT 穿越、音视频数据传输</li>
-<li>Signal 服务器，负责信令处理，如加入房间、离开房间、媒体协商消息的传递等</li>
-<li>STUN/TURN 服务器，负责获取 WebRTC 终端在公网的 IP 地址，以及 NAT 穿越失败后的数据中转。</li>
+<li><p>Access-Control-Allow-Origin： 它的值要么是请求时Origin字段的值，要么是一个*，表示接受任意域名的请求</p>
+</li>
+<li><p>Access-Control-Allow-Credentials: 它的值是一个布尔值，表示是否允许发送Cookie</p>
+</li>
+<li><p>Access-Control-Expose-Headers: 该字段可选。CORS请求时，XMLHttpRequest对象的getResponseHeader()方法只能拿到6个基本字段：Cache-Control、Content-Language、Content-Type、Expires、Last-Modified、Pragma。如果想拿到其他字段，就必须在Access-Control-Expose-Headers里面指定。上面的例子指定，getResponseHeader(‘FooBar’)可以返回FooBar字段</p>
+</li>
+<li><p>Content-Type: text/html; charset=utf-8</p>
+</li>
 </ol>
-<h4 id="音视频采集的基本概念"><a href="#音视频采集的基本概念" class="headerlink" title="音视频采集的基本概念"></a>音视频采集的基本概念</h4><ul>
-<li>摄像头： 用于采集图像和视频</li>
-<li>帧率： 摄像头一秒钟采集图像的次数</li>
-<li>分辨率: 屏幕分辨率</li>
-<li>宽高比： 分辨率的宽高比</li>
-<li>麦克风: 用于采集音频</li>
-<li>轨：借鉴火车的轨道概念， 在多媒体中表示每条轨数据都是独立的</li>
-<li>流： 分为媒体流和数据流（媒体流中可存放多个音频轨和视频轨； 数据流中可以存放多个数据流）</li>
+<h3 id="非简单请求"><a href="#非简单请求" class="headerlink" title="非简单请求"></a>非简单请求</h3><h4 id="预检请求"><a href="#预检请求" class="headerlink" title="预检请求"></a>预检请求</h4> <p style="color: red;"> 非简单请求是那种对服务器有特殊要求的请求，比如请求方法是PUT或DELETE，或者Content-Type字段的类型是application/json。</p>
+
+<p>非简单请求的CORS请求，会在正式通信之前，增加一次HTTP查询请求，称为”预检”请求（preflight）。</p>
+<p>浏览器先询问服务器，当前网页所在的域名是否在服务器的许可名单之中，以及可以使用哪些HTTP动词和头信息字段。只有得到肯定答复，浏览器才会发出正式的XMLHttpRequest请求，否则就报错。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> url = <span class="string">&#x27;http://api.alice.com/cors&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">&#x27;PUT&#x27;</span>, url, <span class="literal">true</span>);</span><br><span class="line">xhr.setRequestHeader(<span class="string">&#x27;X-Custom-Header&#x27;</span>, <span class="string">&#x27;value&#x27;</span>);</span><br><span class="line">xhr.send();</span><br></pre></td></tr></table></figure>
+
+
+<p>OPTIONS: 用来作为预捡请求</p>
+<p>Access-Control-Request-Method： 该字段是必须的，用来列出浏览器的CORS请求会用到哪些HTTP方法，上例是PUT。<br>Access-Control-Request-Headers： 该字段是一个逗号分隔的字符串，指定浏览器CORS请求会额外发送的头信息字段，上例是X-Custom-Header。<br>Origin: 表示请求来自哪个源</p>
+<h4 id="预检请求的回应"><a href="#预检请求的回应" class="headerlink" title="预检请求的回应"></a>预检请求的回应</h4><p>服务器收到”预检”请求以后，检查了Origin、Access-Control-Request-Method和Access-Control-Request-Headers字段以后，确认允许跨源请求，就可以做出回应。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Date: Mon, 01 Dec 2008 01:15:39 GMT</span><br><span class="line">Server: Apache/2.0.61 (Unix)</span><br><span class="line">Access-Control-Allow-Origin: http://api.bob.com</span><br><span class="line">Access-Control-Allow-Methods: GET, POST, PUT</span><br><span class="line">Access-Control-Allow-Headers: X-Custom-Header</span><br><span class="line">Content-Type: text/html; charset=utf-8</span><br><span class="line">Content-Encoding: gzip</span><br><span class="line">Content-Length: 0</span><br><span class="line">Keep-Alive: timeout=2, max=100</span><br><span class="line">Connection: Keep-Alive</span><br><span class="line">Content-Type: text/plain</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上面的HTTP回应中，关键的是Access-Control-Allow-Origin字段，表示<a target="_blank" rel="noopener" href="http://api.bob.com可以请求数据。该字段也可以设为星号，表示同意任意跨源请求。">http://api.bob.com可以请求数据。该字段也可以设为星号，表示同意任意跨源请求。</a></p>
+<p><code>Access-Control-Allow-Origin: *</code></p>
+<p>如果服务器否定了”预检”请求，会返回一个正常的HTTP回应，但是没有任何CORS相关的头信息字段。这时，浏览器就会认定，服务器不同意预检请求，因此触发一个错误，被XMLHttpRequest对象的onerror回调函数捕获。控制台会打印出如下的报错信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">XMLHttpRequest cannot load http:&#x2F;&#x2F;api.alice.com.</span><br><span class="line">Origin http:&#x2F;&#x2F;api.bob.com is not allowed by Access-Control-Allow-Origin.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>服务器回应的其他CORS相关字段如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Access-Control-Allow-Methods: GET, POST, PUT</span><br><span class="line">Access-Control-Allow-Headers: X-Custom-Header</span><br><span class="line">Access-Control-Allow-Credentials: true</span><br><span class="line">Access-Control-Max-Age: 1728000</span><br></pre></td></tr></table></figure>
+
+
+<ol>
+<li>Access-Control-Allow-Methods </li>
+</ol>
+<p>该字段必需，它的值是逗号分隔的一个字符串，表明服务器支持的所有跨域请求的方法。注意，返回的是所有支持的方法，而不单是浏览器请求的那个方法。这是为了避免多次”预检”请求</p>
+<ol start="2">
+<li>Access-Control-Allow-Headers</li>
+</ol>
+<p>如果浏览器请求包括Access-Control-Request-Headers字段，则Access-Control-Allow-Headers字段是必需的。它也是一个逗号分隔的字符串，表明服务器支持的所有头信息字段，不限于浏览器在”预检”中请求的字段。</p>
+<ol start="3">
+<li>Access-Control-Allow-Credentials</li>
+</ol>
+<p>该字段与简单请求时的含义相同。</p>
+<ol start="4">
+<li>Access-Control-Max-Age</li>
+</ol>
+<p>该字段可选，用来指定本次预检请求的有效期，单位为秒。上面结果中，有效期是20天（1728000秒），即允许缓存该条回应1728000秒（即20天），在此期间，不用发出另一条预检请求。</p>
+<h4 id="浏览器的正常请求和回应"><a href="#浏览器的正常请求和回应" class="headerlink" title="浏览器的正常请求和回应"></a>浏览器的正常请求和回应</h4><p>一旦服务器通过了”预检”请求，以后每次浏览器正常的CORS请求，就都跟简单请求一样，会有一个Origin头信息字段。服务器的回应，也都会有一个Access-Control-Allow-Origin头信息字段。</p>
+<p><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2016/04/cors.html">参考链接</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%85%B6%E4%BB%96/nginx/08-14-nginx/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="浅笑整个夏季">
+      <meta itemprop="description" content="何以解忧， 唯有暴富">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浅笑整个夏季">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%85%B6%E4%BB%96/nginx/08-14-nginx/" class="post-title-link" itemprop="url">nginx</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-14 23:09:27" itemprop="dateCreated datePublished" datetime="2021-08-14T23:09:27+08:00">2021-08-14</time>
+            </span>
+          <!--
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nginx/" itemprop="url" rel="index"><span itemprop="name">Nginx</span></a>
+                </span>
+            </span>
+            -->
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>194</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h4><h4 id="nginx命令"><a href="#nginx命令" class="headerlink" title="nginx命令"></a>nginx命令</h4><ul>
+<li>nginx -s stop // 停止</li>
+<li>nginx -s quit //退出</li>
+<li>nginx -s reload // 重新加载配置文件</li>
+<li>ps aux|gre nginx // 查看nginx进程</li>
 </ul>
+<p>/usr/local/etc/nginx/nginx.conf （配置文件路径）<br>/usr/local/var/www （服务器默认路径）<br>/usr/local/Cellar/nginx/1.6.2 （貌似是安装路径）</p>
 
       
     </div>
@@ -1011,7 +788,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/nodejs/05-31-nodejs%E4%BB%8B%E7%BB%8D(2)/">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%85%B6%E4%BB%96/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/08-13-js%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F(2)-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1025,7 +802,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/nodejs/05-31-nodejs%E4%BB%8B%E7%BB%8D(2)/" class="post-title-link" itemprop="url">nodejs介绍</a>
+            <a href="/%E5%85%B6%E4%BB%96/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/08-13-js%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F(2)-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">js设计模式(2)-观察者模式</a>
         </h2>
 
         <div class="post-meta">
@@ -1035,7 +812,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-05-31 16:25:32" itemprop="dateCreated datePublished" datetime="2021-05-31T16:25:32+08:00">2021-05-31</time>
+              <time title="创建时间：2021-08-13 13:41:51" itemprop="dateCreated datePublished" datetime="2021-08-13T13:41:51+08:00">2021-08-13</time>
             </span>
           <!--
             <span class="post-meta-item">
@@ -1044,7 +821,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/nodejs/" itemprop="url" rel="index"><span itemprop="name">NodeJs</span></a>
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
                 </span>
             </span>
             -->
@@ -1055,14 +832,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>205</span>
+              <span>2.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -1074,15 +851,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>ECMAScript、javascript、nodejs的区别</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/nodejs/05-31-nodejs%E4%BB%8B%E7%BB%8D(2)/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          <h3 id="发布订阅模式又叫观察者模式-它定义对象间的一种1对多的依赖关系-当一个对象的状态发生变化时，-所有依赖于它的对象都将得到通知"><a href="#发布订阅模式又叫观察者模式-它定义对象间的一种1对多的依赖关系-当一个对象的状态发生变化时，-所有依赖于它的对象都将得到通知" class="headerlink" title="发布订阅模式又叫观察者模式; 它定义对象间的一种1对多的依赖关系, 当一个对象的状态发生变化时， 所有依赖于它的对象都将得到通知"></a>发布订阅模式又叫观察者模式; 它定义对象间的一种1对多的依赖关系, 当一个对象的状态发生变化时， 所有依赖于它的对象都将得到通知</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.eventStack = [];</span><br><span class="line">        <span class="built_in">this</span>.eventId = <span class="number">1</span>;</span><br><span class="line">        <span class="built_in">this</span>.cacheStack = &#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">createdEventId</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.eventId++;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.eventId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">subscribe</span>(<span class="params">eventName, callback, once = <span class="literal">false</span></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> id = <span class="built_in">this</span>.createdEventId();</span><br><span class="line">        <span class="keyword">if</span> (!eventName) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;eventName must be provided&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.eventStack.push(&#123;</span><br><span class="line">            name: eventName,</span><br><span class="line">            fn: callback,</span><br><span class="line">            once,</span><br><span class="line">            eventId: id,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 先发布后订阅，防止事件丢失</span></span><br><span class="line">        <span class="keyword">const</span> fnList = <span class="built_in">this</span>.cacheStack[eventName];</span><br><span class="line">        <span class="keyword">if</span> (fnList &amp;&amp; fnList.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            fnList.forEach(<span class="function">(<span class="params">fn</span>) =&gt;</span> &#123;</span><br><span class="line">                fn();</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">unsubscribe</span>(<span class="params">eventId</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> index = <span class="built_in">this</span>.eventStack.findIndex(<span class="function">(<span class="params">item</span>) =&gt;</span> item.id === eventId);</span><br><span class="line">        <span class="keyword">if</span> (index !== -<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="built_in">this</span>.eventStack.splice(index, <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">getHandlerCallBack</span>(<span class="params">eventName</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.eventStack.filter(<span class="function">(<span class="params">item</span>) =&gt;</span> item.name === eventName);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">cached</span>(<span class="params">eventName, params</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">const</span> callback = <span class="built_in">this</span>.getHandlerCallBack(eventName);</span><br><span class="line">            callback.forEach(<span class="function">(<span class="params">&#123; fn &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">                fn.apply(fn, params);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">publish</span>(<span class="params">eventName, ...params</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> callBack = <span class="built_in">this</span>.getHandlerCallBack(eventName);</span><br><span class="line">        <span class="keyword">const</span> &#123; cacheStack &#125; = <span class="built_in">this</span>;</span><br><span class="line">        <span class="keyword">const</span> hasCallback = callBack.length &gt; <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 先发布后订阅，临时存储发布的事件和参数</span></span><br><span class="line">        <span class="keyword">if</span> (!hasCallback &amp;&amp; !cacheStack[eventName]) &#123;</span><br><span class="line">            <span class="built_in">this</span>.cacheStack[eventName] = [];</span><br><span class="line">        &#125;</span><br><span class="line">        callBack.forEach(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">const</span> &#123; fn, once, eventId &#125; = item;</span><br><span class="line">            fn.apply(fn, params);</span><br><span class="line">            <span class="keyword">if</span> (once) &#123;</span><br><span class="line">                <span class="built_in">this</span>.unsubscribe(eventId);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!hasCallback) &#123;</span><br><span class="line">            <span class="keyword">const</span> originList = <span class="built_in">this</span>.cacheStack[eventName];</span><br><span class="line">            <span class="built_in">this</span>.cacheStack[eventName] = originList.concat(<span class="built_in">this</span>.cached(eventName, params));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> observer = <span class="keyword">new</span> Observer();</span><br><span class="line"></span><br><span class="line">observer.publish(<span class="string">&#x27;stopSub&#x27;</span>, &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">2</span> &#125;);</span><br><span class="line">observer.publish(<span class="string">&#x27;stopSub&#x27;</span>, &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">3</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    observer.subscribe(<span class="string">&#x27;startSub&#x27;</span>, <span class="function">(<span class="params">params</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;startSub&#x27;</span>, params);</span><br><span class="line">    &#125;);</span><br><span class="line">    observer.subscribe(<span class="string">&#x27;stopSub&#x27;</span>, <span class="function">(<span class="params">params</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;stopSub&#x27;</span>, params);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ol>
+<li>发布订阅模式可以使代码解耦，满足开放封闭原则</li>
+<li>当过多的使用发布订阅模式，如果订阅消息始终都没有触发，则订阅者一直保存在内存中。</li>
+</ol>
+
       
     </div>
 
@@ -1103,7 +879,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/nodejs/05-31-nvm%E6%8E%A7%E5%88%B6node%E7%89%88%E6%9C%AC(1)/">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%85%B6%E4%BB%96/webrtc/webrtc%E4%B9%8Bmediadevices/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1117,7 +893,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/nodejs/05-31-nvm%E6%8E%A7%E5%88%B6node%E7%89%88%E6%9C%AC(1)/" class="post-title-link" itemprop="url">nvm控制node版本</a>
+            <a href="/%E5%85%B6%E4%BB%96/webrtc/webrtc%E4%B9%8Bmediadevices/" class="post-title-link" itemprop="url">webrtc之mediaDevices</a>
         </h2>
 
         <div class="post-meta">
@@ -1127,7 +903,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-05-31 16:19:58" itemprop="dateCreated datePublished" datetime="2021-05-31T16:19:58+08:00">2021-05-31</time>
+              <time title="创建时间：2021-08-12 10:30:57" itemprop="dateCreated datePublished" datetime="2021-08-12T10:30:57+08:00">2021-08-12</time>
             </span>
           <!--
             <span class="post-meta-item">
@@ -1136,7 +912,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/nodejs/" itemprop="url" rel="index"><span itemprop="name">NodeJs</span></a>
+                  <a href="/categories/webrtc/" itemprop="url" rel="index"><span itemprop="name">webrtc</span></a>
                 </span>
             </span>
             -->
@@ -1147,7 +923,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>93</span>
+              <span>1.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -1166,14 +942,221 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>nvm 控制node 版本</p>
-<p>nvm:  (github地址)[<a target="_blank" rel="noopener" href="https://github.com/nvm-sh/nvm]">https://github.com/nvm-sh/nvm]</a></p>
-<p>commender list:</p>
+          <h3 id="浏览器采集音视频流"><a href="#浏览器采集音视频流" class="headerlink" title="浏览器采集音视频流"></a>浏览器采集音视频流</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getLocalMediaStream</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="keyword">let</span> localStream = <span class="literal">null</span></span><br><span class="line"> <span class="keyword">return</span> navigator.mediaDevices.getUserMedia(constraints)</span><br><span class="line">  .then(<span class="function">(<span class="params">stream</span>) =&gt;</span> &#123;</span><br><span class="line">    localStream = stream</span><br><span class="line">  &#125;,</span><br><span class="line">  (error) =&gt; &#123;</span><br><span class="line">   <span class="built_in">console</span>.log(error)</span><br><span class="line">  &#125;</span><br><span class="line"> )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
 <ul>
-<li>nvm list</li>
-<li>nvm use</li>
-<li>nvm install</li>
+<li><p>navigator.mediaDevices.getUserMedia 返回的是promise对象</p>
+</li>
+<li><p>getUserMedia接收入参为MediaStreamConstraints</p>
+</li>
 </ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mediaStreamContrains = &#123;</span><br><span class="line"> video: <span class="literal">true</span>, <span class="comment">// 采集视频</span></span><br><span class="line"> audio: <span class="literal">true</span>, <span class="comment">// 采集音频</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mediaStreamContrains = &#123;</span><br><span class="line"> video: &#123;</span><br><span class="line">  frameRate: &#123;<span class="attr">min</span>: <span class="number">20</span>&#125;, </span><br><span class="line">  width: &#123;<span class="attr">min</span>: <span class="number">640</span>, <span class="attr">ideal</span>: <span class="number">1280</span>&#125;,</span><br><span class="line">  height: &#123;<span class="attr">min</span>: <span class="number">360</span>, <span class="attr">ideal</span>: <span class="number">720</span>&#125;,</span><br><span class="line">  aspectRatio: <span class="number">16</span>/<span class="number">9</span></span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="../../static/webrtc参数.webp">
+
+<h4 id="如何实现将浏览器采集的音视频流渲染到页面上"><a href="#如何实现将浏览器采集的音视频流渲染到页面上" class="headerlink" title="如何实现将浏览器采集的音视频流渲染到页面上"></a>如何实现将浏览器采集的音视频流渲染到页面上</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">initVideo = <span class="function">(<span class="params">srcObject</span>) =&gt;</span> &#123;</span><br><span class="line"> <span class="keyword">const</span> video = <span class="built_in">document</span>.createElement(<span class="string">&#x27;video&#x27;</span>);</span><br><span class="line"> video.srcObject = srcObject;</span><br><span class="line"> <span class="built_in">document</span>.body.appendChild(video);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getMediaStream = <span class="function">() =&gt;</span> &#123;</span><br><span class="line"> <span class="keyword">const</span> constraints = &#123;</span><br><span class="line">   video: <span class="literal">true</span>,</span><br><span class="line">   audio: <span class="literal">true</span></span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">let</span> localStream = <span class="literal">null</span>;</span><br><span class="line"> <span class="keyword">return</span> navigator.mediaDevices.getUserMedia(constraints).then(</span><br><span class="line">  (mediaStream) =&gt; &#123;</span><br><span class="line">   localStream = mediaStream</span><br><span class="line">  &#125;,</span><br><span class="line"> (error) =&gt; &#123;</span><br><span class="line">   <span class="built_in">console</span>.error(error)</span><br><span class="line">  &#125;)</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">initLocalStream = <span class="keyword">async</span>() =&gt; &#123;</span><br><span class="line"> <span class="keyword">const</span> localStream = <span class="keyword">await</span> getMediaStream()</span><br><span class="line"> initVideo(localStream)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%85%B6%E4%BB%96/http/08-11-http%E4%B9%8B%E8%B7%A8%E5%9F%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="浅笑整个夏季">
+      <meta itemprop="description" content="何以解忧， 唯有暴富">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浅笑整个夏季">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%85%B6%E4%BB%96/http/08-11-http%E4%B9%8B%E8%B7%A8%E5%9F%9F/" class="post-title-link" itemprop="url">http-cors</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-11 17:37:00" itemprop="dateCreated datePublished" datetime="2021-08-11T17:37:00+08:00">2021-08-11</time>
+            </span>
+          <!--
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/http/" itemprop="url" rel="index"><span itemprop="name">http</span></a>
+                </span>
+            </span>
+            -->
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000015597029">参考链接</a></p>
+<h3 id="浏览器的同源策略"><a href="#浏览器的同源策略" class="headerlink" title="浏览器的同源策略"></a>浏览器的同源策略</h3><p>两个url的protocol、port(如果有指定的话)和 host 都相同的话</p>
+<h4 id="源的更改"><a href="#源的更改" class="headerlink" title="源的更改"></a>源的更改</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 假设 http://store.company.com/dir/other.html 文档中的一个脚本执行以下语句</span></span><br><span class="line"> <span class="built_in">document</span>.domain =<span class="string">&#x27;company.info&#x27;</span></span><br><span class="line"> <span class="comment">// 这条语句执行之后，页面将会成功地通过与 http://company.com/dir/page.html 的同源检测</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="解决跨域的方式"><a href="#解决跨域的方式" class="headerlink" title="解决跨域的方式"></a>解决跨域的方式</h4><h5 id="JsonP-请求连接中加上请求成功之后的callback-get请求"><a href="#JsonP-请求连接中加上请求成功之后的callback-get请求" class="headerlink" title="JsonP: 请求连接中加上请求成功之后的callback(get请求)"></a>JsonP: 请求连接中加上请求成功之后的callback(get请求)</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> request = <span class="function">(<span class="params">url, urlData</span>) =&gt;</span> &#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">reslove, reject</span>) =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">const</span> handlerData = <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> keys = <span class="built_in">Object</span>.keys(data)</span><br><span class="line">    <span class="keyword">return</span> keys.reduce(<span class="function">(<span class="params">pre, key, index</span>) =&gt;</span> &#123;</span><br><span class="line">     <span class="keyword">const</span> value = data[key];</span><br><span class="line">     <span class="keyword">const</span> preValue = pre || <span class="string">&#x27;&#x27;</span></span><br><span class="line">     <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;preValue&#125;</span><span class="subst">$&#123;preValue ? <span class="string">&#x27;&amp;&#x27;</span> : <span class="string">&#x27;&#x27;</span>&#125;</span><span class="subst">$&#123;key&#125;</span>=<span class="subst">$&#123;value&#125;</span>`</span></span><br><span class="line">    &#125;, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">const</span> script = <span class="built_in">document</span>.createElement(<span class="string">&#x27;script&#x27;</span>)</span><br><span class="line"> <span class="comment">// 接口返回的参数</span></span><br><span class="line"> <span class="built_in">window</span>.jsonpcb = <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(res)</span><br><span class="line">  resolve(res)</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> script.src = <span class="string">`<span class="subst">$&#123;url&#125;</span>?<span class="subst">$&#123;handlerData(urlData)&#125;</span>&amp;cd=jsonpcb`</span></span><br><span class="line"> <span class="built_in">document</span>.appendChild(script)</span><br><span class="line"></span><br><span class="line"> &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="空iframe和form"><a href="#空iframe和form" class="headerlink" title="空iframe和form"></a>空iframe和form</h4><h4 id="Access-Control-Allow-Origin："><a href="#Access-Control-Allow-Origin：" class="headerlink" title="Access-Control-Allow-Origin：*"></a>Access-Control-Allow-Origin：*</h4><h4 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a>nginx配置</h4><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line"> listen: 9090;</span><br><span class="line"> <span class="attribute">server_name</span> localhost;</span><br><span class="line"> <span class="attribute">location</span><span class="regexp"> ^~</span> /api &#123;</span><br><span class="line">       <span class="attribute">proxy_pass</span> http://localhost:9871;</span><br><span class="line">   &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="cors（浏览器自己完成）"><a href="#cors（浏览器自己完成）" class="headerlink" title="cors（浏览器自己完成）"></a>cors（浏览器自己完成）</h4>
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%85%B6%E4%BB%96/http/08-11-http%E4%B9%8Bcookies/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="浅笑整个夏季">
+      <meta itemprop="description" content="何以解忧， 唯有暴富">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浅笑整个夏季">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%85%B6%E4%BB%96/http/08-11-http%E4%B9%8Bcookies/" class="post-title-link" itemprop="url">http-cookies</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-11 16:16:44" itemprop="dateCreated datePublished" datetime="2021-08-11T16:16:44+08:00">2021-08-11</time>
+            </span>
+          <!--
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/http/" itemprop="url" rel="index"><span itemprop="name">http</span></a>
+                </span>
+            </span>
+            -->
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>613</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="什么是cookies"><a href="#什么是cookies" class="headerlink" title="什么是cookies"></a>什么是cookies</h3><p style="color: red;">服务器发送到用户浏览器并保存在本地的一小块数据, 他会在浏览器下次向同一服务器发起请求时被携带并发送到服务器上</p>
+
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><ol>
+<li>会话状态管理</li>
+<li>个性化设置</li>
+<li>浏览器行为跟踪</li>
+</ol>
+<h3 id="创建-cookies"><a href="#创建-cookies" class="headerlink" title="创建 cookies"></a>创建 cookies</h3><ul>
+<li><p>服务端:</p>
+  <p style="color:red;">服务器使用 set-Cookie发送Cookie信息</p>
+
+<p>  <code>set-Cookie: &lt;cookie名&gt;=&lt;cookie值&gt;</code></p>
+</li>
+<li><p>客户端：</p>
+<p>  <code>document.cookie = &#39;name=Jonh; &quot;;</code></p>
+</li>
+</ul>
+<h3 id="cookie的运行机制"><a href="#cookie的运行机制" class="headerlink" title="cookie的运行机制"></a>cookie的运行机制</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">st&#x3D;&gt;start: start</span><br><span class="line">op&#x3D;&gt;operation: 下一次发起http请求，浏览器会检查是否有cookie</span><br><span class="line">cond&#x3D;&gt;condition: Yes or No?</span><br><span class="line">e&#x3D;&gt;end</span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line">cond(no)-&gt;op</span><br></pre></td></tr></table></figure>
+
+<h3 id="cookie的格式"><a href="#cookie的格式" class="headerlink" title="cookie的格式"></a>cookie的格式</h3><ol>
+<li><p>document.cookie: 获取cookie</p>
+</li>
+<li><p>cookie的属性：<br> a. expires: 设置cookie的有效时间<br> b. domain: 域名<br> c. path: 路径, domain + path决定哪些域名下的请求会被加上cookie<br> d. httpOnly: 设置cookie是否能通过js去访问<br> e. secure: 设置cookie在确保安全的请求中才会发送,当请求时https或者其他安全协议时，包含secure选项的cookie才能被发送到服务器</p>
+</li>
+</ol>
 
       
     </div>
@@ -1194,7 +1177,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1260,19 +1243,19 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-count">73</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1307,7 +1290,7 @@
 <div class="copyright">
   
   &copy; 2015 – 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -1317,13 +1300,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">91k</span>
+    <span title="站点总字数">95k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:23</span>
+    <span title="站点阅读时长">1:27</span>
 </div>
 
         

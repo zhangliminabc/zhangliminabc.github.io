@@ -121,12 +121,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">15</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">18</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">61</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">73</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -197,7 +197,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/page/" class="post-title-link" itemprop="url">前端知识框架总结</a>
+            <a href="/page/" class="post-title-link" itemprop="url">前端基础架构</a>
         </h2>
 
         <div class="post-meta">
@@ -207,7 +207,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-09-07 17:39:45" itemprop="dateCreated datePublished" datetime="2021-09-07T17:39:45+08:00">2021-09-07</time>
+              <time title="创建时间：2021-09-08 18:51:50" itemprop="dateCreated datePublished" datetime="2021-09-08T18:51:50+08:00">2021-09-08</time>
             </span>
 
           <br>
@@ -216,7 +216,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>693</span>
+              <span>1.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -235,14 +235,268 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="ECScript-ES5"><a href="#ECScript-ES5" class="headerlink" title="ECScript(ES5)"></a>ECScript(ES5)</h4><h6 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h6><p>js中的数据类型有基础类型和引用类型， 基础类型有 null, undifined, string, number, boolean, symbol</p>
-<p>引用类型有 object</p>
-<p>null： 表示人为设置的一个空对象，在内存中的表现是栈中的变量没有指向堆中的内存指针<br>undifined: 自然状态下的值，比如变量声明未赋值，或者函数定义了函数的形参但是没有实参，访问不存在的变量或者属性</p>
-<p>在内存中 基本类型是在栈内存中存储的值，对于引用类型在栈内存中存储的是指向堆内存的指针</p>
-<p>平时一般使用typeof 去判断基础类型的数据类型<br>用 instanceof去判断引用类型的数据类型</p>
-<p>instanceof : 判断对象的原型链中是不是能找到类型的 prototype。</p>
-<h6 id="js运算符"><a href="#js运算符" class="headerlink" title="js运算符"></a>js运算符</h6><h6 id="原型和原型链已经如何实现继承"><a href="#原型和原型链已经如何实现继承" class="headerlink" title="原型和原型链已经如何实现继承"></a>原型和原型链已经如何实现继承</h6><h6 id="作用域和作用域链以及什么是闭包"><a href="#作用域和作用域链以及什么是闭包" class="headerlink" title="作用域和作用域链以及什么是闭包"></a>作用域和作用域链以及什么是闭包</h6><h6 id="this指向"><a href="#this指向" class="headerlink" title="this指向"></a>this指向</h6><h6 id="js原型链和作用域的查找规则"><a href="#js原型链和作用域的查找规则" class="headerlink" title="js原型链和作用域的查找规则"></a>js原型链和作用域的查找规则</h6><h6 id="js的垃圾回收"><a href="#js的垃圾回收" class="headerlink" title="js的垃圾回收"></a>js的垃圾回收</h6><h4 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h4><h6 id="浏览器的缓存"><a href="#浏览器的缓存" class="headerlink" title="浏览器的缓存"></a>浏览器的缓存</h6><h6 id="浏览器的渲染原理"><a href="#浏览器的渲染原理" class="headerlink" title="浏览器的渲染原理"></a>浏览器的渲染原理</h6><h6 id="浏览器的工具使用"><a href="#浏览器的工具使用" class="headerlink" title="浏览器的工具使用"></a>浏览器的工具使用</h6><h6 id="浏览器的同源策略"><a href="#浏览器的同源策略" class="headerlink" title="浏览器的同源策略"></a>浏览器的同源策略</h6><h6 id="浏览器的事件循环"><a href="#浏览器的事件循环" class="headerlink" title="浏览器的事件循环"></a>浏览器的事件循环</h6><h4 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h4><h6 id="事件冒泡和事件捕获的区别以及如何实现事件代理？以及如何阻止事件捕获或者冒泡"><a href="#事件冒泡和事件捕获的区别以及如何实现事件代理？以及如何阻止事件捕获或者冒泡" class="headerlink" title="事件冒泡和事件捕获的区别以及如何实现事件代理？以及如何阻止事件捕获或者冒泡"></a>事件冒泡和事件捕获的区别以及如何实现事件代理？以及如何阻止事件捕获或者冒泡</h6><h4 id="js的异步编程"><a href="#js的异步编程" class="headerlink" title="js的异步编程"></a>js的异步编程</h4><h6 id="怎么理解异步？"><a href="#怎么理解异步？" class="headerlink" title="怎么理解异步？"></a>怎么理解异步？</h6><h6 id="口述和实现一个简易版的promise"><a href="#口述和实现一个简易版的promise" class="headerlink" title="口述和实现一个简易版的promise"></a>口述和实现一个简易版的promise</h6><h6 id="promise和-async-await的区别是啥"><a href="#promise和-async-await的区别是啥" class="headerlink" title="promise和 async/await的区别是啥"></a>promise和 async/await的区别是啥</h6><h6 id="promise的catch是如何实现的"><a href="#promise的catch是如何实现的" class="headerlink" title="promise的catch是如何实现的"></a>promise的catch是如何实现的</h6><h6 id="async-await的原理是什么？"><a href="#async-await的原理是什么？" class="headerlink" title="async/await的原理是什么？"></a>async/await的原理是什么？</h6><h4 id="http"><a href="#http" class="headerlink" title="http"></a>http</h4><h6 id="什么叫跨域以及如何解决跨域"><a href="#什么叫跨域以及如何解决跨域" class="headerlink" title="什么叫跨域以及如何解决跨域"></a>什么叫跨域以及如何解决跨域</h6><h6 id="什么叫cors策略以及预检请求是什么"><a href="#什么叫cors策略以及预检请求是什么" class="headerlink" title="什么叫cors策略以及预检请求是什么"></a>什么叫cors策略以及预检请求是什么</h6><h6 id="常见的请求方式是什么"><a href="#常见的请求方式是什么" class="headerlink" title="常见的请求方式是什么"></a>常见的请求方式是什么</h6><h6 id="websock的原理是什么？为什么能长久链接"><a href="#websock的原理是什么？为什么能长久链接" class="headerlink" title="websock的原理是什么？为什么能长久链接"></a>websock的原理是什么？为什么能长久链接</h6><p>######</p>
-<h4 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h4><h6 id="webpack如何优化性能？"><a href="#webpack如何优化性能？" class="headerlink" title="webpack如何优化性能？"></a>webpack如何优化性能？</h6><h6 id="如何编写一个webpack的插件？"><a href="#如何编写一个webpack的插件？" class="headerlink" title="如何编写一个webpack的插件？"></a>如何编写一个webpack的插件？</h6><h6 id="如何使用webpack进行文件的分类？"><a href="#如何使用webpack进行文件的分类？" class="headerlink" title="如何使用webpack进行文件的分类？"></a>如何使用webpack进行文件的分类？</h6><h4 id="框架-vue"><a href="#框架-vue" class="headerlink" title="框架(vue)"></a>框架(vue)</h4>
+          <h4 id="ES5"><a href="#ES5" class="headerlink" title="ES5"></a>ES5</h4><ol>
+<li>JS中的数据类型有哪些？ 怎么去判断数据类型 ？</li>
+<li>js中的继承有哪些？ 以及如何实现自定义的继承？以及各自的优缺点？</li>
+<li>js中的原型链是什么？</li>
+<li>js中的this指向，以及和箭头函数中的this指向有何不同？</li>
+<li>js中什么叫闭包，以及在实际开发中遇到的场景？</li>
+<li>js中的作用域是什么以及作用域指什么？</li>
+<li>简述对异步的理解？ 以及如何实现异步？ 以及promise的实现流程？</li>
+<li>原型链和作用域的查找顺序？</li>
+<li>js中的类型转换？以及是如何转换的？</li>
+</ol>
+<h4 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h4><ol>
+<li>用过哪些新的特性</li>
+<li>let, const和var的区别</li>
+<li>genartor函数的使用场景</li>
+</ol>
+<h4 id="TS"><a href="#TS" class="headerlink" title="TS"></a>TS</h4><ol>
+<li>TS解决了什么问题？</li>
+<li>用了ts之后带来了什么样的收益</li>
+<li>ts的泛型有哪些</li>
+<li>interface和type的区别</li>
+<li>关于tslint的配置</li>
+</ol>
+<h4 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h4><ol>
+<li>js的事件代理是什么？ 以及事件捕获和事件冒泡的区别以及如何停止？</li>
+</ol>
+<h4 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h4><ol>
+<li>浏览器是如何渲染的？从输入url到页面展示是如何渲染的？</li>
+<li>浏览器缓存是如何工作的？ 以及有哪些浏览器缓存？</li>
+<li>localstorage 和 sessionstorage的区别？ 以及cookie和token的区别？</li>
+<li>如何实现跨页通信</li>
+<li>浏览器的事件循环是什么？</li>
+<li>webwork是什么？ 里面需要注意什么？</li>
+<li>websockt是什么？</li>
+</ol>
+<h4 id="http"><a href="#http" class="headerlink" title="http"></a>http</h4><ol>
+<li>http缓存有哪些以及对应的工作原理？</li>
+<li>什么是预检请求</li>
+<li>什么是跨域？ 以及如何解决跨域？</li>
+<li>什么是cors？ 以及什么是简单请求和复杂请求？</li>
+<li>http的状态码有哪些？</li>
+<li>什么叫同源策略？</li>
+<li>在跨域的状态下能拿到数据吗？</li>
+</ol>
+<h4 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h4><ol>
+<li>v-if和v-show的区别？</li>
+<li>组件中的data为什么是函数？ 那什么是函数什么时候是对象？</li>
+<li>vue中组件通信有哪几种以及各自的区别是什么？</li>
+<li>v-model的实现原理是什么？</li>
+<li>nexttick的实现流程是什么？</li>
+<li>vue依赖收集的原理是什么？ 以及vue数据响应式的原理是什么？以及vue3的数据响应式原理是什么？</li>
+<li>vue父子组件的生命周期的？</li>
+<li>vue框架的设计流程</li>
+<li>vue中的diff算法</li>
+<li>v-for中的key的作用</li>
+<li>vue使用虚拟dom的作用</li>
+<li>vue双向数据绑定原理</li>
+<li>vuex的流程</li>
+<li>vue如何开发自定义的插件</li>
+<li>vue中 computed 和 watcher的区别</li>
+<li>vue中插件和组件的区别</li>
+<li>vue。extends和组件的区别</li>
+<li>vue路由有哪些钩子函数</li>
+<li>vue路由是如何监听路由变化的</li>
+<li>vuerouter是如何获取路由上的参数的</li>
+<li>vue路由有哪些模式</li>
+</ol>
+<h4 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h4><ol>
+<li>如何做文件分离</li>
+<li>webpack如何做性能优化</li>
+<li>Tree Shaking的作用</li>
+<li>用过哪些插件</li>
+<li>loader的目的是什么？ 以及使用css-loader的目的？</li>
+<li>webpack和gulp的区别</li>
+</ol>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><ol>
+<li>webview的深层原理</li>
+<li>nginx的正向代理和反向代理？以及区别？</li>
+<li>发布订阅和观察者模式的区别</li>
+<li>对于图片如何做性能优化</li>
+<li>如何让你做性能优化你会从哪些方面去考虑？</li>
+<li>perfomance能得到什么？</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/%E6%80%A7%E8%83%BD/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="浅笑整个夏季">
+      <meta itemprop="description" content="何以解忧， 唯有暴富">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浅笑整个夏季">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/%E6%80%A7%E8%83%BD/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="post-title-link" itemprop="url">浏览器渲染的性能优化</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-09-07 16:49:15" itemprop="dateCreated datePublished" datetime="2021-09-07T16:49:15+08:00">2021-09-07</time>
+            </span>
+          <!--
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">性能优化</span></a>
+                </span>
+            </span>
+            -->
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>282</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="在浏览器中输入url到渲染的流程去优化"><a href="#在浏览器中输入url到渲染的流程去优化" class="headerlink" title="在浏览器中输入url到渲染的流程去优化"></a>在浏览器中输入url到渲染的流程去优化</h4><ol>
+<li>域名解析: DNS根据对于的域名解析找到对应的ip地址</li>
+<li>TCP的三次握手</li>
+<li>浏览器拿到响应文件后开始解析</li>
+</ol>
+<h6 id="dns预解析"><a href="#dns预解析" class="headerlink" title="dns预解析"></a>dns预解析</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">&quot;dns-prefetch&quot;</span> href=<span class="string">&quot;//zhanglimin.github.io&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<h6 id="资源预加载"><a href="#资源预加载" class="headerlink" title="资源预加载"></a>资源预加载</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">&quot;preload&quot;</span> href=<span class="string">&quot;http://example.com&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="从业务上去优化"><a href="#从业务上去优化" class="headerlink" title="从业务上去优化"></a>从业务上去优化</h4><h6 id="防抖和节流"><a href="#防抖和节流" class="headerlink" title="防抖和节流"></a>防抖和节流</h6><p>节流： 在一定时间内触发一次<br>防抖：在一定时间内不在触发才执行</p>
+<h6 id="图片的赖加载"><a href="#图片的赖加载" class="headerlink" title="图片的赖加载"></a>图片的赖加载</h6><h6 id="图片的预加载"><a href="#图片的预加载" class="headerlink" title="图片的预加载"></a>图片的预加载</h6>
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/%E5%B7%A5%E7%A8%8B%E5%8C%96/%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="浅笑整个夏季">
+      <meta itemprop="description" content="何以解忧， 唯有暴富">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浅笑整个夏季">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/%E5%B7%A5%E7%A8%8B%E5%8C%96/%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7/" class="post-title-link" itemprop="url">前端监控</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-09-06 18:33:37" itemprop="dateCreated datePublished" datetime="2021-09-06T18:33:37+08:00">2021-09-06</time>
+            </span>
+          <!--
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A1%B5%E9%9D%A2%E7%9B%91%E6%8E%A7/" itemprop="url" rel="index"><span itemprop="name">页面监控</span></a>
+                </span>
+            </span>
+            -->
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>12</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="页面埋点"><a href="#页面埋点" class="headerlink" title="页面埋点"></a>页面埋点</h4><h4 id="性能监控"><a href="#性能监控" class="headerlink" title="性能监控"></a>性能监控</h4><h4 id="用户交互"><a href="#用户交互" class="headerlink" title="用户交互"></a>用户交互</h4>
       
     </div>
 
@@ -346,6 +600,129 @@
 <p>如果视图窗口375px， 那么1vw = 3.75px</p>
 <p>可以通过 postcss-px-to-viewport: 将px值转为vw/vh值</p>
 <h6 id="媒体查询适应"><a href="#媒体查询适应" class="headerlink" title="媒体查询适应"></a>媒体查询适应</h6><h6 id="flex-rem"><a href="#flex-rem" class="headerlink" title="flex + rem"></a>flex + rem</h6>
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/%E5%B7%A5%E7%A8%8B%E5%8C%96/webpack%E6%B7%B1%E5%85%A5(1)-%E5%B8%B8%E8%A7%81%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="浅笑整个夏季">
+      <meta itemprop="description" content="何以解忧， 唯有暴富">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浅笑整个夏季">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/%E5%B7%A5%E7%A8%8B%E5%8C%96/webpack%E6%B7%B1%E5%85%A5(1)-%E5%B8%B8%E8%A7%81%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">webpack深入之基础配置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-09-02 08:31:34" itemprop="dateCreated datePublished" datetime="2021-09-02T08:31:34+08:00">2021-09-02</time>
+            </span>
+          <!--
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webpack/" itemprop="url" rel="index"><span itemprop="name">webpack</span></a>
+                </span>
+            </span>
+            -->
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="入口配置"><a href="#入口配置" class="headerlink" title="入口配置"></a>入口配置</h4><h6 id="单入口文件"><a href="#单入口文件" class="headerlink" title="单入口文件"></a>单入口文件</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">module</span>.export = &#123;</span><br><span class="line"> entry: string | [string]</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h6 id="对象语法"><a href="#对象语法" class="headerlink" title="对象语法"></a>对象语法</h6><p>dependOn: 当前入口所依赖的入口。它们必须在该入口被加载前被加载。<br>filename: 指定要输出的文件名称。<br>import: 启动时需加载的模块。<br>library: 指定 library 选项，为当前 entry 构建一个 library。<br>runtime: 运行时 chunk 的名字。如果设置了，就会创建一个新的运行时 chunk。在 webpack 5.43.0 之后可将其设为 false 以避免一个新的运行时 chunk。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.export = &#123;</span><br><span class="line"> entry: &#123;</span><br><span class="line">  app: <span class="string">&#x27;./app.js&#x27;</span>,</span><br><span class="line">  verdor: &#123;</span><br><span class="line">   dependOn: <span class="string">&#x27;app&#x27;</span>,</span><br><span class="line">   <span class="keyword">import</span>: <span class="string">&#x27;src/app.js&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="分离文件"><a href="#分离文件" class="headerlink" title="分离文件"></a>分离文件</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.export = &#123;</span><br><span class="line"> entry: &#123;</span><br><span class="line">  app: <span class="string">&#x27;./app.js&#x27;</span>,</span><br><span class="line">  verdor: <span class="string">&#x27;./verdor.js&#x27;</span></span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="输入-output-设置为对象输入"><a href="#输入-output-设置为对象输入" class="headerlink" title="输入(output): 设置为对象输入"></a>输入(output): 设置为对象输入</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.export = &#123; </span><br><span class="line"> output: &#123;</span><br><span class="line">  filename:  <span class="string">&#x27;bundle.js&#x27;</span>,</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>多文件配置,使用占位符</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.export = &#123;</span><br><span class="line"> entry: &#123;</span><br><span class="line">   app: <span class="string">&#x27;./src/app.js&#x27;</span>,</span><br><span class="line">   search: <span class="string">&#x27;./src/search.js&#x27;</span>,</span><br><span class="line"> &#125;,</span><br><span class="line"> output: &#123;</span><br><span class="line">   filename: <span class="string">&#x27;[name].js&#x27;</span>,</span><br><span class="line">   path: __dirname + <span class="string">&#x27;/dist&#x27;</span>,</span><br><span class="line"> &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="loader-对源代码进行转换"><a href="#loader-对源代码进行转换" class="headerlink" title="loader: 对源代码进行转换"></a>loader: 对源代码进行转换</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.export = &#123;</span><br><span class="line"> <span class="built_in">module</span>: &#123;</span><br><span class="line">  rules: [</span><br><span class="line">     &#123; <span class="attr">test</span>: <span class="regexp">/\.css$/</span>, use: <span class="string">&#x27;css-loader&#x27;</span> &#125;,</span><br><span class="line">     &#123; <span class="attr">test</span>: <span class="regexp">/\.ts$/</span>, use: <span class="string">&#x27;ts-loader&#x27;</span> &#125;,</span><br><span class="line">   ],</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="plugin插件"><a href="#plugin插件" class="headerlink" title="plugin插件"></a>plugin插件</h4><p>常见的plugin插件有哪些？</p>
+<p>ProgressPlugin: 自定义编译过程中的进度条<br>HtmlWebpackPlugin: 生成html文件<br>DllPlugin: 可以将特定的类库提前打包然后引入<br>webpack-parallel-uglify-plugin: 压缩代码<br>UglifyJS： 单线程压缩代码<br>Tree Shaking： 删除项目中未被引用的代码</p>
+<h4 id="webpack-优化："><a href="#webpack-优化：" class="headerlink" title="webpack 优化："></a>webpack 优化：</h4><ol>
+<li>resolve.extensions：用来表明文件后缀列表，默认查找顺序是 [‘.js’, ‘.json’]，如果你的导入文件没有添加后缀就会按照这个顺序查找文件。我们应该</li>
+<li>可能减少后缀列表长度，然后将出现频率高的后缀排在前面</li>
+<li>resolve.alias：可以通过别名的方式来映射一个路径，能让 Webpack 更快找到路径</li>
+<li>module.noParse：如果你确定一个文件下没有其他依赖，就可以使用该属性让 Webpack 不扫描该文件，这种方式对于大型的类库很有帮助</li>
+</ol>
+<ol>
+<li>loader优化， 指定包含的路径 include: [resolve(‘src)]; 指定不包含的路径exclude: /node_modules/</li>
+<li>loader缓存 loader: ‘babel-loader?cacheDirectory=true’</li>
+<li>HappyPack： 将loader的同步执行转换为并行</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>: &#123;</span><br><span class="line">  loaders: [</span><br><span class="line">    &#123;</span><br><span class="line">      test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">      include: [resolve(<span class="string">&#x27;src&#x27;</span>)],</span><br><span class="line">      exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">      <span class="comment">// id 后面的内容对应下面</span></span><br><span class="line">      loader: <span class="string">&#x27;happypack/loader?id=happybabel&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;,</span><br><span class="line">plugins: [</span><br><span class="line">  <span class="keyword">new</span> HappyPack(&#123;</span><br><span class="line">    id: <span class="string">&#x27;happybabel&#x27;</span>,</span><br><span class="line">    loaders: [<span class="string">&#x27;babel-loader?cacheDirectory&#x27;</span>],</span><br><span class="line">    <span class="comment">// 开启 4 个线程</span></span><br><span class="line">    threads: <span class="number">4</span></span><br><span class="line">  &#125;)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>DllPlugin</li>
+<li>Tree Shaking 可以实现删除项目中未被引用的代码</li>
+<li>webpack-parallel-uglify-plugin || UglifyJS: 代码压缩</li>
+</ol>
+<p>a -&gt; bc -&gt;d -&gt; e</p>
+<p>浅比对， 深比对</p>
+<p>打包 -&gt; </p>
+<p>css -&gt; </p>
+<p>加载：<br>鋆： 避讳， css，performance</p>
+
       
     </div>
 
@@ -833,555 +1210,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(23)-%E5%86%85%E5%AD%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="浅笑整个夏季">
-      <meta itemprop="description" content="何以解忧， 唯有暴富">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅笑整个夏季">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(23)-%E5%86%85%E5%AD%98/" class="post-title-link" itemprop="url">JavaScript深入之js内存</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-28 17:46:22" itemprop="dateCreated datePublished" datetime="2021-08-28T17:46:22+08:00">2021-08-28</time>
-            </span>
-          <!--
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-            </span>
-            -->
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>318</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>js的内存结构</p>
-<pre><code><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">a</span>: <span class="number">1</span>&#125;</span><br></pre></td></tr></table></figure></code></pre><p>  将一个对象赋值给obj变量，js引擎会先在队内存中生成一个对象，然将堆内存的地址赋值给变量obj， 所以实际上变量obj指向的是一个堆内存地址</p>
-   <p style="color: red;">也就是说，变量obj是一个地址（reference）。后面如果要读取obj.a，引擎先从obj拿到内存地址，然后再从该地址读出原始的对象，返回它的a属性</p>
-
-   <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.a</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">     a: <span class="number">1</span>,</span><br><span class="line">     getValue: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="built_in">this</span>.a</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line">f() <span class="comment">// undefined</span></span><br><span class="line">obj.f() <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-<img src="../../../static/js中的this.png">
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(22)-%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="浅笑整个夏季">
-      <meta itemprop="description" content="何以解忧， 唯有暴富">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅笑整个夏季">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(22)-%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">JavaScript深入之语法分析</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-28 16:20:11" itemprop="dateCreated datePublished" datetime="2021-08-28T16:20:11+08:00">2021-08-28</time>
-            </span>
-          <!--
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-            </span>
-            -->
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>8.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="js基础语法"><a href="#js基础语法" class="headerlink" title="js基础语法"></a>js基础语法</h4><pre><code>1. 区分大小写: js 中的变量标识符区分大小写，也就意味这 test/Test 是两个不同的变量
-2. 标识符: js 中的标识符是指函数名、变量名、参数名等
-    a. 第一个字符必须是字符、下划线、美元符号
-    b. 其他字符可以是字母、数字、下划线、美元符号
-    c. 关键字不能作为标识符
-3. 注释: 单行注释和多行注释
-4.  语句: 语句以;结尾
-        - 虽然分号不是必须的，但是加上也会在某些情况下增加代码的性能
-5. 变量是松散类型，松散类型可以保存任何类型的数据</code></pre><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> message; <span class="comment">// 定义变量但未初始化，默认值为undifined</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">1.区分大小写, a 和A 是两个不同的变量。改变其中一个值不会影响另一个变量的值</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="string">&quot;1&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> A = <span class="string">&quot;1&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a == A); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="标识符的声明方式-let-const-var"><a href="#标识符的声明方式-let-const-var" class="headerlink" title="标识符的声明方式( let/ const/ var)"></a>标识符的声明方式( let/ const/ var)</h4><p>   1, let、const、var三者之间的区别<br>           相同点： 都是定义变量的方式<br>           不同点：<br>               1. var有全局和函数作用域, let和const是块级作用域<br>               2. var可以先使用后声明， let和const不可以，let和const会生成暂时性死区，不在在初始化</p>
-<ol>
-<li>var对应同名标识符的处理规则？</li>
-</ol>
-<span style="color:red;">
-  对于同名的变量声明，Javascript采用的是忽略原则，后声明的会被忽略。
-  对于同名的函数声明，Javascript采用的是覆盖原则，先声明的会被覆盖。
-  对于同名的函数声明和变量声明，采用的是忽略原则，为了确保函数能够被引用到，在提升时函数声明会提升到变量声明之前，变量声明会被忽略，但是变量赋值以后会被覆盖
- </span>
-
-<h4 id="js变量提升"><a href="#js变量提升" class="headerlink" title="js变量提升"></a>js变量提升</h4><p>   js 中的变量可以先使用后声明，这一现叫做变量提升， 提升后的变量返回undefined</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a <span class="comment">// 声明一个变量，可选初始化一个值</span></span><br><span class="line"><span class="keyword">let</span> A <span class="comment">// 声明一个块级作用， 可选初始化一个值</span></span><br><span class="line"><span class="keyword">const</span> c <span class="comment">// 声明一个块作用域的只读常量</span></span><br></pre></td></tr></table></figure>
-
-<p>为什么var会发生变量的提升？<br>   js分为编译和执行，js引擎在编译阶段会收集所有的变量并绑定到当前所有在的作用域，而变量的赋值操作在执行阶段执行，所以才会出现变量的提升</p>
-<h4 id="js-操作符"><a href="#js-操作符" class="headerlink" title="js 操作符"></a>js 操作符</h4><ul>
-<li><p>算数操作符</p>
-<ol>
-<li>前置型操作符(前置型递增递减): 执行前置递增或者递减，变量的值都是在被求值以前改变的, 返回的是自增减一之后的值</li>
-</ol>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> age = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">var</span> anotherAge = ++age + <span class="number">1</span>;</span><br><span class="line"><span class="built_in">console</span>.log(age); <span class="comment">// output: 10</span></span><br><span class="line"><span class="built_in">console</span>.log(anotherAge); <span class="comment">// output: 11</span></span><br></pre></td></tr></table></figure>
-
-<pre><code>1. 后置操作符(后置型递增递减): 执行递增递减操作是在包它们的语句被求值之后执行， 返回没有自增减之后的值
-
-    <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> age1 = <span class="number">10</span>;</span><br><span class="line">age1++; <span class="comment">// 如果没有对age求值话age1还是10</span></span><br><span class="line"><span class="built_in">console</span>.log(age1); <span class="comment">// output: 11</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> num1 = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> num2 = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">var</span> num3 = num1-- + num2; <span class="comment">// 22</span></span><br><span class="line"><span class="keyword">var</span> num4 = num1 + num2; <span class="comment">// 21</span></span><br></pre></td></tr></table></figure>
-
-2. 一元负值/ 一元正值操作符: &lt;span style=&quot;color:red;&quot;&gt;以一个+ 放到数值之前，不会对数值有任何影响, 对于非数值应用一元加减操作符，该操作符会像 Number 函数一样对值转型&lt;/span&gt;  
-     a. 对于布尔值转成 0|1
-     b. 对于字符串，会按照一定的规则解析
-     c. 对于对象，会调用 valueof/tostring 方法</code></pre><ul>
-<li><p>逻辑操作符</p>
-<ol>
-<li><p><span style="color: red;">逻辑非(!): 用于任何类型的值, 在应用的时候会存在类型的转换</span></p>
-<pre><code>对象 -&gt; false
-空字符串 -&gt; true
-非空字符串 -&gt; false
-数值 0 -&gt; true
-任意非空 0 -&gt; false
-null -&gt; true
-NaN -&gt; true
-undefined -&gt; true</code></pre></li>
-<li><p><span style="color: red;">逻辑与(||): 当条件满足为真时返回第一个条件为真的值</span></p>
-<pre><code>如果第一个操作符是对象，则直接返回第一个操作符
-如果第一个操作符的求值结果为 false， 则返回第二个操作符的值
-如果两个操作符都是对象，则返回第一个操作符
-如果两个操作符都是 null， 则返回 null
-如果连个操作符都是 NaN, 则返回 NaN
-如果两个操作符都是 undefined， 则返回 undefined</code></pre> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> b = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">var</span> c = &#123; <span class="attr">c</span>: <span class="number">1</span> &#125;;</span><br><span class="line"></span><br><span class="line">a || c; <span class="comment">// output: a</span></span><br><span class="line"></span><br><span class="line">b || c; <span class="comment">// output: c</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> found = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">var</span> result = found || someUndefinedVar; <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">found = <span class="literal">false</span>;</span><br><span class="line">result = found || someUndefinedVar; <span class="comment">// error</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><span style="color: red;">逻辑与(&amp;&amp;): 短路操作符, 当遇到为false的条件时返回false, 当第一个条件为true， 则返回第二个值</span></p>
-<pre><code>如果第一个操作符是对象，则返回第二个操作符
-如果第二个操作符是对象，则只有在第一个操作符返回 true 的情况下才会返回此对象
-两个操作符都是对象，则返回第二个操作符
-如果有一个操作符是 null，则返回 null
-如果有一个操作符是 nan， 则返回 nan
-如果有一个操作符是 undefined, 则返回 undefined</code></pre> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> b = &#123; <span class="attr">b</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> c = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">a &amp;&amp; b; <span class="comment">// output: b</span></span><br><span class="line"></span><br><span class="line">a &amp;&amp; <span class="literal">NaN</span>; <span class="comment">// output: NaN</span></span><br><span class="line"></span><br><span class="line">a &amp;&amp; <span class="literal">undefined</span>; <span class="comment">// output: undefined</span></span><br><span class="line"></span><br><span class="line">a &amp;&amp; <span class="literal">true</span>; <span class="comment">// output: true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> founed = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">var</span> result = founed &amp;&amp; someUndefinedVar; <span class="comment">// errro:  someUndefinedVar 未定义</span></span><br><span class="line"><span class="built_in">console</span>.log(result); <span class="comment">// 这句代码不会执行</span></span><br><span class="line"></span><br><span class="line">found = <span class="literal">false</span>;</span><br><span class="line">result = founed &amp;&amp; someUndefinedVar; <span class="comment">// 不会报错</span></span><br><span class="line"><span class="built_in">console</span>.log(result); <span class="comment">// output: false</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><span style="color: red;">乘法操作符: 如果参与运算的值不是数值型就会使用 Number()函数自动转成数值，然后参与计算</span></p>
-<pre><code>如果有一个值是 NaN, 则返回 NaN
-如果是 infinity \* 0， 则返回 infinity
-如果是 infinity 与非 0 数值想剩，则返回 infinity 或者 -infinity
-如果操作值都是数值，则参与正常的计算，如果超过了 js 的最大限制则返回 infinity 或者 -infinity
-如果值不为 number 类型则会调用 number()函数转换为数值，在应用上面的规则</code></pre></li>
-</ol>
-</li>
-<li><p>关系操作符</p>
-<ol>
-<li><p><span style="color: red;">instanceof:检测某个对象是不是另一个对象的实例</span></p>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="built_in">console</span>.log(Parent.prototype) <span class="comment">// &#123;constructor: function Parent()&#123;&#125;, __proto__: Object&#125;</span></span><br><span class="line"><span class="comment">// 理解instanceof 只需要理解下面这句话</span></span><br><span class="line">Parent.prototype.__proto__ === <span class="built_in">Object</span>.prototype</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-<li><p>一元操作符</p>
-<ol>
-<li><p><span style="color: red;">typeof操作符: 判断一个标识符属于哪种数据类型</span></p>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// typeof 操作符返回值的类型有： &quot;number&quot;、&quot;string&quot;、&quot;boolean&quot;、&quot;object&quot;、&quot;function&quot; 和 &quot;undefined&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typeof</span> <span class="number">123</span> <span class="comment">// Number</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="string">&#x27;dede&#x27;</span> <span class="comment">// string</span></span><br><span class="line"><span class="keyword">typeof</span> !!<span class="string">&#x27;0&#x27;</span> <span class="comment">// boolean</span></span><br><span class="line"><span class="keyword">typeof</span> &#123;&#125; <span class="comment">// object</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="keyword">new</span> <span class="built_in">Function</span>() <span class="comment">// function</span></span><br><span class="line"><span class="keyword">typeof</span> a <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-</li>
-</ul>
-<h4 id="js中的数据类型"><a href="#js中的数据类型" class="headerlink" title="js中的数据类型"></a>js中的数据类型</h4><ul>
-<li><span style="color: red;"> 基本数据类型: undefined、 null、 string、 boolean、 number</span></li>
-<li><span style="color: red;">引用数据类型: object</span></li>
-</ul>
-<h4 id="js中的typeof类型检测函数"><a href="#js中的typeof类型检测函数" class="headerlink" title="js中的typeof类型检测函数"></a>js中的typeof类型检测函数</h4><ul>
-<li>typeof(类型监测)</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * undefined: 这个值未定义</span></span><br><span class="line"><span class="comment"> * boolean: 布尔类型</span></span><br><span class="line"><span class="comment"> * string: 字符串</span></span><br><span class="line"><span class="comment"> * number: 数字</span></span><br><span class="line"><span class="comment"> * object: objetc 或者 null</span></span><br><span class="line"><span class="comment"> * function: 函数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> message = <span class="string">&quot;这是测试&quot;</span>;</span><br><span class="line"><span class="keyword">typeof</span> message === <span class="string">&quot;string&quot;</span>; <span class="comment">// true</span></span><br><span class="line"><span class="keyword">typeof</span> message === <span class="string">&quot;boolean&quot;</span>; <span class="comment">// false</span></span><br><span class="line"><span class="keyword">typeof</span> message === <span class="string">&quot;number&quot;</span>; <span class="comment">// false</span></span><br><span class="line"><span class="keyword">typeof</span> message === <span class="string">&quot;object&quot;</span>; <span class="comment">// false</span></span><br><span class="line"><span class="keyword">typeof</span> message === <span class="string">&quot;function&quot;</span>; <span class="comment">// false</span></span><br><span class="line"><span class="keyword">typeof</span> message === <span class="string">&quot;undefined&quot;</span>; <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="1-Undefined类型：-Undefined类型只有一即undefined，-在声明变量但未赋值的情况下，变量的值为undefined"><a href="#1-Undefined类型：-Undefined类型只有一即undefined，-在声明变量但未赋值的情况下，变量的值为undefined" class="headerlink" title="1, Undefined类型： Undefined类型只有一即undefined， 在声明变量但未赋值的情况下，变量的值为undefined"></a>1, Undefined类型： Undefined类型只有一即undefined， 在声明变量但未赋值的情况下，变量的值为undefined</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 使用场景：</span></span><br><span class="line"><span class="comment"> * 1. 变量声明但没赋值</span></span><br><span class="line"><span class="comment"> * 2. 调用函数时该传入的参数没传</span></span><br><span class="line"><span class="comment"> * 3. 函数没有返回值时默认返回undefined</span></span><br><span class="line"><span class="comment"> * 4. 对象中属性值没有赋值</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="2-Null类型-null是JavaScript中的关键字；-Null类型只有一个即null，-null表示空对象指针-变量的值将来是用来保存对象最好设置为null"><a href="#2-Null类型-null是JavaScript中的关键字；-Null类型只有一个即null，-null表示空对象指针-变量的值将来是用来保存对象最好设置为null" class="headerlink" title="2, Null类型: null是JavaScript中的关键字； Null类型只有一个即null， null表示空对象指针, 变量的值将来是用来保存对象最好设置为null"></a>2, Null类型: null是JavaScript中的关键字； Null类型只有一个即null， null表示空对象指针, 变量的值将来是用来保存对象最好设置为null</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/* 使用场景：</span></span><br><span class="line"><span class="comment"> *  1. 定义的变量在将来用来保存对象</span></span><br><span class="line"><span class="comment"> *  2. 在一个数据不再使用的时候，我们最好将其值设置为null来释放其引用，以便垃圾回收下一次对其回收</span></span><br><span class="line"><span class="comment"> *  3. 作为对象原型链的终端</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(<span class="built_in">Object</span>.prototype); <span class="comment">// null</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="3-Boolean-布尔类型，该类型只有两个值true-和-false，要将一个值转换为boolean类型的值需要用到Boolean转换"><a href="#3-Boolean-布尔类型，该类型只有两个值true-和-false，要将一个值转换为boolean类型的值需要用到Boolean转换" class="headerlink" title="3,Boolean: 布尔类型，该类型只有两个值true 和 false，要将一个值转换为boolean类型的值需要用到Boolean转换"></a>3,Boolean: 布尔类型，该类型只有两个值true 和 false，要将一个值转换为boolean类型的值需要用到Boolean转换</h4><table>
-<thead>
-<tr>
-<th>数据类型</th>
-<th>转换为true的值</th>
-<th>转换为false的值</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Boolean</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>String</td>
-<td>任何非空字符串</td>
-<td>“”(空字符串)</td>
-</tr>
-<tr>
-<td>Number</td>
-<td>任何非零数字值(包括无穷大)</td>
-<td>0和NaN</td>
-</tr>
-<tr>
-<td>Object</td>
-<td>任何对象</td>
-<td>null</td>
-</tr>
-<tr>
-<td>Undefined</td>
-<td>false</td>
-<td>Undefined</td>
-</tr>
-</tbody></table>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/* 转换规则：</span></span><br><span class="line"><span class="comment"> * 1. 字符串： 任意非空类型的字符串-&gt;true, 空类型的字符串-&gt;false</span></span><br><span class="line"><span class="comment"> * 2. number: 任何非0数字,包括正(负)的无穷大-&gt; true,</span></span><br><span class="line"><span class="comment"> * 3. object: 任何对象-&gt;true</span></span><br><span class="line"><span class="comment"> * 4. undefined: undefined -&gt;false</span></span><br><span class="line"><span class="comment"> * 5, null: null -&gt; false</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="literal">null</span>); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="literal">undefined</span>); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">Boolean</span>(-<span class="number">0.4774</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Boolean</span>(&#123;&#125;); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="string">&quot;&quot;</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="4-number-数字类型，-对应数学中的有理数，在计算机中有-定的精度限制，-NaN-infinity-infinity"><a href="#4-number-数字类型，-对应数学中的有理数，在计算机中有-定的精度限制，-NaN-infinity-infinity" class="headerlink" title="4, number: 数字类型， 对应数学中的有理数，在计算机中有-定的精度限制， NaN/ infinity/ -infinity"></a>4, number: 数字类型， 对应数学中的有理数，在计算机中有-定的精度限制， NaN/ infinity/ -infinity</h4><ul>
-<li>NaN: 非数值，即本来应该要返回数值操作但是未返回数值的情况， 任何涉及NaN的操作都会返回NaN,其次NaN与任何值都不相等包括NaN本身<br>  <span style="color:red;"> isNaN函数用来判断一个是否是NaN,j接受任意类型的值，该函数会尝将值转换为数字型，任何不能被转换的值该函数都会返回true</span></li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>数据类型</th>
-<th>Number</th>
-<th>parseInt</th>
-<th>parseFloat</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Number</td>
-<td>简单的传入和返回</td>
-<td>简单的传入和返回</td>
-<td>简单的传入和返回</td>
-</tr>
-<tr>
-<td>String</td>
-<td>字符串为空 -&gt; 0; 字符串包含十六进制 -&gt; 转换为十六进制的值; 字符串包含数字 -&gt; 十进制的数</td>
-<td>忽略字符串前面的空格，找到第一个非空字符，如果找不到数字字符返回NaN; 如果找到字符是数字就会继续解析第二个字符，直到字符不是数字为止</td>
-<td>忽略字符前面的空格, 从第一个字符开始解析; 解析遇到第一个无效的浮点数字字符或者 字符串最后为止</td>
-</tr>
-<tr>
-<td>Boolean</td>
-<td>true -&gt; 1; false -&gt; 0</td>
-<td>NaN</td>
-<td>NaN</td>
-</tr>
-<tr>
-<td>Null</td>
-<td>0</td>
-<td>NaN</td>
-<td>NaN</td>
-</tr>
-<tr>
-<td>Undefined</td>
-<td>0</td>
-<td>NaN</td>
-<td>NaN</td>
-</tr>
-<tr>
-<td>Object</td>
-<td>调用对象的valueOf方法按照上述规则转换，如果转结果为NaN则会调用对象的toString方法，然后按照上面的规则再次转换</td>
-<td>NaN</td>
-<td>NaN</td>
-</tr>
-<tr>
-<td>Symbol</td>
-<td>/</td>
-<td>/</td>
-<td>/</td>
-</tr>
-</tbody></table>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 转换规则</span></span><br><span class="line"><span class="comment"> * 1. boolean: true -&gt; 1, false -&gt; 0</span></span><br><span class="line"><span class="comment"> * 2. number: 简单的传入和返回</span></span><br><span class="line"><span class="comment"> * 3. null: null -&gt; 0</span></span><br><span class="line"><span class="comment"> * 4. undefined: undefined -&gt; 0</span></span><br><span class="line"><span class="comment"> * 5. 字符串: 字符串为空 -&gt; 0; 字符串包含十六进制 -&gt; 转换为十六进制的值; 字符串包含数字 -&gt; 十进制的数值</span></span><br><span class="line"><span class="comment"> * 6. object: 对象 -&gt; valueOf方法按照上述规则转换</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">&quot;hello wrod&quot;</span>); <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">&quot; &quot;</span>); <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">&quot;000011&quot;</span>); <span class="comment">// 11</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="literal">true</span>); <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  parseInt: 忽略字符串前面的空格，找到第一个非空字符串，如果第一个字符不是数* 字或者负号返回NaN; 如果第一个字符是数字就会继续解析第二个字符，直到字符不是* 数字为止</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">&quot;1266rhfur&quot;</span>); <span class="comment">// 1266</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">&quot;rufgrfr&quot;</span>); <span class="comment">// NaN</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * parseFloat: 从第一个字符开始解析; 解析遇到第一个无效的浮点数字字符或者* 字符串最后为止</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="built_in">parseFloat</span>(<span class="string">&quot;23.38434.8484&quot;</span>); <span class="comment">// 23.38434</span></span><br><span class="line"><span class="built_in">parseFloat</span>(<span class="string">&quot;frfr&quot;</span>); <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
-
-<p>Question:</p>
-<ul>
-<li><p>为什么 0.2 + 0.1 == 0.3 为false</p>
-<pre><code><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0.1</span> + <span class="number">0.2</span> == <span class="number">0.3</span> <span class="comment">// false</span></span><br><span class="line"><span class="number">0.05</span> + <span class="number">0.25</span> == <span class="number">0.3</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-
-answer:
-机器只识别二进制，将小数转为二进制数之后可能有精度丢失的问题
-[参考资料](https://zhuanlan.zhihu.com/p/159075016)</code></pre></li>
-</ul>
-<h4 id="5-string-字符串一旦创就不可变，如果需要改变其值需要销毁原有的值-然后在用一个包含新值得字符串去填充该变量"><a href="#5-string-字符串一旦创就不可变，如果需要改变其值需要销毁原有的值-然后在用一个包含新值得字符串去填充该变量" class="headerlink" title="5, string: 字符串一旦创就不可变，如果需要改变其值需要销毁原有的值, 然后在用一个包含新值得字符串去填充该变量"></a>5, string: 字符串一旦创就不可变，如果需要改变其值需要销毁原有的值, 然后在用一个包含新值得字符串去填充该变量</h4><table>
-<thead>
-<tr>
-<th>数据类型</th>
-<th>toString</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>null</td>
-<td>error</td>
-</tr>
-<tr>
-<td>Undefined</td>
-<td>error</td>
-</tr>
-<tr>
-<td>Number</td>
-<td>返回相应值的字符串形式</td>
-</tr>
-<tr>
-<td>Boolean</td>
-<td>返回相应值得字符串形式</td>
-</tr>
-<tr>
-<td>String</td>
-<td>返回相应值得字符串形式</td>
-</tr>
-</tbody></table>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 将一个值转为字符串</span></span><br><span class="line"><span class="comment"> *  toString方法</span></span><br><span class="line"><span class="comment"> *  number、boolean、Object、 string都有toString方式, 多数情况下调用toString方法不用传* 参数， 但是对于number类型可以传一个参数代表返回的进制, 一般情况下是以十进制返回</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> message = <span class="number">11</span>;</span><br><span class="line">message.toString(); <span class="comment">// &#x27;11&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> num = <span class="number">10</span>;</span><br><span class="line">num.toString(<span class="number">16</span>); <span class="comment">// &#x27;a&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 在不知道转换的值的类型时可以使用String方法转成string类型，然后调用tostring方法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="literal">null</span>;</span><br><span class="line"><span class="built_in">String</span>(a).toString(); <span class="comment">// null</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="6-Object-一组数据和功能的集合-object-是所有它的实例基础"><a href="#6-Object-一组数据和功能的集合-object-是所有它的实例基础" class="headerlink" title="6, Object: 一组数据和功能的集合, object 是所有它的实例基础"></a>6, Object: 一组数据和功能的集合, object 是所有它的实例基础</h4><ul>
-<li>每一个对象都有几个属性:<ol>
-<li>constructor: 保存用于创建当前对象的函数</li>
-<li>hasOwnProperty(propertyName) : 检查给定的属性是否存在当前实例上而不是原型上</li>
-<li>valueOf: 返回字符串，通常与toString方法返回值相同</li>
-<li>tostring: 返回对象的字符串标识</li>
-</ol>
-</li>
-</ul>
-<h4 id="7-Symbol-symbol是es6引入的，每个symbol函数返回的都是一个唯一的值类型"><a href="#7-Symbol-symbol是es6引入的，每个symbol函数返回的都是一个唯一的值类型" class="headerlink" title="7, Symbol: symbol是es6引入的，每个symbol函数返回的都是一个唯一的值类型"></a>7, Symbol: symbol是es6引入的，每个symbol函数返回的都是一个唯一的值类型</h4><ul>
-<li>解决问题： 对象中的属性名都是字符串容易造成冲突</li>
-</ul>
-<p>总结：<br>1, undefined和null的区别<br>    a， undefined表示变量未声明或者声明未赋值； null表示什么都没有<br>    b， js会将未赋值的变量默认值设为undefined； js不会将变量设置为null<br>    c， undefined使用typeof返回值是undefined; null类型返回object</p>
-<p>2, instanceof 和 typeof 的区别？<br>    <span style="color: red;">typeof 用于判断标识符的类型， 但是不能判断对象的类型， 比如data， 数组,对于typeof来讲都是返回object， instanceof用于判断对象是否属于某一个对象的实例， 原型上的相等</span></p>
-<h4 id="javascript-语句"><a href="#javascript-语句" class="headerlink" title="javascript 语句"></a>javascript 语句</h4><ol>
-<li><p>if语句</p>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * if (condition) statement1 esle statement2</span></span><br><span class="line"><span class="comment"> *  condition: 可以为任意的表达式，而且对这个值的求职结果不一定是布尔值。js自动会对condition的值调用boolean方法去转* 为布尔值</span></span><br><span class="line"><span class="comment"> * 如果condition为true就在执行statement1, 否则就执行statement2语句。这个两个语句可以是一句代码，也可以是个代码块</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (i &lt; <span class="number">25</span>) &#123;</span><br><span class="line"><span class="built_in">console</span>.log(i);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;fyrgfyr&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>do-while 语句: 是一种后测试语句(只有在循环体的中的代码执行完之后才会测试出口条件, 循环体至少执行一次)</p>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * do&#123;statement&#125; whild(expressiong)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    i++;</span><br><span class="line">&#125; <span class="keyword">while</span> (i &gt; <span class="number">5</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>while 语句: 前测试循环语句(循环体可一次都不执行)</p>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  while(expression) statement</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">var</span> i = <span class="number">0</span></span><br><span class="line"><span class="function"><span class="title">while</span>(<span class="params"> i&lt; = <span class="number">10</span> </span>)</span> &#123;</span><br><span class="line">    i++</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>for 语句: 前测试循环语句（有执行循环之前初始化变量和定义循环后要执行的代码的能力）</p>
-  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// for(initalnition; expressiong; loop-expressiong) statement</span></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt;= count; i++) &#123;</span><br><span class="line"><span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>forin 语句: 是一种精准的迭代语句，用来枚举对象的属性</p>
-  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// for(property in expression) statement</span></span><br><span class="line"><span class="keyword">for</span> (pro <span class="keyword">in</span> <span class="built_in">window</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(pro);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>break 和 continue 语句: 用于在循环中精确的控制代码的执行</p>
-</li>
-</ol>
-<ul>
-<li><p>break: 会立即退出循环, 强制执行循环语句后面的语句</p>
-</li>
-<li><p>countinue: 会立即退出循环, 但是退出循环之后会从循环的顶部立即执行</p>
-  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (i % <span class="number">5</span> === <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    num++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(num); <span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ol start="7">
-<li>switch 语句: 在比较时是采用全等操作符，因此不会发生类型装换</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(21)-%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="浅笑整个夏季">
-      <meta itemprop="description" content="何以解忧， 唯有暴富">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅笑整个夏季">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(21)-%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">JavaScript深入之词法分析</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-28 16:18:02" itemprop="dateCreated datePublished" datetime="2021-08-28T16:18:02+08:00">2021-08-28</time>
-            </span>
-          <!--
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-            </span>
-            -->
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>604</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="词法环境"><a href="#词法环境" class="headerlink" title="词法环境"></a>词法环境</h4><h5 id="之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定）"><a href="#之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定）" class="headerlink" title="之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定）"></a>之所以叫词法环境，是因为它是和源程序的结构对应，就是和你所写的那些源码的文字的结构对应，你写代码的时候这个环境就定了（写代码的时候决定）</h5><h6 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h6><pre><code>- 全局词法环境
-- 函数词法环境
-- with词法环境
-- catch词法环境</code></pre><img src="https://user-gold-cdn.xitu.io/2018/12/3/1677429807aea76d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"/>
-
-<p> 伪代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">LexicalEnvironment</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.EnvironmentRecord =  <span class="keyword">new</span> EnvironmentRecord()<span class="comment">// 自己的词法环境</span></span><br><span class="line">    <span class="built_in">this</span>.outer = <span class="literal">undefined</span> <span class="comment">// 外部的词法环境的引用</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">EnvironmentRecord</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.bindings = <span class="keyword">new</span> <span class="built_in">Map</span>()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">EnvironmentRecord.prototype.rigister = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.bindings.set(name, <span class="literal">undefined</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">EnvironmentRecord.prototype.init = <span class="function"><span class="keyword">function</span>(<span class="params">name, value</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.bindings[name] = value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">EnvironmentRecord.prototype.getValue = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.bindings[name]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1447,19 +1279,19 @@ answer:
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-count">73</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1494,7 +1326,7 @@ answer:
 <div class="copyright">
   
   &copy; 2015 – 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -1504,13 +1336,13 @@ answer:
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">91k</span>
+    <span title="站点总字数">95k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:23</span>
+    <span title="站点阅读时长">1:27</span>
 </div>
 
         

@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"zhangliminabc.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":240,"display":"always","offset":18,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="ECScript(ES5)数据类型js中的数据类型有基础类型和引用类型， 基础类型有 null, undifined, string, number, boolean, symbol 引用类型有 object null： 表示人为设置的一个空对象，在内存中的表现是栈中的变量没有指向堆中的内存指针undifined: 自然状态下的值，比如变量声明未赋值，或者函数定义了函数的形参但是没有实参，访问不存">
+  <meta name="description" content="ES5 JS中的数据类型有哪些？ 怎么去判断数据类型 ？ js中的继承有哪些？ 以及如何实现自定义的继承？以及各自的优缺点？ js中的原型链是什么？ js中的this指向，以及和箭头函数中的this指向有何不同？ js中什么叫闭包，以及在实际开发中遇到的场景？ js中的作用域是什么以及作用域指什么？ 简述对异步的理解？ 以及如何实现异步？ 以及promise的实现流程？ 原型链和作用域的查找顺序？">
 <meta property="og:type" content="article">
-<meta property="og:title" content="前端知识框架总结">
+<meta property="og:title" content="前端基础架构">
 <meta property="og:url" content="http://zhangliminabc.github.io/page/index.html">
 <meta property="og:site_name" content="浅笑整个夏季">
-<meta property="og:description" content="ECScript(ES5)数据类型js中的数据类型有基础类型和引用类型， 基础类型有 null, undifined, string, number, boolean, symbol 引用类型有 object null： 表示人为设置的一个空对象，在内存中的表现是栈中的变量没有指向堆中的内存指针undifined: 自然状态下的值，比如变量声明未赋值，或者函数定义了函数的形参但是没有实参，访问不存">
+<meta property="og:description" content="ES5 JS中的数据类型有哪些？ 怎么去判断数据类型 ？ js中的继承有哪些？ 以及如何实现自定义的继承？以及各自的优缺点？ js中的原型链是什么？ js中的this指向，以及和箭头函数中的this指向有何不同？ js中什么叫闭包，以及在实际开发中遇到的场景？ js中的作用域是什么以及作用域指什么？ 简述对异步的理解？ 以及如何实现异步？ 以及promise的实现流程？ 原型链和作用域的查找顺序？">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-09-07T09:39:45.000Z">
-<meta property="article:modified_time" content="2021-09-07T09:39:45.000Z">
+<meta property="article:published_time" content="2021-09-08T10:51:50.000Z">
+<meta property="article:modified_time" content="2021-09-08T10:51:50.000Z">
 <meta property="article:author" content="浅笑整个夏季">
 <meta property="article:tag" content="JavaScript, vue, node, 前端">
 <meta name="twitter:card" content="summary">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>前端知识框架总结 | 浅笑整个夏季</title>
+  <title>前端基础架构 | 浅笑整个夏季</title>
   
 
 
@@ -123,12 +123,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">15</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">18</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">61</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">73</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -199,7 +199,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          前端知识框架总结
+          前端基础架构
         </h1>
 
         <div class="post-meta">
@@ -209,7 +209,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-09-07 17:39:45" itemprop="dateCreated datePublished" datetime="2021-09-07T17:39:45+08:00">2021-09-07</time>
+              <time title="创建时间：2021-09-08 18:51:50" itemprop="dateCreated datePublished" datetime="2021-09-08T18:51:50+08:00">2021-09-08</time>
             </span>
 
           
@@ -225,7 +225,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>693</span>
+              <span>1.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -244,14 +244,90 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h4 id="ECScript-ES5"><a href="#ECScript-ES5" class="headerlink" title="ECScript(ES5)"></a>ECScript(ES5)</h4><h6 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h6><p>js中的数据类型有基础类型和引用类型， 基础类型有 null, undifined, string, number, boolean, symbol</p>
-<p>引用类型有 object</p>
-<p>null： 表示人为设置的一个空对象，在内存中的表现是栈中的变量没有指向堆中的内存指针<br>undifined: 自然状态下的值，比如变量声明未赋值，或者函数定义了函数的形参但是没有实参，访问不存在的变量或者属性</p>
-<p>在内存中 基本类型是在栈内存中存储的值，对于引用类型在栈内存中存储的是指向堆内存的指针</p>
-<p>平时一般使用typeof 去判断基础类型的数据类型<br>用 instanceof去判断引用类型的数据类型</p>
-<p>instanceof : 判断对象的原型链中是不是能找到类型的 prototype。</p>
-<h6 id="js运算符"><a href="#js运算符" class="headerlink" title="js运算符"></a>js运算符</h6><h6 id="原型和原型链已经如何实现继承"><a href="#原型和原型链已经如何实现继承" class="headerlink" title="原型和原型链已经如何实现继承"></a>原型和原型链已经如何实现继承</h6><h6 id="作用域和作用域链以及什么是闭包"><a href="#作用域和作用域链以及什么是闭包" class="headerlink" title="作用域和作用域链以及什么是闭包"></a>作用域和作用域链以及什么是闭包</h6><h6 id="this指向"><a href="#this指向" class="headerlink" title="this指向"></a>this指向</h6><h6 id="js原型链和作用域的查找规则"><a href="#js原型链和作用域的查找规则" class="headerlink" title="js原型链和作用域的查找规则"></a>js原型链和作用域的查找规则</h6><h6 id="js的垃圾回收"><a href="#js的垃圾回收" class="headerlink" title="js的垃圾回收"></a>js的垃圾回收</h6><h4 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h4><h6 id="浏览器的缓存"><a href="#浏览器的缓存" class="headerlink" title="浏览器的缓存"></a>浏览器的缓存</h6><h6 id="浏览器的渲染原理"><a href="#浏览器的渲染原理" class="headerlink" title="浏览器的渲染原理"></a>浏览器的渲染原理</h6><h6 id="浏览器的工具使用"><a href="#浏览器的工具使用" class="headerlink" title="浏览器的工具使用"></a>浏览器的工具使用</h6><h6 id="浏览器的同源策略"><a href="#浏览器的同源策略" class="headerlink" title="浏览器的同源策略"></a>浏览器的同源策略</h6><h6 id="浏览器的事件循环"><a href="#浏览器的事件循环" class="headerlink" title="浏览器的事件循环"></a>浏览器的事件循环</h6><h4 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h4><h6 id="事件冒泡和事件捕获的区别以及如何实现事件代理？以及如何阻止事件捕获或者冒泡"><a href="#事件冒泡和事件捕获的区别以及如何实现事件代理？以及如何阻止事件捕获或者冒泡" class="headerlink" title="事件冒泡和事件捕获的区别以及如何实现事件代理？以及如何阻止事件捕获或者冒泡"></a>事件冒泡和事件捕获的区别以及如何实现事件代理？以及如何阻止事件捕获或者冒泡</h6><h4 id="js的异步编程"><a href="#js的异步编程" class="headerlink" title="js的异步编程"></a>js的异步编程</h4><h6 id="怎么理解异步？"><a href="#怎么理解异步？" class="headerlink" title="怎么理解异步？"></a>怎么理解异步？</h6><h6 id="口述和实现一个简易版的promise"><a href="#口述和实现一个简易版的promise" class="headerlink" title="口述和实现一个简易版的promise"></a>口述和实现一个简易版的promise</h6><h6 id="promise和-async-await的区别是啥"><a href="#promise和-async-await的区别是啥" class="headerlink" title="promise和 async/await的区别是啥"></a>promise和 async/await的区别是啥</h6><h6 id="promise的catch是如何实现的"><a href="#promise的catch是如何实现的" class="headerlink" title="promise的catch是如何实现的"></a>promise的catch是如何实现的</h6><h6 id="async-await的原理是什么？"><a href="#async-await的原理是什么？" class="headerlink" title="async/await的原理是什么？"></a>async/await的原理是什么？</h6><h4 id="http"><a href="#http" class="headerlink" title="http"></a>http</h4><h6 id="什么叫跨域以及如何解决跨域"><a href="#什么叫跨域以及如何解决跨域" class="headerlink" title="什么叫跨域以及如何解决跨域"></a>什么叫跨域以及如何解决跨域</h6><h6 id="什么叫cors策略以及预检请求是什么"><a href="#什么叫cors策略以及预检请求是什么" class="headerlink" title="什么叫cors策略以及预检请求是什么"></a>什么叫cors策略以及预检请求是什么</h6><h6 id="常见的请求方式是什么"><a href="#常见的请求方式是什么" class="headerlink" title="常见的请求方式是什么"></a>常见的请求方式是什么</h6><h6 id="websock的原理是什么？为什么能长久链接"><a href="#websock的原理是什么？为什么能长久链接" class="headerlink" title="websock的原理是什么？为什么能长久链接"></a>websock的原理是什么？为什么能长久链接</h6><p>######</p>
-<h4 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h4><h6 id="webpack如何优化性能？"><a href="#webpack如何优化性能？" class="headerlink" title="webpack如何优化性能？"></a>webpack如何优化性能？</h6><h6 id="如何编写一个webpack的插件？"><a href="#如何编写一个webpack的插件？" class="headerlink" title="如何编写一个webpack的插件？"></a>如何编写一个webpack的插件？</h6><h6 id="如何使用webpack进行文件的分类？"><a href="#如何使用webpack进行文件的分类？" class="headerlink" title="如何使用webpack进行文件的分类？"></a>如何使用webpack进行文件的分类？</h6><h4 id="框架-vue"><a href="#框架-vue" class="headerlink" title="框架(vue)"></a>框架(vue)</h4>
+        <h4 id="ES5"><a href="#ES5" class="headerlink" title="ES5"></a>ES5</h4><ol>
+<li>JS中的数据类型有哪些？ 怎么去判断数据类型 ？</li>
+<li>js中的继承有哪些？ 以及如何实现自定义的继承？以及各自的优缺点？</li>
+<li>js中的原型链是什么？</li>
+<li>js中的this指向，以及和箭头函数中的this指向有何不同？</li>
+<li>js中什么叫闭包，以及在实际开发中遇到的场景？</li>
+<li>js中的作用域是什么以及作用域指什么？</li>
+<li>简述对异步的理解？ 以及如何实现异步？ 以及promise的实现流程？</li>
+<li>原型链和作用域的查找顺序？</li>
+<li>js中的类型转换？以及是如何转换的？</li>
+</ol>
+<h4 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h4><ol>
+<li>用过哪些新的特性</li>
+<li>let, const和var的区别</li>
+<li>genartor函数的使用场景</li>
+</ol>
+<h4 id="TS"><a href="#TS" class="headerlink" title="TS"></a>TS</h4><ol>
+<li>TS解决了什么问题？</li>
+<li>用了ts之后带来了什么样的收益</li>
+<li>ts的泛型有哪些</li>
+<li>interface和type的区别</li>
+<li>关于tslint的配置</li>
+</ol>
+<h4 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h4><ol>
+<li>js的事件代理是什么？ 以及事件捕获和事件冒泡的区别以及如何停止？</li>
+</ol>
+<h4 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h4><ol>
+<li>浏览器是如何渲染的？从输入url到页面展示是如何渲染的？</li>
+<li>浏览器缓存是如何工作的？ 以及有哪些浏览器缓存？</li>
+<li>localstorage 和 sessionstorage的区别？ 以及cookie和token的区别？</li>
+<li>如何实现跨页通信</li>
+<li>浏览器的事件循环是什么？</li>
+<li>webwork是什么？ 里面需要注意什么？</li>
+<li>websockt是什么？</li>
+</ol>
+<h4 id="http"><a href="#http" class="headerlink" title="http"></a>http</h4><ol>
+<li>http缓存有哪些以及对应的工作原理？</li>
+<li>什么是预检请求</li>
+<li>什么是跨域？ 以及如何解决跨域？</li>
+<li>什么是cors？ 以及什么是简单请求和复杂请求？</li>
+<li>http的状态码有哪些？</li>
+<li>什么叫同源策略？</li>
+<li>在跨域的状态下能拿到数据吗？</li>
+</ol>
+<h4 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h4><ol>
+<li>v-if和v-show的区别？</li>
+<li>组件中的data为什么是函数？ 那什么是函数什么时候是对象？</li>
+<li>vue中组件通信有哪几种以及各自的区别是什么？</li>
+<li>v-model的实现原理是什么？</li>
+<li>nexttick的实现流程是什么？</li>
+<li>vue依赖收集的原理是什么？ 以及vue数据响应式的原理是什么？以及vue3的数据响应式原理是什么？</li>
+<li>vue父子组件的生命周期的？</li>
+<li>vue框架的设计流程</li>
+<li>vue中的diff算法</li>
+<li>v-for中的key的作用</li>
+<li>vue使用虚拟dom的作用</li>
+<li>vue双向数据绑定原理</li>
+<li>vuex的流程</li>
+<li>vue如何开发自定义的插件</li>
+<li>vue中 computed 和 watcher的区别</li>
+<li>vue中插件和组件的区别</li>
+<li>vue。extends和组件的区别</li>
+<li>vue路由有哪些钩子函数</li>
+<li>vue路由是如何监听路由变化的</li>
+<li>vuerouter是如何获取路由上的参数的</li>
+<li>vue路由有哪些模式</li>
+</ol>
+<h4 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h4><ol>
+<li>如何做文件分离</li>
+<li>webpack如何做性能优化</li>
+<li>Tree Shaking的作用</li>
+<li>用过哪些插件</li>
+<li>loader的目的是什么？ 以及使用css-loader的目的？</li>
+<li>webpack和gulp的区别</li>
+</ol>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><ol>
+<li>webview的深层原理</li>
+<li>nginx的正向代理和反向代理？以及区别？</li>
+<li>发布订阅和观察者模式的区别</li>
+<li>对于图片如何做性能优化</li>
+<li>如何让你做性能优化你会从哪些方面去考虑？</li>
+<li>perfomance能得到什么？</li>
+</ol>
+
     </div>
 
     
@@ -268,8 +344,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/%E5%85%B6%E4%BB%96/%E7%A7%BB%E5%8A%A8%E7%AB%AF/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80/" rel="prev" title="深入之移动端布局">
-      <i class="fa fa-chevron-left"></i> 深入之移动端布局
+    <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/%E6%80%A7%E8%83%BD/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="prev" title="浏览器渲染的性能优化">
+      <i class="fa fa-chevron-left"></i> 浏览器渲染的性能优化
     </a></div>
       <div class="post-nav-item"></div>
     </div>
@@ -330,7 +406,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#ECScript-ES5"><span class="nav-number">1.</span> <span class="nav-text">ECScript(ES5)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.0.1.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#js%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.0.2.</span> <span class="nav-text">js运算符</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE%E5%B7%B2%E7%BB%8F%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%BB%A7%E6%89%BF"><span class="nav-number">1.0.3.</span> <span class="nav-text">原型和原型链已经如何实现继承</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%92%8C%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE%E4%BB%A5%E5%8F%8A%E4%BB%80%E4%B9%88%E6%98%AF%E9%97%AD%E5%8C%85"><span class="nav-number">1.0.4.</span> <span class="nav-text">作用域和作用域链以及什么是闭包</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#this%E6%8C%87%E5%90%91"><span class="nav-number">1.0.5.</span> <span class="nav-text">this指向</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#js%E5%8E%9F%E5%9E%8B%E9%93%BE%E5%92%8C%E4%BD%9C%E7%94%A8%E5%9F%9F%E7%9A%84%E6%9F%A5%E6%89%BE%E8%A7%84%E5%88%99"><span class="nav-number">1.0.6.</span> <span class="nav-text">js原型链和作用域的查找规则</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#js%E7%9A%84%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="nav-number">1.0.7.</span> <span class="nav-text">js的垃圾回收</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BOM"><span class="nav-number">2.</span> <span class="nav-text">BOM</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E7%BC%93%E5%AD%98"><span class="nav-number">2.0.1.</span> <span class="nav-text">浏览器的缓存</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86"><span class="nav-number">2.0.2.</span> <span class="nav-text">浏览器的渲染原理</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8"><span class="nav-number">2.0.3.</span> <span class="nav-text">浏览器的工具使用</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5"><span class="nav-number">2.0.4.</span> <span class="nav-text">浏览器的同源策略</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF"><span class="nav-number">2.0.5.</span> <span class="nav-text">浏览器的事件循环</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DOM"><span class="nav-number">3.</span> <span class="nav-text">DOM</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1%E5%92%8C%E4%BA%8B%E4%BB%B6%E6%8D%95%E8%8E%B7%E7%9A%84%E5%8C%BA%E5%88%AB%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%BA%8B%E4%BB%B6%E4%BB%A3%E7%90%86%EF%BC%9F%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E9%98%BB%E6%AD%A2%E4%BA%8B%E4%BB%B6%E6%8D%95%E8%8E%B7%E6%88%96%E8%80%85%E5%86%92%E6%B3%A1"><span class="nav-number">3.0.1.</span> <span class="nav-text">事件冒泡和事件捕获的区别以及如何实现事件代理？以及如何阻止事件捕获或者冒泡</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#js%E7%9A%84%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">js的异步编程</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E7%90%86%E8%A7%A3%E5%BC%82%E6%AD%A5%EF%BC%9F"><span class="nav-number">4.0.1.</span> <span class="nav-text">怎么理解异步？</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%8F%A3%E8%BF%B0%E5%92%8C%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E6%98%93%E7%89%88%E7%9A%84promise"><span class="nav-number">4.0.2.</span> <span class="nav-text">口述和实现一个简易版的promise</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#promise%E5%92%8C-async-await%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E5%95%A5"><span class="nav-number">4.0.3.</span> <span class="nav-text">promise和 async&#x2F;await的区别是啥</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#promise%E7%9A%84catch%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%9A%84"><span class="nav-number">4.0.4.</span> <span class="nav-text">promise的catch是如何实现的</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#async-await%E7%9A%84%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">4.0.5.</span> <span class="nav-text">async&#x2F;await的原理是什么？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#http"><span class="nav-number">5.</span> <span class="nav-text">http</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E5%8F%AB%E8%B7%A8%E5%9F%9F%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F"><span class="nav-number">5.0.1.</span> <span class="nav-text">什么叫跨域以及如何解决跨域</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E5%8F%ABcors%E7%AD%96%E7%95%A5%E4%BB%A5%E5%8F%8A%E9%A2%84%E6%A3%80%E8%AF%B7%E6%B1%82%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">5.0.2.</span> <span class="nav-text">什么叫cors策略以及预检请求是什么</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E8%AF%B7%E6%B1%82%E6%96%B9%E5%BC%8F%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">5.0.3.</span> <span class="nav-text">常见的请求方式是什么</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#websock%E7%9A%84%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E8%83%BD%E9%95%BF%E4%B9%85%E9%93%BE%E6%8E%A5"><span class="nav-number">5.0.4.</span> <span class="nav-text">websock的原理是什么？为什么能长久链接</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-number">6.</span> <span class="nav-text">性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#webpack%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96%E6%80%A7%E8%83%BD%EF%BC%9F"><span class="nav-number">6.0.1.</span> <span class="nav-text">webpack如何优化性能？</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAwebpack%E7%9A%84%E6%8F%92%E4%BB%B6%EF%BC%9F"><span class="nav-number">6.0.2.</span> <span class="nav-text">如何编写一个webpack的插件？</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8webpack%E8%BF%9B%E8%A1%8C%E6%96%87%E4%BB%B6%E7%9A%84%E5%88%86%E7%B1%BB%EF%BC%9F"><span class="nav-number">6.0.3.</span> <span class="nav-text">如何使用webpack进行文件的分类？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%86%E6%9E%B6-vue"><span class="nav-number">7.</span> <span class="nav-text">框架(vue)</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#ES5"><span class="nav-number">1.</span> <span class="nav-text">ES5</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ES6"><span class="nav-number">2.</span> <span class="nav-text">ES6</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TS"><span class="nav-number">3.</span> <span class="nav-text">TS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DOM"><span class="nav-number">4.</span> <span class="nav-text">DOM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BOM"><span class="nav-number">5.</span> <span class="nav-text">BOM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#http"><span class="nav-number">6.</span> <span class="nav-text">http</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%86%E6%9E%B6"><span class="nav-number">7.</span> <span class="nav-text">框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#webpack"><span class="nav-number">8.</span> <span class="nav-text">webpack</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">9.</span> <span class="nav-text">其他</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -344,19 +420,19 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-count">73</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -391,7 +467,7 @@
 <div class="copyright">
   
   &copy; 2015 – 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -401,13 +477,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">91k</span>
+    <span title="站点总字数">95k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:23</span>
+    <span title="站点阅读时长">1:27</span>
 </div>
 
         
