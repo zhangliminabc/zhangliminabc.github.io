@@ -20,21 +20,22 @@
     var CONFIG = {"hostname":"zhangliminabc.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":240,"display":"always","offset":18,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="flex 布局123456.div &amp;#123; display: flex; align-content: center align-items: center justify-content: center;&amp;#125;  position + translate: 元素未知高度实现原理：父元素设置为：position: relative;子元素设置为：position: absolute;t">
+  <meta name="description" content="CSR VS SSR 的比较：  完美解决方式： React SSR( SSR + SPA) React SSR vs SSR vs CSR 的 区别？SSRSSR(SSR是 Server Side Rendering， 对应的中文名是服务端渲染也就是将渲染的工作放在服务端进行); 浏览器得到完整的结构后就可直接进行 DOM 的解析、构建、加载资源及后续的渲染。 优点： 首屏展示快， 搜索引擎比较">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSS中div垂直水平居中方式">
-<meta property="og:url" content="http://zhangliminabc.github.io/interview/css-div%E5%9E%82%E7%9B%B4%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD/index.html">
+<meta property="og:title" content="React-SSR 之基础知识">
+<meta property="og:url" content="http://zhangliminabc.github.io/%E5%85%B6%E4%BB%96/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93/react-ssr-%E4%B9%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html">
 <meta property="og:site_name" content="浅笑整个夏季">
-<meta property="og:description" content="flex 布局123456.div &amp;#123; display: flex; align-content: center align-items: center justify-content: center;&amp;#125;  position + translate: 元素未知高度实现原理：父元素设置为：position: relative;子元素设置为：position: absolute;t">
+<meta property="og:description" content="CSR VS SSR 的比较：  完美解决方式： React SSR( SSR + SPA) React SSR vs SSR vs CSR 的 区别？SSRSSR(SSR是 Server Side Rendering， 对应的中文名是服务端渲染也就是将渲染的工作放在服务端进行); 浏览器得到完整的结构后就可直接进行 DOM 的解析、构建、加载资源及后续的渲染。 优点： 首屏展示快， 搜索引擎比较">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-08-23T14:06:16.000Z">
-<meta property="article:modified_time" content="2021-08-23T14:06:16.000Z">
+<meta property="og:image" content="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1a8041b9-5aee-49b9-a519-c83d7f8d50de/Untitled.png">
+<meta property="article:published_time" content="2022-05-23T06:59:09.000Z">
+<meta property="article:modified_time" content="2022-05-23T06:59:09.000Z">
 <meta property="article:author" content="浅笑整个夏季">
-<meta property="article:tag" content="CSS">
-<meta property="article:tag" content="interview">
+<meta property="article:tag" content="JavaScript, vue, node, 前端">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1a8041b9-5aee-49b9-a519-c83d7f8d50de/Untitled.png">
 
-<link rel="canonical" href="http://zhangliminabc.github.io/interview/css-div%E5%9E%82%E7%9B%B4%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD/">
+<link rel="canonical" href="http://zhangliminabc.github.io/%E5%85%B6%E4%BB%96/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93/react-ssr-%E4%B9%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
 
 
 <script id="page-configurations">
@@ -47,7 +48,7 @@
   };
 </script>
 
-  <title>CSS中div垂直水平居中方式 | 浅笑整个夏季</title>
+  <title>React-SSR 之基础知识 | 浅笑整个夏季</title>
   
 
 
@@ -124,12 +125,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">18</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">73</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">78</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -187,7 +188,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/interview/css-div%E5%9E%82%E7%9B%B4%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD/">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%85%B6%E4%BB%96/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93/react-ssr-%E4%B9%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -200,7 +201,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          CSS中div垂直水平居中方式
+          React-SSR 之基础知识
         </h1>
 
         <div class="post-meta">
@@ -210,19 +211,8 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-08-23 22:06:16" itemprop="dateCreated datePublished" datetime="2021-08-23T22:06:16+08:00">2021-08-23</time>
+              <time title="创建时间：2022-05-23 14:59:09" itemprop="dateCreated datePublished" datetime="2022-05-23T14:59:09+08:00">2022-05-23</time>
             </span>
-          <!--
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/css/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a>
-                </span>
-            </span>
-            -->
 
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -237,7 +227,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>764</span>
+              <span>589</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -256,50 +246,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h4 id="flex-布局"><a href="#flex-布局" class="headerlink" title="flex 布局"></a>flex 布局</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.div</span> &#123;</span><br><span class="line"> <span class="attribute">display</span>: flex;</span><br><span class="line"> <span class="attribute">align-content</span>: center</span><br><span class="line"> align-items: center</span><br><span class="line"> justify-content: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>CSR VS SSR 的比较：</p>
+<p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1a8041b9-5aee-49b9-a519-c83d7f8d50de/Untitled.png" alt="Untitled"></p>
+<p>完美解决方式： React SSR( SSR + SPA)</p>
+<h3 id="React-SSR-vs-SSR-vs-CSR-的-区别？"><a href="#React-SSR-vs-SSR-vs-CSR-的-区别？" class="headerlink" title="React SSR vs SSR vs CSR 的 区别？"></a>React SSR vs SSR vs CSR 的 区别？</h3><h6 id="SSR"><a href="#SSR" class="headerlink" title="SSR"></a>SSR</h6><p>SSR(SSR是 Server Side Rendering， 对应的中文名是服务端渲染也就是将渲染的工作放在服务端进行); 浏览器得到完整的结构后就可直接进行 DOM 的解析、构建、加载资源及后续的渲染。</p>
+<p>优点： 首屏展示快， 搜索引擎比较友好有利于SEO<br>缺点： 页面加载需要向服务端请求完整页面内容和资源，访问量大时会对服务器造成一定压力<br>工作原理：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">st&#x3D;&gt;start: Server 端返回html页面</span><br><span class="line">end&#x3D;&gt;end: render</span><br><span class="line">st-&gt;end</span><br></pre></td></tr></table></figure>
 
-<h4 id="position-translate-元素未知高度"><a href="#position-translate-元素未知高度" class="headerlink" title="position + translate: 元素未知高度"></a>position + translate: 元素未知高度</h4><p>实现原理：<br>父元素设置为：position: relative;<br>子元素设置为：position: absolute;<br>transform: translate(-50%,-50%);<br>距上50%，据左50%，然后减去元素自身宽度的一半距离就可以实现</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.div</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">  translate(-50%,-50%);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>CSR(CSR是Client Side Rendering， 对应的中文名是客服端渲染）→ 常见的SPA(单页面应用）<br>优点：局部刷新提升用户体验， 只需要加载一次js和css，页面路由维护在客户端页面间组件跳转很快<br>缺点：SEO不够友好， 增加页面的白屏展示时间<br>工作原理：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">st&#x3D;&gt;start: Server 端返回初始Html</span><br><span class="line">op&#x3D;&gt;operation: 然后再由JS去异步加载数据完成页面的渲染</span><br><span class="line">e&#x3D;&gt;end: render</span><br><span class="line">st-&gt;op-&gt;e</span><br></pre></td></tr></table></figure>
 
-<h4 id="table-cell"><a href="#table-cell" class="headerlink" title="table-cell"></a>table-cell</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.div</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: table-cell;            </span><br><span class="line">    <span class="attribute">vertical-align</span>: middle;</span><br><span class="line">  <span class="attribute">text-align</span>: center;        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="position-margin-已知宽度"><a href="#position-margin-已知宽度" class="headerlink" title="position + margin: 已知宽度"></a>position + margin: 已知宽度</h4><p>实现原理：<br>父元素设置为：position: relative;<br>子元素设置为：position: absolute;<br>距上50%，据左50%，然后减去元素自身宽度的一半距离就可以实现</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.div</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">   <span class="attribute">margin</span>: -<span class="number">50px</span> <span class="number">0</span> <span class="number">0</span> -<span class="number">50px</span>;        </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="position（元素已知宽度）（left，right，top，bottom为0，maigin：auto-）"><a href="#position（元素已知宽度）（left，right，top，bottom为0，maigin：auto-）" class="headerlink" title="position（元素已知宽度）（left，right，top，bottom为0，maigin：auto ）"></a>position（元素已知宽度）（left，right，top，bottom为0，maigin：auto ）</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.div</span>  &#123;</span><br><span class="line"> <span class="attribute">width</span>: <span class="number">100px</span>;            </span><br><span class="line"> <span class="attribute">height</span>: <span class="number">100px</span>;            </span><br><span class="line"> <span class="attribute">position</span>: absolute;            </span><br><span class="line"> <span class="attribute">top</span>: <span class="number">0</span>;            </span><br><span class="line"> <span class="attribute">bottom</span>: <span class="number">0</span>;            </span><br><span class="line"> <span class="attribute">left</span>: <span class="number">0</span>;            </span><br><span class="line"> <span class="attribute">right</span>: <span class="number">0</span>;            </span><br><span class="line"> <span class="attribute">margin</span>: auto;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h3 id="React-SSR-的根本原理？"><a href="#React-SSR-的根本原理？" class="headerlink" title="React SSR 的根本原理？"></a>React SSR 的根本原理？</h3><p>React SSR  = SSR + CSR</p>
+<h3 id="实现最基本的-React-SSR"><a href="#实现最基本的-React-SSR" class="headerlink" title="实现最基本的 React SSR?"></a>实现最基本的 React SSR?</h3><h3 id="何为同构？"><a href="#何为同构？" class="headerlink" title="何为同构？"></a>何为同构？</h3>
     </div>
 
     
     
     
       
-  <div class="popular-posts-header">热点文章</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/前端基础/css/css深入之(1)-盒模型/" rel="bookmark">CSS盒子模型</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/前端基础/css/css深入之(11)-flex/" rel="bookmark">css深入之flex</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/前端基础/css/css深入之(10)-单位/" rel="bookmark">css深入之css的单位</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/前端基础/css/css深入之(2)-css选择器/" rel="bookmark">CSS深入之css选择器</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/前端基础/css/css深入之(4)-position/" rel="bookmark">CSS深入之position定位</a></div>
-    </li>
-  </ul>
 
 
       <footer class="post-footer">
-          
-          <div class="post-tags">
-              <a href="/tags/css/" rel="tag"><i class="fa fa-tag"></i> CSS</a>
-              <a href="/tags/interview/" rel="tag"><i class="fa fa-tag"></i> interview</a>
-          </div>
 
         
 
@@ -307,12 +274,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(17)-genarator/" rel="prev" title="JavaScript深入之genarator">
-      <i class="fa fa-chevron-left"></i> JavaScript深入之genarator
+    <a href="/%E5%85%B6%E4%BB%96/%E5%B0%8F%E7%A8%8B%E5%BA%8F/uni-app%E4%B9%8B%E5%88%86%E5%8C%85/" rel="prev" title="uni-app之分包">
+      <i class="fa fa-chevron-left"></i> uni-app之分包
     </a></div>
       <div class="post-nav-item">
-    <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/css/css%E6%B7%B1%E5%85%A5%E4%B9%8B(1)-%E7%9B%92%E6%A8%A1%E5%9E%8B/" rel="next" title="CSS盒子模型">
-      CSS盒子模型 <i class="fa fa-chevron-right"></i>
+    <a href="/TypeScript/2022-05-27-ts%E4%B9%8B%E8%A3%85%E9%A5%B0%E5%99%A8/" rel="next" title="测试文件">
+      测试文件 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -372,7 +339,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#flex-%E5%B8%83%E5%B1%80"><span class="nav-number">1.</span> <span class="nav-text">flex 布局</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#position-translate-%E5%85%83%E7%B4%A0%E6%9C%AA%E7%9F%A5%E9%AB%98%E5%BA%A6"><span class="nav-number">2.</span> <span class="nav-text">position + translate: 元素未知高度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#table-cell"><span class="nav-number">3.</span> <span class="nav-text">table-cell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#position-margin-%E5%B7%B2%E7%9F%A5%E5%AE%BD%E5%BA%A6"><span class="nav-number">4.</span> <span class="nav-text">position + margin: 已知宽度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#position%EF%BC%88%E5%85%83%E7%B4%A0%E5%B7%B2%E7%9F%A5%E5%AE%BD%E5%BA%A6%EF%BC%89%EF%BC%88left%EF%BC%8Cright%EF%BC%8Ctop%EF%BC%8Cbottom%E4%B8%BA0%EF%BC%8Cmaigin%EF%BC%9Aauto-%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">position（元素已知宽度）（left，right，top，bottom为0，maigin：auto ）</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#React-SSR-vs-SSR-vs-CSR-%E7%9A%84-%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">React SSR vs SSR vs CSR 的 区别？</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#SSR"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">SSR</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React-SSR-%E7%9A%84%E6%A0%B9%E6%9C%AC%E5%8E%9F%E7%90%86%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">React SSR 的根本原理？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%9C%80%E5%9F%BA%E6%9C%AC%E7%9A%84-React-SSR"><span class="nav-number">3.</span> <span class="nav-text">实现最基本的 React SSR?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%95%E4%B8%BA%E5%90%8C%E6%9E%84%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">何为同构？</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -386,19 +353,19 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">78</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -443,13 +410,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">95k</span>
+    <span title="站点总字数">101k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:27</span>
+    <span title="站点阅读时长">1:32</span>
 </div>
 
         
