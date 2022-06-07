@@ -121,12 +121,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">21</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">78</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">81</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -179,6 +179,338 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%85%B6%E4%BB%96/http/2022-06-07-http%E4%B9%8B%E7%BC%93%E5%AD%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="浅笑整个夏季">
+      <meta itemprop="description" content="何以解忧， 唯有暴富">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浅笑整个夏季">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%85%B6%E4%BB%96/http/2022-06-07-http%E4%B9%8B%E7%BC%93%E5%AD%98/" class="post-title-link" itemprop="url">Http之缓存</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-06-07 13:44:58" itemprop="dateCreated datePublished" datetime="2022-06-07T13:44:58+08:00">2022-06-07</time>
+            </span>
+          <!--
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/http/" itemprop="url" rel="index"><span itemprop="name">http</span></a>
+                </span>
+            </span>
+            -->
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h5 id="什么是缓存？"><a href="#什么是缓存？" class="headerlink" title="什么是缓存？"></a>什么是缓存？</h5><p>缓存是一种保存资源副本并在下一次请求时直接使用该副本的技术</p>
+<h6 id="强缓存"><a href="#强缓存" class="headerlink" title="强缓存"></a>强缓存</h6><p>cache-control: </p>
+<ol>
+<li><p>no-store: 不缓存， 每次请求都重新加载</p>
+</li>
+<li><p>no-cache： 缓存但是重新校验， 请求发出后会将此请求发到服务器，服务端验证缓存是否过期，如未过期就会使用本地缓存副本（304）-&gt; 服务端验证是否过期走的是协商缓存的验证</p>
+</li>
+<li><p>public： 该响应被任何的中间件（cdn、代理）缓存</p>
+</li>
+<li><p>private: 只能针对个人用户</p>
+</li>
+<li><p>max-age=<seconds>: 缓存时间</p>
+</li>
+<li><p>s-maxage: 和 max-age一样，只不过是针对代理服务器而言</p>
+</li>
+<li><p>max-stale: 愿意接收过期资源， 响应不能已经过时超过该给定的时间</p>
+</li>
+<li><p>min-fresh: 希望获取一个在指定秒数内罪行状态的响应</p>
+</li>
+<li><p>must-revalidate: 资源过期，缓存不能用</p>
+</li>
+</ol>
+<p>Expires：<http-date> 服务器返回的过期时间<br>工作原理： 下一次请求时，请求时间小于服务端返回的到期时间直接使用缓存数据</p>
+<p>cache-control 和 Expires 的区别是啥？<br>Expires是http1.0的产物； cache-control是http1.1的产物</p>
+<h6 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h6><p>last-Modified / If-Modified-Since</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">st&#x3D;&gt;start: 客户端发起请求</span><br><span class="line">browserCache&#x3D;&gt;condition: 判断是否有缓存</span><br><span class="line">isCache&#x3D;&gt;inputoutput: 读取缓存数据</span><br><span class="line"></span><br><span class="line">noCache&#x3D;&gt;inputoutput: 没有缓存数据</span><br><span class="line">fetchHttp&#x3D;&gt;operation: 发起http请求， 响应头决定缓存机制，下发 last-modified</span><br><span class="line">responseData&#x3D;&gt;operation: 浏览器缓存last-modified的值</span><br><span class="line">useLastModified&#x3D;&gt;operation: 下一次请求头上会带上 If-Modified-Since,值为上一次last-modified的值</span><br><span class="line">isNotExpires&#x3D;&gt;condition: 服务器会根据 If-Modified-Since 判断是否被修改过</span><br><span class="line">notModified&#x3D;&gt;operation: 没有被修改过，返回304， 浏览器不下载响应头</span><br><span class="line">isModified&#x3D;&gt;operation: 修改过，浏览器重新缓存</span><br><span class="line">e&#x3D;&gt;end</span><br><span class="line"></span><br><span class="line">st-&gt;browserCache</span><br><span class="line">browserCache(yes)-&gt;isCache-&gt;e</span><br><span class="line">browserCache(no)-&gt;noCache-&gt;fetchHttp-&gt;responseData-&gt;useLastModified-&gt;isNotExpires</span><br><span class="line">isNotExpires(yes)-&gt;isModified-&gt;e</span><br><span class="line">isNotExpires(no)-&gt;notModified-&gt;e</span><br></pre></td></tr></table></figure>
+
+<p>ETag 和 If-None-Match</p>
+<p>和last-modified类似， 不同点在于服务器返回的是一个tag标识符， 在一次请求的时候会带上 If-None-Match 的请求头</p>
+<img src="../../../static/http/http缓存.webp">
+
+<p>两者区别：</p>
+<p>ETag 优先级高于 last-modified</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/css/css%E6%B7%B1%E5%85%A5%E4%B9%8B(12)-%E5%9E%82%E7%9B%B4%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="浅笑整个夏季">
+      <meta itemprop="description" content="何以解忧， 唯有暴富">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浅笑整个夏季">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/css/css%E6%B7%B1%E5%85%A5%E4%B9%8B(12)-%E5%9E%82%E7%9B%B4%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD/" class="post-title-link" itemprop="url">css深入之实现一个垂直水平居中</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-06-01 22:35:20" itemprop="dateCreated datePublished" datetime="2022-06-01T22:35:20+08:00">2022-06-01</time>
+            </span>
+          <!--
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/css/" itemprop="url" rel="index"><span itemprop="name">Css</span></a>
+                </span>
+            </span>
+            -->
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="水平居中"><a href="#水平居中" class="headerlink" title="水平居中"></a>水平居中</h4><h5 id="行内元素水平居中"><a href="#行内元素水平居中" class="headerlink" title="行内元素水平居中"></a>行内元素水平居中</h5><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line"> <span class="attribute">text-align</span>: center // 文本text、图像img、按钮、链接</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="块级元素水平居中"><a href="#块级元素水平居中" class="headerlink" title="块级元素水平居中"></a>块级元素水平居中</h5><h6 id="定宽块级元素："><a href="#定宽块级元素：" class="headerlink" title="定宽块级元素："></a>定宽块级元素：</h6><h6 id="方案一：margin：-0-auto"><a href="#方案一：margin：-0-auto" class="headerlink" title="方案一：margin： 0 auto"></a>方案一：margin： 0 auto</h6><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line"> <span class="attribute">margin</span>: <span class="number">0</span> auto</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="方案二：-position-margin-负一半"><a href="#方案二：-position-margin-负一半" class="headerlink" title="方案二： position + margin 负一半"></a>方案二： position + margin 负一半</h6><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line">	<span class="attribute">position</span>: absolute;</span><br><span class="line">	<span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">	<span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">	<span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">	<span class="attribute">margin-left</span>: -<span class="number">50px</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="方案三：-position-margin-auto"><a href="#方案三：-position-margin-auto" class="headerlink" title="方案三： position + margin auto"></a>方案三： position + margin auto</h6><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">	<span class="attribute">position</span>: absolute;</span><br><span class="line">	<span class="attribute">left</span>: <span class="number">0px</span>;</span><br><span class="line">	<span class="attribute">right</span>: <span class="number">0px</span>;</span><br><span class="line">	<span class="attribute">margin</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h6 id="不定宽块级元素："><a href="#不定宽块级元素：" class="headerlink" title="不定宽块级元素："></a>不定宽块级元素：</h6><h6 id="方案一：-flex"><a href="#方案一：-flex" class="headerlink" title="方案一： flex"></a>方案一： flex</h6><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line"> <span class="attribute">display</span>: flex;</span><br><span class="line"> <span class="attribute">justify-content</span>:center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="方案二：-inline-block-子元素设置-inline-block，-父元素设置text-align：-center"><a href="#方案二：-inline-block-子元素设置-inline-block，-父元素设置text-align：-center" class="headerlink" title="方案二： inline-block: 子元素设置 inline-block， 父元素设置text-align： center"></a>方案二： inline-block: 子元素设置 inline-block， 父元素设置text-align： center</h6><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line"> <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box</span> &gt; <span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>:inline-block;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="方案三-设置table：-设置display：-table，然后设置margin：-0-auto"><a href="#方案三-设置table：-设置display：-table，然后设置margin：-0-auto" class="headerlink" title="方案三: 设置table： 设置display： table，然后设置margin： 0 auto"></a>方案三: 设置table： 设置display： table，然后设置margin： 0 auto</h6><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line"> <span class="attribute">display</span>: table;</span><br><span class="line"> <span class="attribute">margin</span>: <span class="number">0</span> auto</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="方案四：-position-transform"><a href="#方案四：-position-transform" class="headerlink" title="方案四： position + transform"></a>方案四： position + transform</h6><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">translateX</span>(-<span class="number">50%</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="垂直居中"><a href="#垂直居中" class="headerlink" title="垂直居中"></a>垂直居中</h4><h6 id="单行文本-paddingTop-paddingBottom-或者-lineHeight-height"><a href="#单行文本-paddingTop-paddingBottom-或者-lineHeight-height" class="headerlink" title="单行文本: paddingTop = paddingBottom 或者 lineHeight = height"></a>单行文本: paddingTop = paddingBottom 或者 lineHeight = height</h6><h6 id="多行文本："><a href="#多行文本：" class="headerlink" title="多行文本："></a>多行文本：</h6><h6 id="定宽高块级元素垂直居中："><a href="#定宽高块级元素垂直居中：" class="headerlink" title="定宽高块级元素垂直居中："></a>定宽高块级元素垂直居中：</h6><h6 id="方案一：-position-margin-负一半"><a href="#方案一：-position-margin-负一半" class="headerlink" title="方案一： position + margin 负一半"></a>方案一： position + margin 负一半</h6><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">	<span class="attribute">position</span>: absolute;</span><br><span class="line">	<span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">	<span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">	<span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">	<span class="attribute">margin-top</span>: -<span class="number">50%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="方案二：-position-margin-auto"><a href="#方案二：-position-margin-auto" class="headerlink" title="方案二： position + margin auto"></a>方案二： position + margin auto</h6><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">	<span class="attribute">position</span>: absolute;</span><br><span class="line">	<span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">	<span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">	<span class="attribute">top</span>: <span class="number">0px</span>;</span><br><span class="line">	<span class="attribute">bottom</span>: <span class="number">0px</span>;</span><br><span class="line">	<span class="attribute">margin</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="不定宽高块级元素"><a href="#不定宽高块级元素" class="headerlink" title="不定宽高块级元素"></a>不定宽高块级元素</h6><h6 id="方案一：-父元素display：table，-子元素：table-cell-和-vertical-align：middle"><a href="#方案一：-父元素display：table，-子元素：table-cell-和-vertical-align：middle" class="headerlink" title="方案一： 父元素display：table， 子元素：table-cell 和 vertical-align：middle"></a>方案一： 父元素display：table， 子元素：table-cell 和 vertical-align：middle</h6><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.boxParent</span> &#123;</span><br><span class="line">	<span class="attribute">display</span>: table;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">	<span class="attribute">display</span>: table-cell;</span><br><span class="line">	<span class="attribute">vertical-align</span>: middle;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h6 id="方案二：-flex"><a href="#方案二：-flex" class="headerlink" title="方案二： flex"></a>方案二： flex</h6><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">	<span class="attribute">display</span>: flex;</span><br><span class="line">	<span class="attribute">align-items</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="垂直水平居中"><a href="#垂直水平居中" class="headerlink" title="垂直水平居中"></a>垂直水平居中</h3><h6 id="不定宽高"><a href="#不定宽高" class="headerlink" title="不定宽高"></a>不定宽高</h6><h6 id="方案一：-flex-1"><a href="#方案一：-flex-1" class="headerlink" title="方案一： flex"></a>方案一： flex</h6><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">	<span class="attribute">display</span>: flex; </span><br><span class="line">	<span class="attribute">justify-content</span>: center;</span><br><span class="line">  <span class="attribute">align-items</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h6 id="方案二：-table-textAlign-verticalAlign"><a href="#方案二：-table-textAlign-verticalAlign" class="headerlink" title="方案二： table + textAlign + verticalAlign"></a>方案二： table + textAlign + verticalAlign</h6><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.boxParent</span> &#123;</span><br><span class="line">	<span class="attribute">display</span>: table;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">	<span class="attribute">display</span>: table-cell;</span><br><span class="line">	<span class="attribute">vertical-align</span>: middle;</span><br><span class="line">	<span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="已知宽高："><a href="#已知宽高：" class="headerlink" title="已知宽高："></a>已知宽高：</h4><h6 id="方案一：-绝对定位-margin-auto"><a href="#方案一：-绝对定位-margin-auto" class="headerlink" title="方案一： 绝对定位 + margin: auto"></a>方案一： 绝对定位 + margin: auto</h6><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">	<span class="attribute">width</span>:<span class="number">200px</span>;</span><br><span class="line">	<span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">	<span class="attribute">background</span>:green;</span><br><span class="line"></span><br><span class="line">	<span class="attribute">position</span>: absolute;</span><br><span class="line">	<span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">	<span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">	<span class="attribute">right</span>: <span class="number">0px</span>;</span><br><span class="line">	<span class="attribute">bottom</span>: <span class="number">0px</span>;</span><br><span class="line">	<span class="attribute">margin</span>: auto;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h6 id="方案二：-绝对定位-负-margin"><a href="#方案二：-绝对定位-负-margin" class="headerlink" title="方案二： 绝对定位 + 负 margin"></a>方案二： 绝对定位 + 负 margin</h6><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">	<span class="attribute">position</span>: absolute;</span><br><span class="line">	<span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">	<span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">	<span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">	<span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">	<span class="attribute">margin-left</span>: -<span class="number">50px</span>;</span><br><span class="line">	<span class="attribute">margin-right</span>: -<span class="number">50px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="方案三：-absolute-transform"><a href="#方案三：-absolute-transform" class="headerlink" title="方案三： absolute + transform"></a>方案三： absolute + transform</h6><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">	<span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">	<span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">	<span class="attribute">position</span>: absolute;</span><br><span class="line">	<span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">	<span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">	<span class="attribute">transform</span>: <span class="built_in">translate</span>(-<span class="number">50%</span>, -<span class="number">50%</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="方案四：-利用css的calc方法"><a href="#方案四：-利用css的calc方法" class="headerlink" title="方案四： 利用css的calc方法"></a>方案四： 利用css的calc方法</h6><p>```css<br>.box {<br>      width: 500px;<br>    height: 400px;<br>    margin-left: calc((100% - 500px) / 2);<br>    margin-top: calc((100% - 400px) / 2);<br>}</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(27)-Bom%E4%BA%8B%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="浅笑整个夏季">
+      <meta itemprop="description" content="何以解忧， 唯有暴富">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浅笑整个夏季">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(27)-Bom%E4%BA%8B%E4%BB%B6/" class="post-title-link" itemprop="url">测试文件</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-06-01 21:48:55" itemprop="dateCreated datePublished" datetime="2022-06-01T21:48:55+08:00">2022-06-01</time>
+            </span>
+          <!--
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+            -->
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>556</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="事件冒泡"><a href="#事件冒泡" class="headerlink" title="事件冒泡"></a>事件冒泡</h3><p>当一个事件发生在一个元素上，它会首先运行在该元素上的处理程序，然后运行其父元素上的处理程序，然后一直向上到其他祖先上的处理程序</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">onclick</span>=<span class="string">&quot;alert(&#x27;form&#x27;)&quot;</span>&gt;</span>FORM</span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">onclick</span>=<span class="string">&quot;alert(&#x27;div&#x27;)&quot;</span>&gt;</span>DIV</span><br><span class="line">		<span class="tag">&lt;<span class="name">p</span> <span class="attr">onclick</span>=<span class="string">&quot;alert(&#x27;p&#x27;)&quot;</span>&gt;</span>P<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>当我们点击 p 标签上的 onclick 事件时会首选运行 p 标签上的 click事件，然后是外部的<br>p -&gt; div -&gt; form</p>
+<h4 id="那怎么阻止事件冒泡那？"><a href="#那怎么阻止事件冒泡那？" class="headerlink" title="那怎么阻止事件冒泡那？"></a>那怎么阻止事件冒泡那？</h4><p>event.stopPropagation(): 阻止事件冒泡，这是方法是停止事件向上传播点击了 p 标签之前，p标签以外的点击事件不会被执行</p>
+<p>event.stopImmediatePropagation(): 可以用于停止事件冒泡，并阻止当前元素上的处理程序</p>
+<h3 id="事件捕获"><a href="#事件捕获" class="headerlink" title="事件捕获"></a>事件捕获</h3><p>BOM 事件经过 事件捕获 -&gt; 目标阶段 -&gt; 冒泡阶段</p>
+<h3 id="事件委托-事件代理"><a href="#事件委托-事件代理" class="headerlink" title="事件委托 / 事件代理"></a>事件委托 / 事件代理</h3><p>利用事件冒泡原理，根据 target 判断是否是目标节点</p>
+<p> 优点：<br>      1. 减少内存消耗和动态绑定事件</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -869,291 +1201,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/%E6%80%A7%E8%83%BD/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="浅笑整个夏季">
-      <meta itemprop="description" content="何以解忧， 唯有暴富">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅笑整个夏季">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/%E6%80%A7%E8%83%BD/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="post-title-link" itemprop="url">浏览器渲染的性能优化</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-09-07 16:49:15" itemprop="dateCreated datePublished" datetime="2021-09-07T16:49:15+08:00">2021-09-07</time>
-            </span>
-          <!--
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">性能优化</span></a>
-                </span>
-            </span>
-            -->
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>282</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="在浏览器中输入url到渲染的流程去优化"><a href="#在浏览器中输入url到渲染的流程去优化" class="headerlink" title="在浏览器中输入url到渲染的流程去优化"></a>在浏览器中输入url到渲染的流程去优化</h4><ol>
-<li>域名解析: DNS根据对于的域名解析找到对应的ip地址</li>
-<li>TCP的三次握手</li>
-<li>浏览器拿到响应文件后开始解析</li>
-</ol>
-<h6 id="dns预解析"><a href="#dns预解析" class="headerlink" title="dns预解析"></a>dns预解析</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">&quot;dns-prefetch&quot;</span> href=<span class="string">&quot;//zhanglimin.github.io&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
-
-<h6 id="资源预加载"><a href="#资源预加载" class="headerlink" title="资源预加载"></a>资源预加载</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">&quot;preload&quot;</span> href=<span class="string">&quot;http://example.com&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="从业务上去优化"><a href="#从业务上去优化" class="headerlink" title="从业务上去优化"></a>从业务上去优化</h4><h6 id="防抖和节流"><a href="#防抖和节流" class="headerlink" title="防抖和节流"></a>防抖和节流</h6><p>节流： 在一定时间内触发一次<br>防抖：在一定时间内不在触发才执行</p>
-<h6 id="图片的赖加载"><a href="#图片的赖加载" class="headerlink" title="图片的赖加载"></a>图片的赖加载</h6><h6 id="图片的预加载"><a href="#图片的预加载" class="headerlink" title="图片的预加载"></a>图片的预加载</h6>
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/%E5%B7%A5%E7%A8%8B%E5%8C%96/%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="浅笑整个夏季">
-      <meta itemprop="description" content="何以解忧， 唯有暴富">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅笑整个夏季">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/%E5%B7%A5%E7%A8%8B%E5%8C%96/%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7/" class="post-title-link" itemprop="url">前端监控</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-09-06 18:33:37" itemprop="dateCreated datePublished" datetime="2021-09-06T18:33:37+08:00">2021-09-06</time>
-            </span>
-          <!--
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%A1%B5%E9%9D%A2%E7%9B%91%E6%8E%A7/" itemprop="url" rel="index"><span itemprop="name">页面监控</span></a>
-                </span>
-            </span>
-            -->
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>12</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="页面埋点"><a href="#页面埋点" class="headerlink" title="页面埋点"></a>页面埋点</h4><h4 id="性能监控"><a href="#性能监控" class="headerlink" title="性能监控"></a>性能监控</h4><h4 id="用户交互"><a href="#用户交互" class="headerlink" title="用户交互"></a>用户交互</h4>
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%85%B6%E4%BB%96/%E7%A7%BB%E5%8A%A8%E7%AB%AF/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="浅笑整个夏季">
-      <meta itemprop="description" content="何以解忧， 唯有暴富">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅笑整个夏季">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%85%B6%E4%BB%96/%E7%A7%BB%E5%8A%A8%E7%AB%AF/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80/" class="post-title-link" itemprop="url">深入之移动端布局</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-09-05 21:08:52" itemprop="dateCreated datePublished" datetime="2021-09-05T21:08:52+08:00">2021-09-05</time>
-            </span>
-          <!--
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">移动端</span></a>
-                </span>
-            </span>
-            -->
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="viewport-在移动设备上-viewport是设备屏幕用来显示我们网页的那一块区域"><a href="#viewport-在移动设备上-viewport是设备屏幕用来显示我们网页的那一块区域" class="headerlink" title="viewport: 在移动设备上, viewport是设备屏幕用来显示我们网页的那一块区域"></a>viewport: 在移动设备上, viewport是设备屏幕用来显示我们网页的那一块区域</h4><p>viewport怎么设置？<br>viewport大小就等于可视区域的大小吗?</p>
-<p>带着上面的问题我们进一步研究…</p>
-<h6 id="viewport怎么设置"><a href="#viewport怎么设置" class="headerlink" title="viewport怎么设置?"></a>viewport怎么设置?</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;mate name=<span class="string">&quot;viewport&quot;</span> content=<span class="string">&quot;width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
-
-<p>viewport跟mate标签相关， 那content中的值代表什么意思那？<br>|  属性   | 定义  | 值 |<br>|  —-  | —-  | —- |<br>| width | 规定页面的宽度 | 可以为字符串值也可以为正整数 |<br>| initial-scale | 页面初始缩放比例 | 为数字也可以为小树 |<br>| maximum-scale  | 页面最大缩放比例 | 为数字也可以为小数 |<br>| minimum-scale | 页面最小缩放比例 | 为数字也可以为小 |<br>| user-scalable | 是否允许用户进行拖动缩放 | yes or no |</p>
-<p>关于viewport就先熟悉到这里</p>
-<p>css中的常用单位px和我们移动设备屏幕上的像素(pixel)有什么关系？ css里面的1px == 移动设备上的1pixel吗？</p>
-<h5 id="物理像素"><a href="#物理像素" class="headerlink" title="物理像素"></a>物理像素</h5><p>设备的物理像素是移动设备在出厂时就固定了的像素，整个屏幕由一个挨着一个的间隙级小的像素组成； 分辨率 === 物理像素</p>
-<h5 id="逻辑像素"><a href="#逻辑像素" class="headerlink" title="逻辑像素"></a>逻辑像素</h5><p>逻辑像素是屏幕接受程序控制的最小单位; css中的1px === 1个逻辑像素</p>
-<h6 id="设备像素比-物理像素-逻辑像素"><a href="#设备像素比-物理像素-逻辑像素" class="headerlink" title="设备像素比 = 物理像素 / 逻辑像素"></a>设备像素比 = 物理像素 / 逻辑像素</h6><p>好了, 上面介绍了关于移动端的相关概念，接下来我们讨论一下对于移动端设配的方案</p>
-<h6 id="rem-动态设置根元素的大小-等比例缩放"><a href="#rem-动态设置根元素的大小-等比例缩放" class="headerlink" title="rem: 动态设置根元素的大小(等比例缩放)"></a>rem: 动态设置根元素的大小(等比例缩放)</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// set 1rem = viewWidth / 10</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setRemUnit</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="keyword">const</span> rem = <span class="built_in">document</span>.documentElement.clientWidth / <span class="number">10</span></span><br><span class="line"> docEl.style.fontSize = rem + <span class="string">&#x27;px&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setRemUnit()</span><br></pre></td></tr></table></figure>
-
-<p>postcss-pxtorem: 将单位转为rem</p>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;postcss-pxtorem&#x27;</span>: &#123;</span><br><span class="line">       rootValue: <span class="number">37.5</span>,</span><br><span class="line">       propList: [<span class="string">&#x27;*&#x27;</span>, <span class="string">&#x27;!font-size&#x27;</span>],</span><br><span class="line">       selectorBlackList: [<span class="string">&#x27;van-circle__layer&#x27;</span>, <span class="string">&#x27;ignore&#x27;</span>],</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<p>淘宝lib-flexible库:<br>a. 先获取页面中viewport中的mate标签上的初始化缩放值，计算出dpr和缩放<br>b. 没有dpr和缩放的话， 通过获取设备像素比dpr计算出缩放值<br>c. 如果没有mate标签就创建带有缩放的viewport的mate标签<br>d. 获取可视区域的宽度 / 10, 得到rem值然后设为html上的根元素的字体大小</p>
-<h6 id="vw-vh-方案"><a href="#vw-vh-方案" class="headerlink" title="vw / vh 方案"></a>vw / vh 方案</h6><p>将可视区域等比划分为100分</p>
-<p>如果视图窗口375px， 那么1vw = 3.75px</p>
-<p>可以通过 postcss-px-to-viewport: 将px值转为vw/vh值</p>
-<h6 id="媒体查询适应"><a href="#媒体查询适应" class="headerlink" title="媒体查询适应"></a>媒体查询适应</h6><h6 id="flex-rem"><a href="#flex-rem" class="headerlink" title="flex + rem"></a>flex + rem</h6>
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1219,19 +1270,19 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">81</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1276,13 +1327,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">101k</span>
+    <span title="站点总字数">108k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:32</span>
+    <span title="站点阅读时长">1:38</span>
 </div>
 
         

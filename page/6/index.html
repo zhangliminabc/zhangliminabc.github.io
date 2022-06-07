@@ -121,12 +121,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">21</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">78</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">81</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -179,6 +179,297 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(4)-%E5%8F%98%E9%87%8F%E5%AF%B9%E8%B1%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="浅笑整个夏季">
+      <meta itemprop="description" content="何以解忧， 唯有暴富">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浅笑整个夏季">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(4)-%E5%8F%98%E9%87%8F%E5%AF%B9%E8%B1%A1/" class="post-title-link" itemprop="url">JavaScript深入之变量对象</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-23 14:19:58" itemprop="dateCreated datePublished" datetime="2021-08-23T14:19:58+08:00">2021-08-23</time>
+            </span>
+          <!--
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+            -->
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>419</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h5 id="当-JavaScript-代码执行一段可执行代码-executable-code-时，会创建对应的执行上下文-execution-context"><a href="#当-JavaScript-代码执行一段可执行代码-executable-code-时，会创建对应的执行上下文-execution-context" class="headerlink" title="当 JavaScript 代码执行一段可执行代码(executable code)时，会创建对应的执行上下文(execution context)"></a>当 JavaScript 代码执行一段可执行代码(executable code)时，会创建对应的执行上下文(execution context)</h5><p>对于每个执行上下文，都有三个重要属性：</p>
+<ol>
+<li>变量对象(VO/AO)</li>
+<li>作用域链</li>
+<li>this</li>
+</ol>
+<p>变量对象</p>
+<p>变量对象是与执行上下文相关的数据作用域，存储了在上下文中定义的变量和函数声明。</p>
+<h6 id="全局变量对象"><a href="#全局变量对象" class="headerlink" title="全局变量对象"></a>全局变量对象</h6><p> 全局上下文中的变量对象是window</p>
+<h6 id="函数变量对象"><a href="#函数变量对象" class="headerlink" title="函数变量对象"></a>函数变量对象</h6><p>在函数上下文中，用AO来表示函数的变量对象</p>
+<p>变量对象会包括：</p>
+<ol>
+<li><p>函数的所有形参 (如果是函数上下文)<br> 由名称和对应值组成的一个变量对象的属性被创建<br> 没有实参，属性值设为 undefined</p>
+</li>
+<li><p>函数声明<br>由名称和对应值（函数对象(function-object)）组成一个变量对象的属性被创建<br>如果变量对象已经存在相同名称的属性，则完全替换这个属性</p>
+</li>
+<li><p>变量声明<br>由名称和对应值（undefined）组成一个变量对象的属性被创建；<br>如果变量名称跟已经声明的形式参数或函数相同，则变量声明不会干扰已经存在的这类属性</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(7)-%E9%97%AD%E5%8C%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="浅笑整个夏季">
+      <meta itemprop="description" content="何以解忧， 唯有暴富">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浅笑整个夏季">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(7)-%E9%97%AD%E5%8C%85/" class="post-title-link" itemprop="url">JavaScript深入之闭包</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-23 13:43:03" itemprop="dateCreated datePublished" datetime="2021-08-23T13:43:03+08:00">2021-08-23</time>
+            </span>
+          <!--
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+            -->
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>795</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h6 id="闭包就是能够读取其他函数内部变量的函数。由于在-Javascript-语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”"><a href="#闭包就是能够读取其他函数内部变量的函数。由于在-Javascript-语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”" class="headerlink" title="闭包就是能够读取其他函数内部变量的函数。由于在 Javascript 语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”"></a>闭包就是能够读取其他函数内部变量的函数。由于在 Javascript 语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”</h6><h6 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h6><p>js中的作用域只有全局和函数作用域，在某些特殊其情况下需要在函数之外获取函数内定义的一些变量和方法</p>
+<h6 id="MDN对闭包的定义？"><a href="#MDN对闭包的定义？" class="headerlink" title="MDN对闭包的定义？"></a>MDN对闭包的定义？</h6><p>闭包是指那些能访问自由变量的函数</p>
+<p>那什么是自由变量？<br>自由变量是指在函数中使用但是不是函数的参数也不是函数的局部变量的变量</p>
+<p>由此可以看出闭包 = 函数 + 函数能够访问的自由变量</p>
+<p>由此上面得出我对于闭包的理解：<br>闭包就是在函数内访问当前函数上下文中变量对象以外的变量</p>
+<h6 id="如何理解闭包？"><a href="#如何理解闭包？" class="headerlink" title="如何理解闭包？"></a>如何理解闭包？</h6><p>函数能够访问当前执行上下文中的变量对象以外的变量</p>
+<p>在实践中使用场景：</p>
+<ol>
+<li>函数返回函数 (防抖、 节流)</li>
+</ol>
+<p><b style="color:red;">在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。</b></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;全局属性&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> object = &#123;</span><br><span class="line">  name: <span class="string">&quot;这是对象中的值&quot;</span>,</span><br><span class="line">  getNameFunc: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">this</span>.name;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(object.getNameFunc()()); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;The Window&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> object = &#123;</span><br><span class="line">  name: <span class="string">&quot;My Object&quot;</span>,</span><br><span class="line">  getNameFunc: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> that = <span class="built_in">this</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> that.name;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(object.getNameFunc()()); <span class="comment">// My Object</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(5)-%E4%BD%9C%E7%94%A8%E5%9F%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="浅笑整个夏季">
+      <meta itemprop="description" content="何以解忧， 唯有暴富">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浅笑整个夏季">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(5)-%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="post-title-link" itemprop="url">JavaScript深入之作用域</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-23 11:42:44" itemprop="dateCreated datePublished" datetime="2021-08-23T11:42:44+08:00">2021-08-23</time>
+            </span>
+          <!--
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+            -->
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h6 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h6><p>函数的作用域在函数定义的时候就被定义了</p>
+<p>函数的内部有一个[[scope]]属性，当函数创建时，就会保存所有父变量对象到 = 你可以理解 [[scope]] 就是所有父变量对象的层级链</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数创建时：</span></span><br><span class="line">foo.[[scope]] = [globalContext.VO]</span><br><span class="line"></span><br><span class="line">bar.[[scope]] = [fooContext.AO,  globalContext.VO]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数激活时: 就会将活动对象添加到作用链的前端。</span></span><br><span class="line">Scope = [AO].concat([[Scope]]);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">var</span> scope = <span class="string">&#x27;global scope&#x27;</span></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">checkscope</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> scope2 = <span class="string">&#x27;local scope&#x27;</span>;</span><br><span class="line">    <span class="keyword">return</span> scope2;</span><br><span class="line">&#125;</span><br><span class="line">checkscope();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1.第一步: checkscope 函数被创建，保存作用域链到 内部属性[[scope]]</span></span><br><span class="line">checkscope.[[scope]] = [</span><br><span class="line"> globalContext.VO</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">//2. 第三步: 用 arguments 创建活动对象，随后初始化活动对象，加入形参、函数声明、变量声明</span></span><br><span class="line">checkscopeContext = &#123;</span><br><span class="line">    AO: &#123;</span><br><span class="line">        <span class="built_in">arguments</span>: &#123;</span><br><span class="line">            length: <span class="number">0</span></span><br><span class="line">        &#125;,</span><br><span class="line">        scope2: <span class="literal">undefined</span></span><br><span class="line">    &#125;，</span><br><span class="line">    Scope: checkscope.[[scope]],</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 第三步: checkscope 函数并不立刻执行，开始做准备工作，第一步：复制函数[[scope]]属性创建作用域链</span></span><br><span class="line">checkscopeContext = &#123;</span><br><span class="line">    Scope: checkscope.[[scope]],</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 第四步： 将活动对象压入 checkscope 作用域链顶端</span></span><br><span class="line">checkscopeContext = &#123;</span><br><span class="line">    AO: &#123;</span><br><span class="line">        <span class="built_in">arguments</span>: &#123;</span><br><span class="line">            length: <span class="number">0</span></span><br><span class="line">        &#125;,</span><br><span class="line">        scope2: <span class="literal">undefined</span></span><br><span class="line">    &#125;,</span><br><span class="line">    Scope: [AO, [[Scope]]]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5. 执行 checkscope 函数，创建 checkscope 函数执行上下文，checkscope 函数执行上下文被压入执行上下文栈</span></span><br><span class="line">ECStack = [</span><br><span class="line">    checkscopeContext,</span><br><span class="line">    globalContext</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 6. 函数执行完毕， 吧checkscopeContext从执行上下文栈中删除</span></span><br><span class="line">ECStack = [</span><br><span class="line"> globalContext </span><br><span class="line">]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h5><p>当查找变量时，会从当前上下文中的变量对象中查找，如果找不到就会从父级的执行上下文的变量对象中查找，这样由多个执行上下文中的变量对象构成的链表就叫作用域链</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -955,352 +1246,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%85%B6%E4%BB%96/webrtc/webrtc%E4%B9%8B%E5%BD%95%E5%88%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="浅笑整个夏季">
-      <meta itemprop="description" content="何以解忧， 唯有暴富">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅笑整个夏季">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%85%B6%E4%BB%96/webrtc/webrtc%E4%B9%8B%E5%BD%95%E5%88%B6/" class="post-title-link" itemprop="url">webrtc之录制</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-17 10:05:11" itemprop="dateCreated datePublished" datetime="2021-08-17T10:05:11+08:00">2021-08-17</time>
-            </span>
-          <!--
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/webrtc/" itemprop="url" rel="index"><span itemprop="name">webrtc</span></a>
-                </span>
-            </span>
-            -->
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="js存储二进制数据的类型"><a href="#js存储二进制数据的类型" class="headerlink" title="js存储二进制数据的类型"></a>js存储二进制数据的类型</h4><p>ArrayBuffer: 表示通用的、固定长度的二进制数据缓冲区(实例化之后才能存在内存中)</p>
-<p>ArrayBufferView: 表示不同类型的Array的描述</p>
-<p>blob: js的大型二进制对象类型</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * array: ArrayBuffer、ArrayBufferView、Blob、DOMString</span></span><br><span class="line"><span class="comment"> *  options: 指定存储成的媒体类型</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> ablob = <span class="keyword">new</span> Blob(array, options);</span><br></pre></td></tr></table></figure>
-
-<h5 id="录制音视频流"><a href="#录制音视频流" class="headerlink" title="录制音视频流"></a>录制音视频流</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">Recorder</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.buffer = [];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">handler</span>(<span class="params">e</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (e &amp;&amp; e.data &amp;&amp; e.data.size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="built_in">this</span>.buffer.push(e.data);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 开始录制</span></span><br><span class="line">    <span class="function"><span class="title">startRecorder</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> option = &#123;</span><br><span class="line">            mimeType: <span class="string">&#x27;video/webm;codecs=vp8&#x27;</span>,</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">let</span> mediaRecorder = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (!MediaRecorder.isTypeSupported(option.mimeType)) &#123;</span><br><span class="line">            <span class="built_in">console</span>.error(<span class="string">`<span class="subst">$&#123;option.mimeType&#125;</span> is not supported!`</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//创建录制对象</span></span><br><span class="line">            mediaRecorder = <span class="keyword">new</span> MediaRecorder(<span class="built_in">window</span>.stream, option);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">            <span class="built_in">console</span>.error(<span class="string">&#x27;Failed to create MediaRecorder:&#x27;</span>, e);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        mediaRecorder.ondataavailable = <span class="built_in">this</span>.handler;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建录制的url</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@returns</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="title">createUrl</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; buffer &#125; = <span class="built_in">this</span>;</span><br><span class="line">        <span class="keyword">const</span> url = <span class="keyword">new</span> Blob(buffer, &#123; <span class="attr">type</span>: <span class="string">&#x27;video/webm&#x27;</span> &#125;);</span><br><span class="line">        <span class="keyword">return</span> url;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%85%B6%E4%BB%96/%E7%A7%BB%E5%8A%A8%E7%AB%AF/webview/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="浅笑整个夏季">
-      <meta itemprop="description" content="何以解忧， 唯有暴富">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅笑整个夏季">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%85%B6%E4%BB%96/%E7%A7%BB%E5%8A%A8%E7%AB%AF/webview/" class="post-title-link" itemprop="url">webview</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-16 19:15:14" itemprop="dateCreated datePublished" datetime="2021-08-16T19:15:14+08:00">2021-08-16</time>
-            </span>
-          <!--
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">移动端</span></a>
-                </span>
-            </span>
-            -->
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.6k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="Webview-是一个基于webkit的引擎，可以解析DOM-元素，展示html页面的控件，它和浏览器展示页面的原理是相同的，所以可以把它当做浏览器看待"><a href="#Webview-是一个基于webkit的引擎，可以解析DOM-元素，展示html页面的控件，它和浏览器展示页面的原理是相同的，所以可以把它当做浏览器看待" class="headerlink" title="Webview 是一个基于webkit的引擎，可以解析DOM 元素，展示html页面的控件，它和浏览器展示页面的原理是相同的，所以可以把它当做浏览器看待"></a>Webview 是一个基于webkit的引擎，可以解析DOM 元素，展示html页面的控件，它和浏览器展示页面的原理是相同的，所以可以把它当做浏览器看待</h4><h4 id="webview-是一个可加载网页的对象-类似于浏览器的功能"><a href="#webview-是一个可加载网页的对象-类似于浏览器的功能" class="headerlink" title="webview: 是一个可加载网页的对象, 类似于浏览器的功能"></a>webview: 是一个可加载网页的对象, 类似于浏览器的功能</h4><h4 id="h5-调用-native"><a href="#h5-调用-native" class="headerlink" title="h5 调用 native"></a>h5 调用 native</h4><ol>
-<li>ios下的 uiwebview 和 wkwebview</li>
-</ol>
-<p>uiwebview和wkwebview能够拦截h5内发起的网络请求； 在h5内发起约好的特定协议的网络请求带上需要传递給ios的参数, 客户端拦截到指定协议请求后解析url上的参数</p>
-<ol>
-<li><p>网络拦截</p>
-<img src="../../../static/h5-native.png">
-</li>
-<li><p>native想webview中注入全局变量并挂载到window上</p>
-</li>
-</ol>
-<hr>
-<h4 id="native-调用-h5"><a href="#native-调用-h5" class="headerlink" title="native 调用 h5"></a>native 调用 h5</h4><ol>
-<li>h5根据约定将一组API绑定到window对象上， native通过evaluateJavaScript函数调用window对象中的方法</li>
-</ol>
-<img src="../../../static/jsbrige.png">
-
-<h4 id="通信实现"><a href="#通信实现" class="headerlink" title="通信实现"></a>通信实现</h4><h5 id="h5调用native"><a href="#h5调用native" class="headerlink" title="h5调用native"></a>h5调用native</h5><ol>
-<li>通过拦截url的形式(更加类似于jsonp)</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">JSBridge</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.callback = [];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">initIframe</span>(<span class="params"><span class="built_in">module</span>, params</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> iframe = <span class="built_in">document</span>.createElement(<span class="string">&#x27;iframe&#x27;</span>);</span><br><span class="line">        iframe.style.display = <span class="string">&#x27;none&#x27;</span>;</span><br><span class="line">        <span class="keyword">const</span> value = <span class="built_in">JSON</span>.parse(params);</span><br><span class="line">        <span class="keyword">const</span> src = <span class="string">`myiframe://mathod=<span class="subst">$&#123;<span class="built_in">module</span>&#125;</span>?param=<span class="subst">$&#123;value&#125;</span>`</span>;</span><br><span class="line">        iframe.src = src;</span><br><span class="line">        <span class="built_in">document</span>.body.appendChild(iframe);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * h5调用native</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="title">invokeNative</span>(<span class="params"><span class="built_in">module</span>, params, handler</span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.callback.push(&#123; <span class="built_in">module</span>, params, handler &#125;);</span><br><span class="line">        <span class="built_in">this</span>.initIframe(<span class="built_in">module</span>, params);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * native 调用 h5, evaluateJavascript</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="title">invokeH5</span>(<span class="params"><span class="built_in">module</span>, params</span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.callback</span><br><span class="line">            .filter(<span class="function">(<span class="params">item</span>) =&gt;</span> item.module === <span class="built_in">module</span>)</span><br><span class="line">            .forEach(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">const</span> &#123; handler &#125; = item;</span><br><span class="line">                handler(params);</span><br><span class="line">            &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>native注入上下文</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> bridge =</span><br><span class="line">   <span class="built_in">window</span>.bridge ||</span><br><span class="line">   (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">       <span class="keyword">const</span> result = &#123;</span><br><span class="line">           call, <span class="comment">// H5调用native</span></span><br><span class="line">           response, <span class="comment">//native调用js</span></span><br><span class="line">           pf: <span class="literal">null</span>,</span><br><span class="line">           enable: <span class="literal">false</span>,</span><br><span class="line">       &#125;;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">let</span> nativeBrigge = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">const</span> callback = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">const</span> bridgeAndroid = <span class="built_in">window</span>.bridgeAndroid;</span><br><span class="line">       <span class="keyword">const</span> bridgeIOS = <span class="built_in">window</span>.bridgeIOS;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> (bridgeAndroid) &#123;</span><br><span class="line">           nativeBrigge = bridgeAndroid;</span><br><span class="line">           result.pf = <span class="string">&#x27;android&#x27;</span>;</span><br><span class="line">           result.enable = <span class="literal">true</span>;</span><br><span class="line">       &#125; <span class="keyword">else</span> <span class="keyword">if</span> (bridgeIOS) &#123;</span><br><span class="line">           nativeBrigge = bridgeIOS;</span><br><span class="line">           result.pf = <span class="string">&#x27;ios&#x27;</span>;</span><br><span class="line">           result.enable = <span class="literal">true</span>;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">const</span> lastCallId = <span class="built_in">Date</span>.now();</span><br><span class="line"></span><br><span class="line">       <span class="function"><span class="keyword">function</span> <span class="title">initCallbackId</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="string">`birdge:<span class="subst">$&#123;lastCallId&#125;</span>`</span>;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="comment">// js 调用native方法</span></span><br><span class="line">       <span class="function"><span class="keyword">function</span> <span class="title">call</span>(<span class="params"><span class="built_in">module</span>, params, success, failure, once = <span class="literal">true</span></span>) </span>&#123;</span><br><span class="line">           <span class="keyword">const</span> callId = initCallbackId();</span><br><span class="line">           callback[callId] = &#123;</span><br><span class="line">               <span class="built_in">module</span>,</span><br><span class="line">               params,</span><br><span class="line">               success,</span><br><span class="line">               failure,</span><br><span class="line">               once,</span><br><span class="line">           &#125;;</span><br><span class="line">           <span class="keyword">const</span> data = <span class="built_in">JSON</span>.stringify(&#123; <span class="built_in">module</span>, params, callId &#125;);</span><br><span class="line">           <span class="keyword">if</span> (result.pf === <span class="string">&#x27;android&#x27;</span>) &#123;</span><br><span class="line">               nativeBrigge.call(data);</span><br><span class="line">           &#125; <span class="keyword">else</span> <span class="keyword">if</span> (result.pf === <span class="string">&#x27;ios&#x27;</span>) &#123;</span><br><span class="line">               nativeBrigge.postMessage(data);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="comment">// native调用js代码</span></span><br><span class="line">       <span class="function"><span class="keyword">function</span> <span class="title">response</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">           <span class="keyword">const</span> &#123; callId, erroCode, error, data &#125; = params;</span><br><span class="line">           <span class="keyword">const</span> item = callback[callId];</span><br><span class="line">           <span class="keyword">if</span> (!item) <span class="keyword">return</span>;</span><br><span class="line">           <span class="keyword">const</span> &#123; success, failure, once &#125; = item;</span><br><span class="line">           <span class="keyword">if</span> (erroCode === -<span class="number">1</span>) &#123;</span><br><span class="line">               failure(error);</span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">               success(data);</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">if</span> (once) &#123;</span><br><span class="line">               <span class="keyword">delete</span> callback[callId];</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">return</span> (<span class="built_in">window</span>.bridge = bridge);</span><br><span class="line">   &#125;)();</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%85%B6%E4%BB%96/http/08-15-http%E4%B9%8Bcors/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="浅笑整个夏季">
-      <meta itemprop="description" content="何以解忧， 唯有暴富">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅笑整个夏季">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%85%B6%E4%BB%96/http/08-15-http%E4%B9%8Bcors/" class="post-title-link" itemprop="url">http-cors</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-15 18:15:36" itemprop="dateCreated datePublished" datetime="2021-08-15T18:15:36+08:00">2021-08-15</time>
-            </span>
-          <!--
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/http/" itemprop="url" rel="index"><span itemprop="name">http</span></a>
-                </span>
-            </span>
-            -->
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="浏览器的简单请求和非简单请求"><a href="#浏览器的简单请求和非简单请求" class="headerlink" title="浏览器的简单请求和非简单请求"></a>浏览器的简单请求和非简单请求</h3><ul>
-<li>简单请求：<br>  1, 请求方法为HEAD、GET、OST<ol start="2">
-<li>HTTP头信息不超出以下几个字段<br>Accept / Accept-Language / Content-Language / Last-Event-ID<br>Content-Type：只限于三个值application/x-www-form-urlencoded、multipart/form-data、text/plain</li>
-</ol>
-</li>
-</ul>
-<p>针对简单请求浏览器的请求流程是：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">st&#x3D;&gt;start: start</span><br><span class="line">op&#x3D;&gt;operation: 简单请求</span><br><span class="line">sub1&#x3D;&gt;subroutine: 浏览器为请求添加origin字段，origin字段代表本次请求来自那(协议 + 域名 + 端口)</span><br><span class="line">cond&#x3D;&gt;condition: 是否在同一源内</span><br><span class="line">sub2&#x3D;&gt;subroutine: 在同一源内, 服务器在响应头中添加 Access-Control-Allow-Origin&#x2F;Access-Control-Expose-Headers&#x2F;Access-Control-Allow-Credentials&#x2F;Content-Type字段</span><br><span class="line">sub3&#x3D;&gt;subroutine: 不在同一源内，报错</span><br><span class="line">end&#x3D;&gt;end: 请求结束</span><br><span class="line">e&#x3D;&gt;end</span><br><span class="line">st-&gt;op-&gt;sub1-&gt;cond</span><br><span class="line">cond(yes)-&gt;sub2-&gt;end</span><br><span class="line">cond(no)-&gt;sub3-&gt;end</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li><p>Access-Control-Allow-Origin： 它的值要么是请求时Origin字段的值，要么是一个*，表示接受任意域名的请求</p>
-</li>
-<li><p>Access-Control-Allow-Credentials: 它的值是一个布尔值，表示是否允许发送Cookie</p>
-</li>
-<li><p>Access-Control-Expose-Headers: 该字段可选。CORS请求时，XMLHttpRequest对象的getResponseHeader()方法只能拿到6个基本字段：Cache-Control、Content-Language、Content-Type、Expires、Last-Modified、Pragma。如果想拿到其他字段，就必须在Access-Control-Expose-Headers里面指定。上面的例子指定，getResponseHeader(‘FooBar’)可以返回FooBar字段</p>
-</li>
-<li><p>Content-Type: text/html; charset=utf-8</p>
-</li>
-</ol>
-<h3 id="非简单请求"><a href="#非简单请求" class="headerlink" title="非简单请求"></a>非简单请求</h3><h4 id="预检请求"><a href="#预检请求" class="headerlink" title="预检请求"></a>预检请求</h4> <p style="color: red;"> 非简单请求是那种对服务器有特殊要求的请求，比如请求方法是PUT或DELETE，或者Content-Type字段的类型是application/json。</p>
-
-<p>非简单请求的CORS请求，会在正式通信之前，增加一次HTTP查询请求，称为”预检”请求（preflight）。</p>
-<p>浏览器先询问服务器，当前网页所在的域名是否在服务器的许可名单之中，以及可以使用哪些HTTP动词和头信息字段。只有得到肯定答复，浏览器才会发出正式的XMLHttpRequest请求，否则就报错。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> url = <span class="string">&#x27;http://api.alice.com/cors&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">&#x27;PUT&#x27;</span>, url, <span class="literal">true</span>);</span><br><span class="line">xhr.setRequestHeader(<span class="string">&#x27;X-Custom-Header&#x27;</span>, <span class="string">&#x27;value&#x27;</span>);</span><br><span class="line">xhr.send();</span><br></pre></td></tr></table></figure>
-
-
-<p>OPTIONS: 用来作为预捡请求</p>
-<p>Access-Control-Request-Method： 该字段是必须的，用来列出浏览器的CORS请求会用到哪些HTTP方法，上例是PUT。<br>Access-Control-Request-Headers： 该字段是一个逗号分隔的字符串，指定浏览器CORS请求会额外发送的头信息字段，上例是X-Custom-Header。<br>Origin: 表示请求来自哪个源</p>
-<h4 id="预检请求的回应"><a href="#预检请求的回应" class="headerlink" title="预检请求的回应"></a>预检请求的回应</h4><p>服务器收到”预检”请求以后，检查了Origin、Access-Control-Request-Method和Access-Control-Request-Headers字段以后，确认允许跨源请求，就可以做出回应。</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Date: Mon, 01 Dec 2008 01:15:39 GMT</span><br><span class="line">Server: Apache/2.0.61 (Unix)</span><br><span class="line">Access-Control-Allow-Origin: http://api.bob.com</span><br><span class="line">Access-Control-Allow-Methods: GET, POST, PUT</span><br><span class="line">Access-Control-Allow-Headers: X-Custom-Header</span><br><span class="line">Content-Type: text/html; charset=utf-8</span><br><span class="line">Content-Encoding: gzip</span><br><span class="line">Content-Length: 0</span><br><span class="line">Keep-Alive: timeout=2, max=100</span><br><span class="line">Connection: Keep-Alive</span><br><span class="line">Content-Type: text/plain</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>上面的HTTP回应中，关键的是Access-Control-Allow-Origin字段，表示<a target="_blank" rel="noopener" href="http://api.bob.com可以请求数据。该字段也可以设为星号，表示同意任意跨源请求。">http://api.bob.com可以请求数据。该字段也可以设为星号，表示同意任意跨源请求。</a></p>
-<p><code>Access-Control-Allow-Origin: *</code></p>
-<p>如果服务器否定了”预检”请求，会返回一个正常的HTTP回应，但是没有任何CORS相关的头信息字段。这时，浏览器就会认定，服务器不同意预检请求，因此触发一个错误，被XMLHttpRequest对象的onerror回调函数捕获。控制台会打印出如下的报错信息。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">XMLHttpRequest cannot load http:&#x2F;&#x2F;api.alice.com.</span><br><span class="line">Origin http:&#x2F;&#x2F;api.bob.com is not allowed by Access-Control-Allow-Origin.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>服务器回应的其他CORS相关字段如下。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Access-Control-Allow-Methods: GET, POST, PUT</span><br><span class="line">Access-Control-Allow-Headers: X-Custom-Header</span><br><span class="line">Access-Control-Allow-Credentials: true</span><br><span class="line">Access-Control-Max-Age: 1728000</span><br></pre></td></tr></table></figure>
-
-
-<ol>
-<li>Access-Control-Allow-Methods </li>
-</ol>
-<p>该字段必需，它的值是逗号分隔的一个字符串，表明服务器支持的所有跨域请求的方法。注意，返回的是所有支持的方法，而不单是浏览器请求的那个方法。这是为了避免多次”预检”请求</p>
-<ol start="2">
-<li>Access-Control-Allow-Headers</li>
-</ol>
-<p>如果浏览器请求包括Access-Control-Request-Headers字段，则Access-Control-Allow-Headers字段是必需的。它也是一个逗号分隔的字符串，表明服务器支持的所有头信息字段，不限于浏览器在”预检”中请求的字段。</p>
-<ol start="3">
-<li>Access-Control-Allow-Credentials</li>
-</ol>
-<p>该字段与简单请求时的含义相同。</p>
-<ol start="4">
-<li>Access-Control-Max-Age</li>
-</ol>
-<p>该字段可选，用来指定本次预检请求的有效期，单位为秒。上面结果中，有效期是20天（1728000秒），即允许缓存该条回应1728000秒（即20天），在此期间，不用发出另一条预检请求。</p>
-<h4 id="浏览器的正常请求和回应"><a href="#浏览器的正常请求和回应" class="headerlink" title="浏览器的正常请求和回应"></a>浏览器的正常请求和回应</h4><p>一旦服务器通过了”预检”请求，以后每次浏览器正常的CORS请求，就都跟简单请求一样，会有一个Origin头信息字段。服务器的回应，也都会有一个Access-Control-Allow-Origin头信息字段。</p>
-<p><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2016/04/cors.html">参考链接</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1366,19 +1315,19 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">81</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1423,13 +1372,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">101k</span>
+    <span title="站点总字数">108k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:32</span>
+    <span title="站点阅读时长">1:38</span>
 </div>
 
         

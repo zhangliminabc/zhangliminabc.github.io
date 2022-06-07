@@ -42,6 +42,7 @@ class SmartObject implements Disposable, Activatable {
 applyMixins(SmartObject, [Disposable, Activatable]);
 
 let smartObj = new SmartObject();
+
 setTimeout(() => smartObj.interact(), 1000);
 
 ////////////////////////////////////////
@@ -76,22 +77,26 @@ function Extends<T, U> (first: T, second: U): T & U {
 }
 
 
-interface Bird {
-    fly();
-    layEggs();
-}
+// interface Bird {
+//     fly();
+//     layEggs();
+// }
 
-interface Fish {
-    swim();
-    layEggs();
-}
+// interface Fish {
+//     swim();
+//     layEggs();
+// }
 
-function getSmallPet(): Fish | Bird {
-}
+// function getSmallPet(): Fish | Bird {
+// }
 
-let pet = getSmallPet();
+// let pet = getSmallPet();
 
 
-function isFish(pet: Fish | Bird): pet is Fish {
-    return (<Fish>pet).swim !== undefined;
-}
+// function isFish(pet: Fish | Bird): pet is Fish {
+//     return (<Fish>pet).swim !== undefined;
+// }
+
+
+
+

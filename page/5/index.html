@@ -121,12 +121,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">21</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">78</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">81</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -179,6 +179,310 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(17)-genarator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="浅笑整个夏季">
+      <meta itemprop="description" content="何以解忧， 唯有暴富">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浅笑整个夏季">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(17)-genarator/" class="post-title-link" itemprop="url">JavaScript深入之genarator</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-23 19:52:00" itemprop="dateCreated datePublished" datetime="2021-08-23T19:52:00+08:00">2021-08-23</time>
+            </span>
+          <!--
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+            -->
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><p>Generator 函数是 ES6 提供的一种异步编程解决方案，语法行为与传统函数完全不同。本章详细介绍 Generator 函数的语法和 API，它的异步编程应用请看《Generator 函数的异步应用》一章。</p>
+<p>Generator 函数有多种理解角度。语法上，首先可以把它理解成，Generator 函数是一个状态机，封装了多个内部状态。</p>
+<p>执行 Generator 函数会返回一个遍历器对象，也就是说，Generator 函数除了状态机，还是一个遍历器对象生成函数。返回的遍历器对象，可以依次遍历 Generator 函数内部的每一个状态。</p>
+<p>形式上，Generator 函数是一个普通函数，但是有两个特征。<br>一是，<code>function</code>关键字与函数名之间有一个星号；<br>二是，函数体内部使用<code>yield</code>表达式，定义不同的内部状态（<code>yield</code>在英语里的意思就是“产出”）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">helloWorldGenerator</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">yield</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">  <span class="keyword">yield</span> <span class="string">&quot;world&quot;</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;ending&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> hw = helloWorldGenerator();</span><br></pre></td></tr></table></figure>
+
+<p>上面代码定义了一个 Generator 函数<code>helloWorldGenerator</code>，它内部有两个<code>yield</code>表达式（<code>hello</code>和<code>world</code>），即该函数有三个状态：hello，world 和 return 语句（结束执行）。</p>
+<p>然后，Generator 函数的调用方法与普通函数一样，也是在函数名后面加上一对圆括号。不同的是，调用 Generator 函数后，该函数并不执行，返回的也不是函数运行结果，而是一个指向内部状态的指针对象，也就是上一章介绍的遍历器对象（Iterator Object）。</p>
+<p>下一步，必须调用遍历器对象的<code>next</code>方法，使得指针移向下一个状态。也就是说，每次调用<code>next</code>方法，内部指针就从函数头部或上一次停下来的地方开始执行，直到遇到下一个<code>yield</code>表达式（或<code>return</code>语句）为止。换言之，Generator 函数是分段执行的，<code>yield</code>表达式是暂停执行的标记，而<code>next</code>方法可以恢复执行。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">hw.next();</span><br><span class="line"><span class="comment">// &#123; value: &#x27;hello&#x27;, done: false &#125;</span></span><br><span class="line"></span><br><span class="line">hw.next();</span><br><span class="line"><span class="comment">// &#123; value: &#x27;world&#x27;, done: false &#125;</span></span><br><span class="line"></span><br><span class="line">hw.next();</span><br><span class="line"><span class="comment">// &#123; value: &#x27;ending&#x27;, done: true &#125;</span></span><br><span class="line"></span><br><span class="line">hw.next();</span><br><span class="line"><span class="comment">// &#123; value: undefined, done: true &#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>上面代码一共调用了四次<code>next</code>方法。</p>
+<p>第一次调用，Generator 函数开始执行，直到遇到第一个<code>yield</code>表达式为止。<code>next</code>方法返回一个对象，它的<code>value</code>属性就是当前<code>yield</code>表达式的值<code>hello</code>，<code>done</code>属性的值<code>false</code>，表示遍历还没有结束。</p>
+<p>第二次调用，Generator 函数从上次<code>yield</code>表达式停下的地方，一直执行到下一个<code>yield</code>表达式。<code>next</code>方法返回的对象的<code>value</code>属性就是当前<code>yield</code>表达式的值<code>world</code>，<code>done</code>属性的值<code>false</code>，表示遍历还没有结束。</p>
+<p>第三次调用，Generator 函数从上次<code>yield</code>表达式停下的地方，一直执行到<code>return</code>语句（如果没有<code>return</code>语句，就执行到函数结束）。<code>next</code>方法返回的对象的<code>value</code>属性，就是紧跟在<code>return</code>语句后面的表达式的值（如果没有<code>return</code>语句，则<code>value</code>属性的值为<code>undefined</code>），<code>done</code>属性的值<code>true</code>，表示遍历已经结束。</p>
+<p>第四次调用，此时 Generator 函数已经运行完毕，<code>next</code>方法返回对象的<code>value</code>属性为<code>undefined</code>，<code>done</code>属性为<code>true</code>。以后再调用<code>next</code>方法，返回的都是这个值。</p>
+<p>总结一下，调用 Generator 函数，返回一个遍历器对象，代表 Generator 函数的内部指针。以后，每次调用遍历器对象的<code>next</code>方法，就会返回一个有着<code>value</code>和<code>done</code>两个属性的对象。<code>value</code>属性表示当前的内部状态的值，是<code>yield</code>表达式后面那个表达式的值；<code>done</code>属性是一个布尔值，表示是否遍历结束。</p>
+<p>ES6 没有规定，<code>function</code>关键字与函数名之间的星号，写在哪个位置。这导致下面的写法都能通过。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> * <span class="title">foo</span>(<span class="params">x, y</span>) </span>&#123; ··· &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params">x, y</span>) </span>&#123; ··· &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">foo</span>(<span class="params">x, y</span>) </span>&#123; ··· &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span>*<span class="title">foo</span>(<span class="params">x, y</span>) </span>&#123; ··· &#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于 Generator 函数仍然是普通函数，所以一般的写法是上面的第三种，即星号紧跟在<code>function</code>关键字后面。本书也采用这种写法。</p>
+<h6 id="接下来我们深度剖析一下async-await和-genarator之间的关系"><a href="#接下来我们深度剖析一下async-await和-genarator之间的关系" class="headerlink" title="接下来我们深度剖析一下async/await和 genarator之间的关系"></a>接下来我们深度剖析一下async/await和 genarator之间的关系</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="string">&#x27;data&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">a</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> result =  <span class="keyword">await</span> b()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面一段代码是正常的async/await的用法，接下来我们看一下使用babel编译上面代码之后得到了什么</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">asyncGeneratorStep</span>(<span class="params">gen, resolve, reject, _next, _throw, key, arg</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> info = gen[key](arg);</span><br><span class="line">        <span class="keyword">var</span> value = info.value;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">        reject(error);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (info.done) &#123;</span><br><span class="line">        resolve(value);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">Promise</span>.resolve(value).then(_next, _throw);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_asyncToGenerator</span>(<span class="params">fn</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> self = <span class="built_in">this</span>,</span><br><span class="line">            args = <span class="built_in">arguments</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> gen = fn.apply(self, args);</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">function</span> <span class="title">_next</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">                asyncGeneratorStep(gen, resolve, reject, _next, _throw, <span class="string">&quot;next&quot;</span>, value);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">function</span> <span class="title">_throw</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">                asyncGeneratorStep(gen, resolve, reject, _next, _throw, <span class="string">&quot;throw&quot;</span>, err);</span><br><span class="line">            &#125;</span><br><span class="line">            _next(<span class="literal">undefined</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;data&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> _a.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_a</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    _a = _asyncToGenerator(<span class="function"><span class="keyword">function</span>*(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> result = <span class="keyword">yield</span> b();</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> _a.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由此可见：</p>
+<p>aysnc函数返回一个promise<br>在 async/await内部使用的是 promise的then回调一直触发next函数的调用， 直到遍历器内部done的值为true</p>
+<p>async/await实质上 genarator和promise的语法糖</p>
+<h4 id="为什么使用aysnc-await？"><a href="#为什么使用aysnc-await？" class="headerlink" title="为什么使用aysnc/await？"></a>为什么使用aysnc/await？</h4><p>promise的缺点：</p>
+<ol>
+<li>无法取消promise</li>
+<li>对于promise的链式调用一直会返回promise</li>
+<li>对于catch和then回调中的reject的错误处理</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(16)-super/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="浅笑整个夏季">
+      <meta itemprop="description" content="何以解忧， 唯有暴富">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浅笑整个夏季">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(16)-super/" class="post-title-link" itemprop="url">JavaScript深入之super</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-23 19:51:32" itemprop="dateCreated datePublished" datetime="2021-08-23T19:51:32+08:00">2021-08-23</time>
+            </span>
+          <!--
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+            -->
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="super-用于访问和调用一个对象的父对象上的函数"><a href="#super-用于访问和调用一个对象的父对象上的函数" class="headerlink" title="super: 用于访问和调用一个对象的父对象上的函数"></a>super: 用于访问和调用一个对象的父对象上的函数</h4><h5 id="Object-getPrototypeOf-Object-setPrototypeOf-返回的是对象的隐士的原型对象-proto"><a href="#Object-getPrototypeOf-Object-setPrototypeOf-返回的是对象的隐士的原型对象-proto" class="headerlink" title="Object.getPrototypeOf / Object.setPrototypeOf: 返回的是对象的隐士的原型对象 proto"></a>Object.getPrototypeOf / Object.setPrototypeOf: 返回的是对象的隐士的原型对象 <strong>proto</strong></h5><h5 id="Object-create-方法创建一个新对象，使用现有的对象来提供新创建的对象的proto"><a href="#Object-create-方法创建一个新对象，使用现有的对象来提供新创建的对象的proto" class="headerlink" title="Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的proto"></a>Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的<strong>proto</strong></h5><p>接下来我们看看ES6中super的调用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  ES6代码</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>我们再来看看通过babel编译ES6为Es5的代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * babel编译es6中的 class/ extends/super 为 es5</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_inherits</span>(<span class="params">subClass, superClass</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> superClass !== <span class="string">&quot;function&quot;</span> &amp;&amp; superClass !== <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">&quot;Super expression must either be null or a function&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    subClass.prototype = <span class="built_in">Object</span>.create(superClass &amp;&amp; superClass.prototype, &#123;</span><br><span class="line">        <span class="title">constructor</span>: &#123;</span><br><span class="line">            value: subClass,</span><br><span class="line">            writable: <span class="literal">true</span>,</span><br><span class="line">            configurable: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">if</span> (superClass) _setPrototypeOf(subClass, superClass);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_setPrototypeOf</span>(<span class="params">o, p</span>) </span>&#123;</span><br><span class="line">    _setPrototypeOf = <span class="built_in">Object</span>.setPrototypeOf || <span class="function"><span class="keyword">function</span> <span class="title">_setPrototypeOf</span>(<span class="params">o, p</span>) </span>&#123;</span><br><span class="line">        o.__proto__ = p;</span><br><span class="line">        <span class="keyword">return</span> o;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> _setPrototypeOf(o, p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_createSuper</span>(<span class="params">Derived</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> hasNativeReflectConstruct = _isNativeReflectConstruct();</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">_createSuperInternal</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> Super = _getPrototypeOf(Derived),</span><br><span class="line">            result;</span><br><span class="line">        <span class="built_in">console</span>.log(Super === A) <span class="comment">// true</span></span><br><span class="line">        <span class="keyword">if</span> (hasNativeReflectConstruct) &#123;</span><br><span class="line">            <span class="keyword">var</span> NewTarget = _getPrototypeOf(<span class="built_in">this</span>).constructor;</span><br><span class="line">            result = <span class="built_in">Reflect</span>.construct(Super, <span class="built_in">arguments</span>, NewTarget);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; result = Super.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>); &#125;</span><br><span class="line">        <span class="keyword">return</span> _possibleConstructorReturn(<span class="built_in">this</span>, result);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_possibleConstructorReturn</span>(<span class="params">self, call</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (call &amp;&amp; (<span class="keyword">typeof</span> call === <span class="string">&quot;object&quot;</span> || <span class="keyword">typeof</span> call === <span class="string">&quot;function&quot;</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> call;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> _assertThisInitialized(self);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_assertThisInitialized</span>(<span class="params">self</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (self === <span class="keyword">void</span> <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">ReferenceError</span>(<span class="string">&quot;this hasn&#x27;t been initialised - super() hasn&#x27;t been called&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> self;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_isNativeReflectConstruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">Reflect</span> === <span class="string">&quot;undefined&quot;</span> || !<span class="built_in">Reflect</span>.construct)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">Reflect</span>.construct.sham) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">Proxy</span> === <span class="string">&quot;function&quot;</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123; <span class="built_in">Boolean</span>.prototype.valueOf.call(<span class="built_in">Reflect</span>.construct(<span class="built_in">Boolean</span>, [], <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;)); <span class="keyword">return</span> <span class="literal">true</span>; &#125; <span class="keyword">catch</span> (e) &#123; <span class="keyword">return</span> <span class="literal">false</span>; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_getPrototypeOf</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">    _getPrototypeOf = <span class="built_in">Object</span>.setPrototypeOf ?</span><br><span class="line">        <span class="built_in">Object</span>.getPrototypeOf :</span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">_getPrototypeOf</span>(<span class="params">o</span>) </span>&#123; <span class="keyword">return</span> o.__proto__ || <span class="built_in">Object</span>.getPrototypeOf(o); &#125;;</span><br><span class="line">    <span class="keyword">return</span> _getPrototypeOf(o);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_classCallCheck</span>(<span class="params">instance, Constructor</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!(instance <span class="keyword">instanceof</span> Constructor)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">&quot;Cannot call a class as a function&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> A = <span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="meta">    &quot;use strict&quot;</span>;</span><br><span class="line">    _classCallCheck(<span class="built_in">this</span>, A);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> B = <span class="comment">/*#__PURE__*/</span> <span class="function"><span class="keyword">function</span>(<span class="params">_A</span>) </span>&#123;</span><br><span class="line"><span class="meta">    &quot;use strict&quot;</span>;</span><br><span class="line"></span><br><span class="line">    _inherits(B, _A);</span><br><span class="line">    <span class="keyword">var</span> _super = _createSuper(B);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        _classCallCheck(<span class="built_in">this</span>, B);</span><br><span class="line">        <span class="comment">// 参照JavaScript深入之继承中的寄生组合式继承，这句代码有没有很熟悉</span></span><br><span class="line">        <span class="keyword">return</span> _super.call(<span class="built_in">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> B;</span><br><span class="line">&#125;(A)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> instance = <span class="keyword">new</span> B();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>最后我们自己实现一个Super函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Reflect的用法 </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">const</span> newTarget = <span class="built_in">Reflect</span>.construct(Test, [<span class="string">&#x27;张利民&#x27;</span>, <span class="number">26</span>]);</span><br><span class="line"><span class="built_in">console</span>.log(</span><br><span class="line">    newTarget.__proto__.constructor === Test,</span><br><span class="line">    newTarget.__proto__ === Test.prototype,</span><br><span class="line">    newTarget <span class="keyword">instanceof</span> Test); <span class="comment">// true, true, true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> newTarget1 = <span class="built_in">Reflect</span>.construct(Test, [<span class="string">&#x27;张利民&#x27;</span>, <span class="number">26</span>], Parent);</span><br><span class="line"><span class="built_in">console</span>.log(</span><br><span class="line">    newTarget1.__proto__.constructor === Parent,</span><br><span class="line">    newTarget1.__proto__ === Parent.prototype,</span><br><span class="line">    newTarget1 <span class="keyword">instanceof</span> Parent); <span class="comment">// true, true, true</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 模拟super函数</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;*&#125;</span> </span>Test </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns </span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mockSuper</span>(<span class="params">Test</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">_createSuper</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> Super = <span class="built_in">Object</span>.getPrototypeOf(Test)</span><br><span class="line">        <span class="keyword">let</span> result = <span class="literal">null</span></span><br><span class="line">        <span class="keyword">const</span> newTarget = <span class="built_in">Object</span>.getPrototypeOf(<span class="built_in">this</span>).constructor</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">Reflect</span> !== <span class="string">&#x27;undefined&#x27;</span>) &#123;</span><br><span class="line">            <span class="comment">// const result = new newTarget(arguments)</span></span><br><span class="line">            result = <span class="built_in">Reflect</span>.construct(Super, <span class="built_in">arguments</span>, newTarget)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(15)-new/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="浅笑整个夏季">
+      <meta itemprop="description" content="何以解忧， 唯有暴富">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浅笑整个夏季">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(15)-new/" class="post-title-link" itemprop="url">JavaScript深入之new操作符</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-23 19:51:06" itemprop="dateCreated datePublished" datetime="2021-08-23T19:51:06+08:00">2021-08-23</time>
+            </span>
+          <!--
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+            -->
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="new-操作符"><a href="#new-操作符" class="headerlink" title="new 操作符"></a>new 操作符</h4><p>构造函数实例化通过 new 操作符初始化一个构造函数实例对象，在这个新的对象中为什么可以访问构造函数内的函数和变量？同时实例化之后的对象中的this为什么指向构造函数？</p>
+<h5 id="自定义new函数"><a href="#自定义new函数" class="headerlink" title="自定义new函数"></a>自定义new函数</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line">		<span class="comment">// return &#123; name, age &#125;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Test.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Test.prototype.getAge = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Test.prototype.setName = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Test.prototype.setAge = <span class="function"><span class="keyword">function</span>(<span class="params">age</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// const instance = new Test(&#x27;zhanglimin&#x27;, 26);</span></span><br><span class="line"><span class="keyword">const</span> instance = mockNew(Test, <span class="string">&#x27;zhanglimin&#x27;</span>, <span class="number">26</span>)</span><br><span class="line"><span class="built_in">console</span>.log(instance.__proto__ === Test.prototype); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mockNew</span>(<span class="params">Con, ...args</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> obj = &#123;&#125;</span><br><span class="line">        <span class="comment">// 解释了static类型的方法不能通过this调用的原因</span></span><br><span class="line">    <span class="built_in">Object</span>.setPrototypeOf(obj, Con.prototype)</span><br><span class="line">        <span class="comment">// apply方法调用一个具有给定this值的函数</span></span><br><span class="line">    <span class="keyword">let</span> result = Con.apply(obj, args)</span><br><span class="line">    <span class="keyword">return</span> result <span class="keyword">instanceof</span> <span class="built_in">Object</span> ? result : obj</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>由此可见 new操作符的实质是</p>
+<ol>
+<li>传建一个空对象</li>
+<li>将空对象中原型对象<strong>proto</strong> 指向构造函数的原型(prototype)</li>
+<li>使用call 或者 apply 绑定函数内的this指向</li>
+<li>执行构造函数， 如果构造函数的返回值是对象就返回改值，如果不是就返回创建的空对象</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -805,301 +1109,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(4)-%E5%8F%98%E9%87%8F%E5%AF%B9%E8%B1%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="浅笑整个夏季">
-      <meta itemprop="description" content="何以解忧， 唯有暴富">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅笑整个夏季">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(4)-%E5%8F%98%E9%87%8F%E5%AF%B9%E8%B1%A1/" class="post-title-link" itemprop="url">JavaScript深入之变量对象</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-23 14:19:58" itemprop="dateCreated datePublished" datetime="2021-08-23T14:19:58+08:00">2021-08-23</time>
-            </span>
-          <!--
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-            </span>
-            -->
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>419</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h5 id="当-JavaScript-代码执行一段可执行代码-executable-code-时，会创建对应的执行上下文-execution-context"><a href="#当-JavaScript-代码执行一段可执行代码-executable-code-时，会创建对应的执行上下文-execution-context" class="headerlink" title="当 JavaScript 代码执行一段可执行代码(executable code)时，会创建对应的执行上下文(execution context)"></a>当 JavaScript 代码执行一段可执行代码(executable code)时，会创建对应的执行上下文(execution context)</h5><p>对于每个执行上下文，都有三个重要属性：</p>
-<ol>
-<li>变量对象(VO/AO)</li>
-<li>作用域链</li>
-<li>this</li>
-</ol>
-<p>变量对象</p>
-<p>变量对象是与执行上下文相关的数据作用域，存储了在上下文中定义的变量和函数声明。</p>
-<h6 id="全局变量对象"><a href="#全局变量对象" class="headerlink" title="全局变量对象"></a>全局变量对象</h6><p> 全局上下文中的变量对象是window</p>
-<h6 id="函数变量对象"><a href="#函数变量对象" class="headerlink" title="函数变量对象"></a>函数变量对象</h6><p>在函数上下文中，用AO来表示函数的变量对象</p>
-<p>变量对象会包括：</p>
-<ol>
-<li><p>函数的所有形参 (如果是函数上下文)<br> 由名称和对应值组成的一个变量对象的属性被创建<br> 没有实参，属性值设为 undefined</p>
-</li>
-<li><p>函数声明<br>由名称和对应值（函数对象(function-object)）组成一个变量对象的属性被创建<br>如果变量对象已经存在相同名称的属性，则完全替换这个属性</p>
-</li>
-<li><p>变量声明<br>由名称和对应值（undefined）组成一个变量对象的属性被创建；<br>如果变量名称跟已经声明的形式参数或函数相同，则变量声明不会干扰已经存在的这类属性</p>
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(7)-%E9%97%AD%E5%8C%85/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="浅笑整个夏季">
-      <meta itemprop="description" content="何以解忧， 唯有暴富">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅笑整个夏季">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(7)-%E9%97%AD%E5%8C%85/" class="post-title-link" itemprop="url">JavaScript深入之闭包</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-23 13:43:03" itemprop="dateCreated datePublished" datetime="2021-08-23T13:43:03+08:00">2021-08-23</time>
-            </span>
-          <!--
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-            </span>
-            -->
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>795</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h6 id="闭包就是能够读取其他函数内部变量的函数。由于在-Javascript-语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”"><a href="#闭包就是能够读取其他函数内部变量的函数。由于在-Javascript-语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”" class="headerlink" title="闭包就是能够读取其他函数内部变量的函数。由于在 Javascript 语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”"></a>闭包就是能够读取其他函数内部变量的函数。由于在 Javascript 语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”</h6><h6 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h6><p>js中的作用域只有全局和函数作用域，在某些特殊其情况下需要在函数之外获取函数内定义的一些变量和方法</p>
-<h6 id="MDN对闭包的定义？"><a href="#MDN对闭包的定义？" class="headerlink" title="MDN对闭包的定义？"></a>MDN对闭包的定义？</h6><p>闭包是指那些能访问自由变量的函数</p>
-<p>那什么是自由变量？<br>自由变量是指在函数中使用但是不是函数的参数也不是函数的局部变量的变量</p>
-<p>由此可以看出闭包 = 函数 + 函数能够访问的自由变量</p>
-<p>由此上面得出我对于闭包的理解：<br>闭包就是在函数内访问当前函数上下文中变量对象以外的变量</p>
-<h6 id="如何理解闭包？"><a href="#如何理解闭包？" class="headerlink" title="如何理解闭包？"></a>如何理解闭包？</h6><p>函数能够访问当前执行上下文中的变量对象以外的变量</p>
-<p>在实践中使用场景：</p>
-<ol>
-<li>函数返回函数 (防抖、 节流)</li>
-</ol>
-<p><b style="color:red;">在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。</b></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;全局属性&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> object = &#123;</span><br><span class="line">  name: <span class="string">&quot;这是对象中的值&quot;</span>,</span><br><span class="line">  getNameFunc: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">this</span>.name;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(object.getNameFunc()()); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;The Window&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> object = &#123;</span><br><span class="line">  name: <span class="string">&quot;My Object&quot;</span>,</span><br><span class="line">  getNameFunc: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> that = <span class="built_in">this</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> that.name;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(object.getNameFunc()()); <span class="comment">// My Object</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(5)-%E4%BD%9C%E7%94%A8%E5%9F%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="浅笑整个夏季">
-      <meta itemprop="description" content="何以解忧， 唯有暴富">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅笑整个夏季">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(5)-%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="post-title-link" itemprop="url">JavaScript深入之作用域</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-23 11:42:44" itemprop="dateCreated datePublished" datetime="2021-08-23T11:42:44+08:00">2021-08-23</time>
-            </span>
-          <!--
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-            </span>
-            -->
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h6 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h6><p>函数的作用域在函数定义的时候就被定义了</p>
-<p>函数的内部有一个[[scope]]属性，当函数创建时，就会保存所有父变量对象到 = 你可以理解 [[scope]] 就是所有父变量对象的层级链</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数创建时：</span></span><br><span class="line">foo.[[scope]] = [globalContext.VO]</span><br><span class="line"></span><br><span class="line">bar.[[scope]] = [fooContext.AO,  globalContext.VO]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数激活时: 就会将活动对象添加到作用链的前端。</span></span><br><span class="line">Scope = [AO].concat([[Scope]]);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">var</span> scope = <span class="string">&#x27;global scope&#x27;</span></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">checkscope</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> scope2 = <span class="string">&#x27;local scope&#x27;</span>;</span><br><span class="line">    <span class="keyword">return</span> scope2;</span><br><span class="line">&#125;</span><br><span class="line">checkscope();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1.第一步: checkscope 函数被创建，保存作用域链到 内部属性[[scope]]</span></span><br><span class="line">checkscope.[[scope]] = [</span><br><span class="line"> globalContext.VO</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">//2. 第三步: 用 arguments 创建活动对象，随后初始化活动对象，加入形参、函数声明、变量声明</span></span><br><span class="line">checkscopeContext = &#123;</span><br><span class="line">    AO: &#123;</span><br><span class="line">        <span class="built_in">arguments</span>: &#123;</span><br><span class="line">            length: <span class="number">0</span></span><br><span class="line">        &#125;,</span><br><span class="line">        scope2: <span class="literal">undefined</span></span><br><span class="line">    &#125;，</span><br><span class="line">    Scope: checkscope.[[scope]],</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 第三步: checkscope 函数并不立刻执行，开始做准备工作，第一步：复制函数[[scope]]属性创建作用域链</span></span><br><span class="line">checkscopeContext = &#123;</span><br><span class="line">    Scope: checkscope.[[scope]],</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 第四步： 将活动对象压入 checkscope 作用域链顶端</span></span><br><span class="line">checkscopeContext = &#123;</span><br><span class="line">    AO: &#123;</span><br><span class="line">        <span class="built_in">arguments</span>: &#123;</span><br><span class="line">            length: <span class="number">0</span></span><br><span class="line">        &#125;,</span><br><span class="line">        scope2: <span class="literal">undefined</span></span><br><span class="line">    &#125;,</span><br><span class="line">    Scope: [AO, [[Scope]]]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5. 执行 checkscope 函数，创建 checkscope 函数执行上下文，checkscope 函数执行上下文被压入执行上下文栈</span></span><br><span class="line">ECStack = [</span><br><span class="line">    checkscopeContext,</span><br><span class="line">    globalContext</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 6. 函数执行完毕， 吧checkscopeContext从执行上下文栈中删除</span></span><br><span class="line">ECStack = [</span><br><span class="line"> globalContext </span><br><span class="line">]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h5 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h5><p>当查找变量时，会从当前上下文中的变量对象中查找，如果找不到就会从父级的执行上下文的变量对象中查找，这样由多个执行上下文中的变量对象构成的链表就叫作用域链</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1165,19 +1178,19 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">81</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1222,13 +1235,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">101k</span>
+    <span title="站点总字数">108k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:32</span>
+    <span title="站点阅读时长">1:38</span>
 </div>
 
         

@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"zhangliminabc.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":240,"display":"always","offset":18,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="block-level box盒子模型: margin + padding + border + content 排列规则:  块状元素排斥其他元素与其位于同一行 块状元素具有流体特性(水平方向自动填满外部容器)  Formatting context在页面中的一块渲染区域，并且有自己的渲染规则 bfc(Block formatting contex): 决定了元素如何兑取内容进行布局以及和其他元">
+  <meta name="description" content="block-level box盒子模型: margin + padding + border + content 排列规则:  块状元素排斥其他元素与其位于同一行 块状元素具有流体特性(水平方向自动填满外部容器)  Formatting context在页面中的一块渲染区域，并且有自己的渲染规则 bfc(Block formatting context): 决定了元素如何兑取内容进行布局以及和其他">
 <meta property="og:type" content="article">
 <meta property="og:title" content="css深入之bfc">
 <meta property="og:url" content="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/css/css%E6%B7%B1%E5%85%A5%E4%B9%8B(3)-bfc/index.html">
 <meta property="og:site_name" content="浅笑整个夏季">
-<meta property="og:description" content="block-level box盒子模型: margin + padding + border + content 排列规则:  块状元素排斥其他元素与其位于同一行 块状元素具有流体特性(水平方向自动填满外部容器)  Formatting context在页面中的一块渲染区域，并且有自己的渲染规则 bfc(Block formatting contex): 决定了元素如何兑取内容进行布局以及和其他元">
+<meta property="og:description" content="block-level box盒子模型: margin + padding + border + content 排列规则:  块状元素排斥其他元素与其位于同一行 块状元素具有流体特性(水平方向自动填满外部容器)  Formatting context在页面中的一块渲染区域，并且有自己的渲染规则 bfc(Block formatting context): 决定了元素如何兑取内容进行布局以及和其他">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-23T14:07:55.000Z">
 <meta property="article:modified_time" content="2021-08-23T14:07:55.000Z">
@@ -124,12 +124,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">21</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">78</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">81</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -263,7 +263,7 @@
 <li>块状元素具有流体特性(水平方向自动填满外部容器)</li>
 </ol>
 <h4 id="Formatting-context"><a href="#Formatting-context" class="headerlink" title="Formatting context"></a>Formatting context</h4><p>在页面中的一块渲染区域，并且有自己的渲染规则</p>
-<h4 id="bfc-Block-formatting-contex-决定了元素如何兑取内容进行布局以及和其他元素的关系和相互作用"><a href="#bfc-Block-formatting-contex-决定了元素如何兑取内容进行布局以及和其他元素的关系和相互作用" class="headerlink" title="bfc(Block formatting contex): 决定了元素如何兑取内容进行布局以及和其他元素的关系和相互作用"></a>bfc(Block formatting contex): 决定了元素如何兑取内容进行布局以及和其他元素的关系和相互作用</h4><p>简单理解是： BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素</p>
+<h4 id="bfc-Block-formatting-context-决定了元素如何兑取内容进行布局以及和其他元素的关系和相互作用"><a href="#bfc-Block-formatting-context-决定了元素如何兑取内容进行布局以及和其他元素的关系和相互作用" class="headerlink" title="bfc(Block formatting context): 决定了元素如何兑取内容进行布局以及和其他元素的关系和相互作用"></a>bfc(Block formatting context): 决定了元素如何兑取内容进行布局以及和其他元素的关系和相互作用</h4><p>简单理解是： BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素</p>
 <h4 id="bfc的布局规则"><a href="#bfc的布局规则" class="headerlink" title="bfc的布局规则"></a>bfc的布局规则</h4><ol>
 <li>内部的box会在垂直方向上一个接一个的排列</li>
 <li>box在垂直方向上的距离由margin决定， 属于同一个BFC的两个相邻Box的margin会发生重叠</li>
@@ -282,7 +282,7 @@
 
 <h4 id="清除内部浮动"><a href="#清除内部浮动" class="headerlink" title="清除内部浮动"></a>清除内部浮动</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.par</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">border</span>: 5<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#fcc</span>;</span></span><br><span class="line">        width: 300px;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line"><span class="css">    <span class="selector-class">.child</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">border</span>: 5<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#f66</span>;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">width</span><span class="selector-pseudo">:100px</span>;</span></span><br><span class="line">        height: 100px;</span><br><span class="line">        float: left;</span><br><span class="line">				overflow: hidden; // bfc规则计算BFC的高度时，浮动元素也参与计算,</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;par&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;child&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;child&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="margin重叠"><a href="#margin重叠" class="headerlink" title="margin重叠"></a>margin重叠</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.wrap</span> &#123;</span></span><br><span class="line">        overflow: hidden; // 通过触发生成bfc， 避免同一个bfc内相邻元素box会发生margin重叠</span><br><span class="line">    &#125;</span><br><span class="line">    p &#123;</span><br><span class="line"><span class="css">        <span class="selector-tag">color</span>: <span class="selector-id">#f55</span>;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">background</span>: <span class="selector-id">#fcc</span>;</span></span><br><span class="line">        width: 200px;</span><br><span class="line">        line-height: 100px;</span><br><span class="line"><span class="css">        <span class="selector-tag">text-align</span><span class="selector-pseudo">:center</span>;</span></span><br><span class="line">        margin: 100px;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Haha<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrap&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>Hehe<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="margin重叠"><a href="#margin重叠" class="headerlink" title="margin重叠"></a>margin重叠</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.wrap</span> &#123;</span></span><br><span class="line">        overflow: hidden; // 通过触发生成bfc， 避免同一个bfc内相邻元素box会发生margin重叠,当兄弟盒子的外边距不一样时，将以最大的那个外边距为准。</span><br><span class="line">    &#125;</span><br><span class="line">    p &#123;</span><br><span class="line"><span class="css">        <span class="selector-tag">color</span>: <span class="selector-id">#f55</span>;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">background</span>: <span class="selector-id">#fcc</span>;</span></span><br><span class="line">        width: 200px;</span><br><span class="line">        line-height: 100px;</span><br><span class="line"><span class="css">        <span class="selector-tag">text-align</span><span class="selector-pseudo">:center</span>;</span></span><br><span class="line">        margin: 100px;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Haha<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrap&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>Hehe<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -387,7 +387,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#block-level-box"><span class="nav-number">1.</span> <span class="nav-text">block-level box</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Formatting-context"><span class="nav-number">2.</span> <span class="nav-text">Formatting context</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bfc-Block-formatting-contex-%E5%86%B3%E5%AE%9A%E4%BA%86%E5%85%83%E7%B4%A0%E5%A6%82%E4%BD%95%E5%85%91%E5%8F%96%E5%86%85%E5%AE%B9%E8%BF%9B%E8%A1%8C%E5%B8%83%E5%B1%80%E4%BB%A5%E5%8F%8A%E5%92%8C%E5%85%B6%E4%BB%96%E5%85%83%E7%B4%A0%E7%9A%84%E5%85%B3%E7%B3%BB%E5%92%8C%E7%9B%B8%E4%BA%92%E4%BD%9C%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">bfc(Block formatting contex): 决定了元素如何兑取内容进行布局以及和其他元素的关系和相互作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bfc%E7%9A%84%E5%B8%83%E5%B1%80%E8%A7%84%E5%88%99"><span class="nav-number">4.</span> <span class="nav-text">bfc的布局规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E9%80%82%E5%BA%94%E7%9A%84%E4%B8%A4%E6%A0%8F%E5%B8%83%E5%B1%80"><span class="nav-number">6.</span> <span class="nav-text">自适应的两栏布局</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%85%E9%99%A4%E5%86%85%E9%83%A8%E6%B5%AE%E5%8A%A8"><span class="nav-number">7.</span> <span class="nav-text">清除内部浮动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#margin%E9%87%8D%E5%8F%A0"><span class="nav-number">8.</span> <span class="nav-text">margin重叠</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#block-level-box"><span class="nav-number">1.</span> <span class="nav-text">block-level box</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Formatting-context"><span class="nav-number">2.</span> <span class="nav-text">Formatting context</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bfc-Block-formatting-context-%E5%86%B3%E5%AE%9A%E4%BA%86%E5%85%83%E7%B4%A0%E5%A6%82%E4%BD%95%E5%85%91%E5%8F%96%E5%86%85%E5%AE%B9%E8%BF%9B%E8%A1%8C%E5%B8%83%E5%B1%80%E4%BB%A5%E5%8F%8A%E5%92%8C%E5%85%B6%E4%BB%96%E5%85%83%E7%B4%A0%E7%9A%84%E5%85%B3%E7%B3%BB%E5%92%8C%E7%9B%B8%E4%BA%92%E4%BD%9C%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">bfc(Block formatting context): 决定了元素如何兑取内容进行布局以及和其他元素的关系和相互作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bfc%E7%9A%84%E5%B8%83%E5%B1%80%E8%A7%84%E5%88%99"><span class="nav-number">4.</span> <span class="nav-text">bfc的布局规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E9%80%82%E5%BA%94%E7%9A%84%E4%B8%A4%E6%A0%8F%E5%B8%83%E5%B1%80"><span class="nav-number">6.</span> <span class="nav-text">自适应的两栏布局</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%85%E9%99%A4%E5%86%85%E9%83%A8%E6%B5%AE%E5%8A%A8"><span class="nav-number">7.</span> <span class="nav-text">清除内部浮动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#margin%E9%87%8D%E5%8F%A0"><span class="nav-number">8.</span> <span class="nav-text">margin重叠</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -401,19 +401,19 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">81</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -458,13 +458,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">101k</span>
+    <span title="站点总字数">108k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:32</span>
+    <span title="站点阅读时长">1:38</span>
 </div>
 
         

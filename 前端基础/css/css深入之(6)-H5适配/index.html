@@ -20,17 +20,18 @@
     var CONFIG = {"hostname":"zhangliminabc.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":240,"display":"always","offset":18,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="何以解忧， 唯有暴富">
+  <meta name="description" content="设备像素比 &#x3D; 物理像素 &#x2F; 设备独立像素1px边框问题原因： css中1px是逻辑像素，导致逻辑像素根据设备像素比去映射到设备上就为 2px或者3px，由于每个设备的屏幕尺寸不一样，就导致每个物理像素渲染出来的大小也不同 解决方案: 1234567891011121314div &amp;#123;    height:1px;    background:#000;    -webkit-transf">
 <meta property="og:type" content="article">
-<meta property="og:title" content="测试文件">
+<meta property="og:title" content="css深入之H5适配方案">
 <meta property="og:url" content="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/css/css%E6%B7%B1%E5%85%A5%E4%B9%8B(6)-H5%E9%80%82%E9%85%8D/index.html">
 <meta property="og:site_name" content="浅笑整个夏季">
-<meta property="og:description" content="何以解忧， 唯有暴富">
+<meta property="og:description" content="设备像素比 &#x3D; 物理像素 &#x2F; 设备独立像素1px边框问题原因： css中1px是逻辑像素，导致逻辑像素根据设备像素比去映射到设备上就为 2px或者3px，由于每个设备的屏幕尺寸不一样，就导致每个物理像素渲染出来的大小也不同 解决方案: 1234567891011121314div &amp;#123;    height:1px;    background:#000;    -webkit-transf">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-23T14:09:43.000Z">
 <meta property="article:modified_time" content="2021-08-23T14:09:43.000Z">
 <meta property="article:author" content="浅笑整个夏季">
-<meta property="article:tag" content="JavaScript, vue, node, 前端">
+<meta property="article:tag" content="前端基础">
+<meta property="article:tag" content="CSS">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/css/css%E6%B7%B1%E5%85%A5%E4%B9%8B(6)-H5%E9%80%82%E9%85%8D/">
@@ -46,7 +47,7 @@
   };
 </script>
 
-  <title>测试文件 | 浅笑整个夏季</title>
+  <title>css深入之H5适配方案 | 浅笑整个夏季</title>
   
 
 
@@ -123,12 +124,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">21</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">78</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">81</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -199,7 +200,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          测试文件
+          css深入之H5适配方案
         </h1>
 
         <div class="post-meta">
@@ -211,6 +212,17 @@
 
               <time title="创建时间：2021-08-23 22:09:43" itemprop="dateCreated datePublished" datetime="2021-08-23T22:09:43+08:00">2021-08-23</time>
             </span>
+          <!--
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/css/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a>
+                </span>
+            </span>
+            -->
 
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -225,14 +237,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
+              <span>2.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -244,16 +256,98 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h6 id="设备像素比-物理像素-设备独立像素"><a href="#设备像素比-物理像素-设备独立像素" class="headerlink" title="设备像素比 = 物理像素 / 设备独立像素"></a>设备像素比 = 物理像素 / 设备独立像素</h6><h6 id="1px边框问题"><a href="#1px边框问题" class="headerlink" title="1px边框问题"></a>1px边框问题</h6><p>原因： css中1px是逻辑像素，导致逻辑像素根据设备像素比去映射到设备上就为 2px或者3px，由于每个设备的屏幕尺寸不一样，就导致每个物理像素渲染出来的大小也不同</p>
+<p>解决方案:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">1px</span>;</span><br><span class="line">    <span class="attribute">background</span>:<span class="number">#000</span>;</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">scaleY</span>(<span class="number">0.5</span>);</span><br><span class="line">    <span class="attribute">-webkit-transform-origin</span>:<span class="number">0</span> <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line">``</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">###### <span class="selector-tag">viewport</span>： 用于显示网页部分的区域</span><br><span class="line"></span><br><span class="line">```<span class="selector-tag">html</span></span><br><span class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, user-scalable=no, minimum-sacle=1, maximum-scale=1&quot; &gt;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>含义</th>
+<th>取值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>width</td>
+<td>定义视口的宽度，以像素为单位</td>
+<td>正整数 或者 设备宽度 device-width</td>
+</tr>
+<tr>
+<td>height</td>
+<td>定义视口的高度，以像素为单位</td>
+<td>正整数 或者 设备高度 device-height</td>
+</tr>
+<tr>
+<td>initial-scale</td>
+<td>定义网页初始缩放值</td>
+<td>整数或者小数， 小数位缩小，反之放大</td>
+</tr>
+<tr>
+<td>maximum-scale</td>
+<td>定义缩放最大值</td>
+<td>整数 或者 小数</td>
+</tr>
+<tr>
+<td>minimum-scale</td>
+<td>定义缩放最小值</td>
+<td>整数 或者 小数</td>
+</tr>
+<tr>
+<td>user-scalable</td>
+<td>定义用户是否可以缩放</td>
+<td>yes or no</td>
+</tr>
+</tbody></table>
+<h6 id="适配方案"><a href="#适配方案" class="headerlink" title="适配方案"></a>适配方案</h6><h6 id="方案一：-rem，-rem是以HTML元素的fontSize为比例"><a href="#方案一：-rem，-rem是以HTML元素的fontSize为比例" class="headerlink" title="方案一： rem， rem是以HTML元素的fontSize为比例"></a>方案一： rem， rem是以HTML元素的fontSize为比例</h6><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">	<span class="attribute">font-size</span>: <span class="number">16px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">	width: 10rem; // 10 * 16</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>怎么设计html元素的fontsize值？</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> deviceWidth = <span class="built_in">document</span>.documentElement.clientWidth;</span><br><span class="line">deviceWidth = deviceWidth &lt; <span class="number">320</span> ? <span class="number">320</span> : deviceWidth &gt; <span class="number">640</span> ? <span class="number">640</span> : deviceWidth;</span><br><span class="line"><span class="built_in">document</span>.documentElement.style.fontSize = deviceWidth / <span class="number">7.5</span> + <span class="string">&#x27;px&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>搭配postcss-pxtorem将自动将px值转化为rem值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.export = &#123;</span><br><span class="line">	lintOnSave: <span class="literal">true</span>,</span><br><span class="line">  css: &#123;</span><br><span class="line">    loaderOptions: &#123;</span><br><span class="line">      postcss: &#123;</span><br><span class="line">        plugins: [</span><br><span class="line">          <span class="built_in">require</span>(<span class="string">&#x27;postcss-pxtorem&#x27;</span>)(&#123;</span><br><span class="line">            rootValue : <span class="number">16</span>, <span class="comment">//（数字，函数） 根元素字体大小</span></span><br><span class="line">            unitPrecision: <span class="number">5</span>, <span class="comment">//（数字）允许REM单位增长的十进制数字</span></span><br><span class="line">            replace: <span class="literal">true</span>, <span class="comment">// （布尔值）替换包含rems的规则，而不添加后备</span></span><br><span class="line">            mediaQuery: <span class="literal">false</span>, <span class="comment">// （布尔值）允许在媒体查询中转换px</span></span><br><span class="line">            minPixelValue: <span class="number">0</span>, <span class="comment">// （数字）设置要替换的最小像素值</span></span><br><span class="line">            selectorBlackList  : [], <span class="comment">// 忽略转换正则匹配项</span></span><br><span class="line">            propList   : [<span class="string">&#x27;*&#x27;</span>], <span class="comment">// 可以从px转换为rem的属性，匹配正则</span></span><br><span class="line">            exclude: <span class="regexp">/node_modules/i</span> <span class="comment">// （字符串，正则表达式，函数）要忽略并保留为px的文件路径</span></span><br><span class="line">          &#125;),</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docEl.style.fontSize = <span class="number">10</span> * (clientWidth  / <span class="number">750</span>)  + <span class="string">&#x27;px&#x27;</span></span><br><span class="line"><span class="comment">// docEl =&gt; 是 元素html</span></span><br><span class="line"><span class="comment">// clientWidth =&gt; 是当前窗口的宽度</span></span><br><span class="line"><span class="comment">// 750 =&gt; 是 设计稿的宽度</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="方案二：-vw-vh-将页面分为100份，-1vw-device-width-100"><a href="#方案二：-vw-vh-将页面分为100份，-1vw-device-width-100" class="headerlink" title="方案二： vw / vh, 将页面分为100份， 1vw = device-width / 100"></a>方案二： vw / vh, 将页面分为100份， 1vw = device-width / 100</h6><p>搭配 postcss-px-to-viewport 将自动将px值专为你 vw/ vh</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line"> plugins: &#123;</span><br><span class="line">  autoprefixer: &#123;&#125;, <span class="comment">// 用来给不同的浏览器自动添加相应前缀，如-webkit-，-moz-等等</span></span><br><span class="line">	<span class="string">&#x27;postcss-px-to-viewport&#x27;</span>: &#123;</span><br><span class="line">		unitToConvert: <span class="string">&#x27;px&#x27;</span>, <span class="comment">// 要转化的单位</span></span><br><span class="line">		viewportWidth: <span class="number">750</span>, <span class="comment">// UI设计稿的宽度</span></span><br><span class="line">		unitPrecision: <span class="number">6</span>, <span class="comment">// 转换后的精度，即小数点位数</span></span><br><span class="line">		propList: [<span class="string">&#x27;*&#x27;</span>], <span class="comment">// 指定转换的css属性的单位，*代表全部css属性的单位都进行转换</span></span><br><span class="line">		viewportUnit: <span class="string">&#x27;vw&#x27;</span>, <span class="comment">// 指定需要转换成的视窗单位，默认vw</span></span><br><span class="line">		fontViewportUnit: <span class="string">&#x27;vw&#x27;</span>, <span class="comment">// 指定字体需要转换成的视窗单位，默认vw</span></span><br><span class="line">		selectorBlackList: [<span class="string">&#x27;wrap&#x27;</span>], <span class="comment">// 指定不转换为视窗单位的类名，</span></span><br><span class="line">		minPixelValue: <span class="number">1</span>, <span class="comment">// 默认值1，小于或等于1px则不进行转换</span></span><br><span class="line">		mediaQuery: <span class="literal">true</span>, <span class="comment">// 是否在媒体查询的css代码中也进行转换，默认false</span></span><br><span class="line">		replace: <span class="literal">true</span>, <span class="comment">// 是否转换后直接更换属性值</span></span><br><span class="line">		exclude: [<span class="regexp">/node_modules/</span>], <span class="comment">// 设置忽略文件，用正则做目录名匹配</span></span><br><span class="line">		landscape: <span class="literal">false</span>, <span class="comment">// 是否处理横屏情况</span></span><br><span class="line">	&#125;,</span><br><span class="line">&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> calcCssValue = <span class="function"><span class="params">value</span> =&gt;</span> <span class="string">`<span class="subst">$&#123;(value / <span class="number">375</span>) * <span class="number">100</span>&#125;</span>vw`</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="方案三：-百分比布局"><a href="#方案三：-百分比布局" class="headerlink" title="方案三： 百分比布局"></a>方案三： 百分比布局</h6><p>在 css 中，我们可以使用百分比来实现布局，但是需要特定宽度时，这个百分比的计算对开发者来说并不友好，且元素百分比参考的对象为父元素，元素嵌套较深时会有问题</p>
+<h6 id="方案四：-响应式布局"><a href="#方案四：-响应式布局" class="headerlink" title="方案四： 响应式布局"></a>方案四： 响应式布局</h6><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: yellow;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 针对大屏产品 ipad pro */</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width:</span> <span class="number">1024px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">body</span> &#123;</span><br><span class="line">      <span class="attribute">background-color</span>: blue;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="方案五：flex-rem"><a href="#方案五：flex-rem" class="headerlink" title="方案五：flex + rem"></a>方案五：flex + rem</h6>
     </div>
 
     
     
     
       
+  <div class="popular-posts-header">热点文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/前端基础/css/css深入之(11)-flex/" rel="bookmark">css深入之flex</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/前端基础/css/css深入之(10)-单位/" rel="bookmark">css深入之css的单位</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/前端基础/css/css深入之(9)-css性能优化/" rel="bookmark">CSS深入之性能优化</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/前端基础/css/css深入之(7)-双飞翼布局/" rel="bookmark">CSS深入之双飞翼布局</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/前端基础/css/css深入之(5)-grid/" rel="bookmark">测试文件</a></div>
+    </li>
+  </ul>
 
 
       <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/" rel="tag"><i class="fa fa-tag"></i> 前端基础</a>
+              <a href="/tags/css/" rel="tag"><i class="fa fa-tag"></i> CSS</a>
+          </div>
 
         
 
@@ -326,6 +420,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%AE%BE%E5%A4%87%E5%83%8F%E7%B4%A0%E6%AF%94-%E7%89%A9%E7%90%86%E5%83%8F%E7%B4%A0-%E8%AE%BE%E5%A4%87%E7%8B%AC%E7%AB%8B%E5%83%8F%E7%B4%A0"><span class="nav-number">1.</span> <span class="nav-text">设备像素比 &#x3D; 物理像素 &#x2F; 设备独立像素</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1px%E8%BE%B9%E6%A1%86%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">1px边框问题</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%80%82%E9%85%8D%E6%96%B9%E6%A1%88"><span class="nav-number">3.</span> <span class="nav-text">适配方案</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%B8%80%EF%BC%9A-rem%EF%BC%8C-rem%E6%98%AF%E4%BB%A5HTML%E5%85%83%E7%B4%A0%E7%9A%84fontSize%E4%B8%BA%E6%AF%94%E4%BE%8B"><span class="nav-number">4.</span> <span class="nav-text">方案一： rem， rem是以HTML元素的fontSize为比例</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%BA%8C%EF%BC%9A-vw-vh-%E5%B0%86%E9%A1%B5%E9%9D%A2%E5%88%86%E4%B8%BA100%E4%BB%BD%EF%BC%8C-1vw-device-width-100"><span class="nav-number">5.</span> <span class="nav-text">方案二： vw &#x2F; vh, 将页面分为100份， 1vw &#x3D; device-width &#x2F; 100</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%B8%89%EF%BC%9A-%E7%99%BE%E5%88%86%E6%AF%94%E5%B8%83%E5%B1%80"><span class="nav-number">6.</span> <span class="nav-text">方案三： 百分比布局</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E5%9B%9B%EF%BC%9A-%E5%93%8D%E5%BA%94%E5%BC%8F%E5%B8%83%E5%B1%80"><span class="nav-number">7.</span> <span class="nav-text">方案四： 响应式布局</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%BA%94%EF%BC%9Aflex-rem"><span class="nav-number">8.</span> <span class="nav-text">方案五：flex + rem</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -339,19 +434,19 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">81</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -396,13 +491,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">101k</span>
+    <span title="站点总字数">108k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:32</span>
+    <span title="站点阅读时长">1:38</span>
 </div>
 
         

@@ -121,12 +121,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">21</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">78</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>随机<span class="badge">81</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -179,6 +179,258 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/html%E6%B5%8F%E8%A7%88%E5%99%A8/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B7%B1%E5%85%A5%E4%B9%8B(1)-%E8%B7%A8%E9%A1%B5%E9%80%9A%E4%BF%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="浅笑整个夏季">
+      <meta itemprop="description" content="何以解忧， 唯有暴富">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浅笑整个夏季">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/html%E6%B5%8F%E8%A7%88%E5%99%A8/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B7%B1%E5%85%A5%E4%B9%8B(1)-%E8%B7%A8%E9%A1%B5%E9%80%9A%E4%BF%A1/" class="post-title-link" itemprop="url">浏览器深入之跨页通信</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-23 22:37:10" itemprop="dateCreated datePublished" datetime="2021-08-23T22:37:10+08:00">2021-08-23</time>
+            </span>
+          <!--
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B5%8F%E8%A7%88%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">浏览器</span></a>
+                </span>
+            </span>
+            -->
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>244</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="同源-域名，协议，端口相同"><a href="#同源-域名，协议，端口相同" class="headerlink" title="同源: 域名，协议，端口相同"></a>同源: 域名，协议，端口相同</h4><h4 id="跨域-指跨域名的访问"><a href="#跨域-指跨域名的访问" class="headerlink" title="跨域: 指跨域名的访问"></a>跨域: 指跨域名的访问</h4><h5 id="同源页之间的通信"><a href="#同源页之间的通信" class="headerlink" title="同源页之间的通信"></a>同源页之间的通信</h5><h6 id="BroadcastChannel"><a href="#BroadcastChannel" class="headerlink" title="BroadcastChannel"></a>BroadcastChannel</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 连接到广播频道</span></span><br><span class="line"><span class="keyword">var</span> bc = <span class="keyword">new</span> BroadcastChannel(<span class="string">&#x27;test_channel&#x27;</span>);</span><br><span class="line"><span class="comment">// 发送简单消息的示例</span></span><br><span class="line">bc.postMessage(<span class="string">&#x27;This is a test message.&#x27;</span>);</span><br><span class="line"><span class="comment">// 简单示例，用于将事件打印到控制台</span></span><br><span class="line">bc.onmessage = <span class="function"><span class="keyword">function</span> (<span class="params">ev</span>) </span>&#123; <span class="built_in">console</span>.log(ev); &#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id=""><a href="#" class="headerlink" title=""></a></h6>
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/css/css%E6%B7%B1%E5%85%A5%E4%B9%8B(9)-css%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="浅笑整个夏季">
+      <meta itemprop="description" content="何以解忧， 唯有暴富">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浅笑整个夏季">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/css/css%E6%B7%B1%E5%85%A5%E4%B9%8B(9)-css%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="post-title-link" itemprop="url">CSS深入之性能优化</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-23 22:11:21" itemprop="dateCreated datePublished" datetime="2021-08-23T22:11:21+08:00">2021-08-23</time>
+            </span>
+          <!--
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/css/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a>
+                </span>
+            </span>
+            -->
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>133</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="css性能优化的方式"><a href="#css性能优化的方式" class="headerlink" title="css性能优化的方式"></a>css性能优化的方式</h4><ol>
+<li>合并css文件, 如果页面加载10个1kb的css文件，也比加载一个100kb的css快</li>
+<li>减少css的嵌套，最好不要嵌套三层以上</li>
+<li>不要在id选择器下面进行嵌套，id选择器本就是层级最高</li>
+<li>建立公共样式，吧相同样式抽取出来</li>
+<li>gzip压缩</li>
+<li>避免过分的重排</li>
+<li>css动画</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/css/css%E6%B7%B1%E5%85%A5%E4%B9%8B(8)-css3%E6%96%B0%E7%89%B9%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="浅笑整个夏季">
+      <meta itemprop="description" content="何以解忧， 唯有暴富">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浅笑整个夏季">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/css/css%E6%B7%B1%E5%85%A5%E4%B9%8B(8)-css3%E6%96%B0%E7%89%B9%E6%80%A7/" class="post-title-link" itemprop="url">测试文件</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-23 22:10:48" itemprop="dateCreated datePublished" datetime="2021-08-23T22:10:48+08:00">2021-08-23</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>0</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -284,7 +536,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/css/css%E6%B7%B1%E5%85%A5%E4%B9%8B(6)-H5%E9%80%82%E9%85%8D/" class="post-title-link" itemprop="url">测试文件</a>
+            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/css/css%E6%B7%B1%E5%85%A5%E4%B9%8B(6)-H5%E9%80%82%E9%85%8D/" class="post-title-link" itemprop="url">css深入之H5适配方案</a>
         </h2>
 
         <div class="post-meta">
@@ -296,6 +548,17 @@
 
               <time title="创建时间：2021-08-23 22:09:43" itemprop="dateCreated datePublished" datetime="2021-08-23T22:09:43+08:00">2021-08-23</time>
             </span>
+          <!--
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/css/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a>
+                </span>
+            </span>
+            -->
 
           <br>
             <span class="post-meta-item" title="本文字数">
@@ -303,14 +566,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
+              <span>2.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -322,7 +585,66 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <h6 id="设备像素比-物理像素-设备独立像素"><a href="#设备像素比-物理像素-设备独立像素" class="headerlink" title="设备像素比 = 物理像素 / 设备独立像素"></a>设备像素比 = 物理像素 / 设备独立像素</h6><h6 id="1px边框问题"><a href="#1px边框问题" class="headerlink" title="1px边框问题"></a>1px边框问题</h6><p>原因： css中1px是逻辑像素，导致逻辑像素根据设备像素比去映射到设备上就为 2px或者3px，由于每个设备的屏幕尺寸不一样，就导致每个物理像素渲染出来的大小也不同</p>
+<p>解决方案:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">1px</span>;</span><br><span class="line">    <span class="attribute">background</span>:<span class="number">#000</span>;</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">scaleY</span>(<span class="number">0.5</span>);</span><br><span class="line">    <span class="attribute">-webkit-transform-origin</span>:<span class="number">0</span> <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line">``</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">###### <span class="selector-tag">viewport</span>： 用于显示网页部分的区域</span><br><span class="line"></span><br><span class="line">```<span class="selector-tag">html</span></span><br><span class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, user-scalable=no, minimum-sacle=1, maximum-scale=1&quot; &gt;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>含义</th>
+<th>取值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>width</td>
+<td>定义视口的宽度，以像素为单位</td>
+<td>正整数 或者 设备宽度 device-width</td>
+</tr>
+<tr>
+<td>height</td>
+<td>定义视口的高度，以像素为单位</td>
+<td>正整数 或者 设备高度 device-height</td>
+</tr>
+<tr>
+<td>initial-scale</td>
+<td>定义网页初始缩放值</td>
+<td>整数或者小数， 小数位缩小，反之放大</td>
+</tr>
+<tr>
+<td>maximum-scale</td>
+<td>定义缩放最大值</td>
+<td>整数 或者 小数</td>
+</tr>
+<tr>
+<td>minimum-scale</td>
+<td>定义缩放最小值</td>
+<td>整数 或者 小数</td>
+</tr>
+<tr>
+<td>user-scalable</td>
+<td>定义用户是否可以缩放</td>
+<td>yes or no</td>
+</tr>
+</tbody></table>
+<h6 id="适配方案"><a href="#适配方案" class="headerlink" title="适配方案"></a>适配方案</h6><h6 id="方案一：-rem，-rem是以HTML元素的fontSize为比例"><a href="#方案一：-rem，-rem是以HTML元素的fontSize为比例" class="headerlink" title="方案一： rem， rem是以HTML元素的fontSize为比例"></a>方案一： rem， rem是以HTML元素的fontSize为比例</h6><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">	<span class="attribute">font-size</span>: <span class="number">16px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">	width: 10rem; // 10 * 16</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>怎么设计html元素的fontsize值？</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> deviceWidth = <span class="built_in">document</span>.documentElement.clientWidth;</span><br><span class="line">deviceWidth = deviceWidth &lt; <span class="number">320</span> ? <span class="number">320</span> : deviceWidth &gt; <span class="number">640</span> ? <span class="number">640</span> : deviceWidth;</span><br><span class="line"><span class="built_in">document</span>.documentElement.style.fontSize = deviceWidth / <span class="number">7.5</span> + <span class="string">&#x27;px&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>搭配postcss-pxtorem将自动将px值转化为rem值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.export = &#123;</span><br><span class="line">	lintOnSave: <span class="literal">true</span>,</span><br><span class="line">  css: &#123;</span><br><span class="line">    loaderOptions: &#123;</span><br><span class="line">      postcss: &#123;</span><br><span class="line">        plugins: [</span><br><span class="line">          <span class="built_in">require</span>(<span class="string">&#x27;postcss-pxtorem&#x27;</span>)(&#123;</span><br><span class="line">            rootValue : <span class="number">16</span>, <span class="comment">//（数字，函数） 根元素字体大小</span></span><br><span class="line">            unitPrecision: <span class="number">5</span>, <span class="comment">//（数字）允许REM单位增长的十进制数字</span></span><br><span class="line">            replace: <span class="literal">true</span>, <span class="comment">// （布尔值）替换包含rems的规则，而不添加后备</span></span><br><span class="line">            mediaQuery: <span class="literal">false</span>, <span class="comment">// （布尔值）允许在媒体查询中转换px</span></span><br><span class="line">            minPixelValue: <span class="number">0</span>, <span class="comment">// （数字）设置要替换的最小像素值</span></span><br><span class="line">            selectorBlackList  : [], <span class="comment">// 忽略转换正则匹配项</span></span><br><span class="line">            propList   : [<span class="string">&#x27;*&#x27;</span>], <span class="comment">// 可以从px转换为rem的属性，匹配正则</span></span><br><span class="line">            exclude: <span class="regexp">/node_modules/i</span> <span class="comment">// （字符串，正则表达式，函数）要忽略并保留为px的文件路径</span></span><br><span class="line">          &#125;),</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docEl.style.fontSize = <span class="number">10</span> * (clientWidth  / <span class="number">750</span>)  + <span class="string">&#x27;px&#x27;</span></span><br><span class="line"><span class="comment">// docEl =&gt; 是 元素html</span></span><br><span class="line"><span class="comment">// clientWidth =&gt; 是当前窗口的宽度</span></span><br><span class="line"><span class="comment">// 750 =&gt; 是 设计稿的宽度</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="方案二：-vw-vh-将页面分为100份，-1vw-device-width-100"><a href="#方案二：-vw-vh-将页面分为100份，-1vw-device-width-100" class="headerlink" title="方案二： vw / vh, 将页面分为100份， 1vw = device-width / 100"></a>方案二： vw / vh, 将页面分为100份， 1vw = device-width / 100</h6><p>搭配 postcss-px-to-viewport 将自动将px值专为你 vw/ vh</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line"> plugins: &#123;</span><br><span class="line">  autoprefixer: &#123;&#125;, <span class="comment">// 用来给不同的浏览器自动添加相应前缀，如-webkit-，-moz-等等</span></span><br><span class="line">	<span class="string">&#x27;postcss-px-to-viewport&#x27;</span>: &#123;</span><br><span class="line">		unitToConvert: <span class="string">&#x27;px&#x27;</span>, <span class="comment">// 要转化的单位</span></span><br><span class="line">		viewportWidth: <span class="number">750</span>, <span class="comment">// UI设计稿的宽度</span></span><br><span class="line">		unitPrecision: <span class="number">6</span>, <span class="comment">// 转换后的精度，即小数点位数</span></span><br><span class="line">		propList: [<span class="string">&#x27;*&#x27;</span>], <span class="comment">// 指定转换的css属性的单位，*代表全部css属性的单位都进行转换</span></span><br><span class="line">		viewportUnit: <span class="string">&#x27;vw&#x27;</span>, <span class="comment">// 指定需要转换成的视窗单位，默认vw</span></span><br><span class="line">		fontViewportUnit: <span class="string">&#x27;vw&#x27;</span>, <span class="comment">// 指定字体需要转换成的视窗单位，默认vw</span></span><br><span class="line">		selectorBlackList: [<span class="string">&#x27;wrap&#x27;</span>], <span class="comment">// 指定不转换为视窗单位的类名，</span></span><br><span class="line">		minPixelValue: <span class="number">1</span>, <span class="comment">// 默认值1，小于或等于1px则不进行转换</span></span><br><span class="line">		mediaQuery: <span class="literal">true</span>, <span class="comment">// 是否在媒体查询的css代码中也进行转换，默认false</span></span><br><span class="line">		replace: <span class="literal">true</span>, <span class="comment">// 是否转换后直接更换属性值</span></span><br><span class="line">		exclude: [<span class="regexp">/node_modules/</span>], <span class="comment">// 设置忽略文件，用正则做目录名匹配</span></span><br><span class="line">		landscape: <span class="literal">false</span>, <span class="comment">// 是否处理横屏情况</span></span><br><span class="line">	&#125;,</span><br><span class="line">&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> calcCssValue = <span class="function"><span class="params">value</span> =&gt;</span> <span class="string">`<span class="subst">$&#123;(value / <span class="number">375</span>) * <span class="number">100</span>&#125;</span>vw`</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="方案三：-百分比布局"><a href="#方案三：-百分比布局" class="headerlink" title="方案三： 百分比布局"></a>方案三： 百分比布局</h6><p>在 css 中，我们可以使用百分比来实现布局，但是需要特定宽度时，这个百分比的计算对开发者来说并不友好，且元素百分比参考的对象为父元素，元素嵌套较深时会有问题</p>
+<h6 id="方案四：-响应式布局"><a href="#方案四：-响应式布局" class="headerlink" title="方案四： 响应式布局"></a>方案四： 响应式布局</h6><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: yellow;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 针对大屏产品 ipad pro */</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width:</span> <span class="number">1024px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">body</span> &#123;</span><br><span class="line">      <span class="attribute">background-color</span>: blue;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="方案五：flex-rem"><a href="#方案五：flex-rem" class="headerlink" title="方案五：flex + rem"></a>方案五：flex + rem</h6>
       
     </div>
 
@@ -707,7 +1029,7 @@
 <li>块状元素具有流体特性(水平方向自动填满外部容器)</li>
 </ol>
 <h4 id="Formatting-context"><a href="#Formatting-context" class="headerlink" title="Formatting context"></a>Formatting context</h4><p>在页面中的一块渲染区域，并且有自己的渲染规则</p>
-<h4 id="bfc-Block-formatting-contex-决定了元素如何兑取内容进行布局以及和其他元素的关系和相互作用"><a href="#bfc-Block-formatting-contex-决定了元素如何兑取内容进行布局以及和其他元素的关系和相互作用" class="headerlink" title="bfc(Block formatting contex): 决定了元素如何兑取内容进行布局以及和其他元素的关系和相互作用"></a>bfc(Block formatting contex): 决定了元素如何兑取内容进行布局以及和其他元素的关系和相互作用</h4><p>简单理解是： BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素</p>
+<h4 id="bfc-Block-formatting-context-决定了元素如何兑取内容进行布局以及和其他元素的关系和相互作用"><a href="#bfc-Block-formatting-context-决定了元素如何兑取内容进行布局以及和其他元素的关系和相互作用" class="headerlink" title="bfc(Block formatting context): 决定了元素如何兑取内容进行布局以及和其他元素的关系和相互作用"></a>bfc(Block formatting context): 决定了元素如何兑取内容进行布局以及和其他元素的关系和相互作用</h4><p>简单理解是： BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素</p>
 <h4 id="bfc的布局规则"><a href="#bfc的布局规则" class="headerlink" title="bfc的布局规则"></a>bfc的布局规则</h4><ol>
 <li>内部的box会在垂直方向上一个接一个的排列</li>
 <li>box在垂直方向上的距离由margin决定， 属于同一个BFC的两个相邻Box的margin会发生重叠</li>
@@ -726,7 +1048,7 @@
 
 <h4 id="清除内部浮动"><a href="#清除内部浮动" class="headerlink" title="清除内部浮动"></a>清除内部浮动</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.par</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">border</span>: 5<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#fcc</span>;</span></span><br><span class="line">        width: 300px;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line"><span class="css">    <span class="selector-class">.child</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">border</span>: 5<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#f66</span>;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">width</span><span class="selector-pseudo">:100px</span>;</span></span><br><span class="line">        height: 100px;</span><br><span class="line">        float: left;</span><br><span class="line">				overflow: hidden; // bfc规则计算BFC的高度时，浮动元素也参与计算,</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;par&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;child&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;child&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="margin重叠"><a href="#margin重叠" class="headerlink" title="margin重叠"></a>margin重叠</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.wrap</span> &#123;</span></span><br><span class="line">        overflow: hidden; // 通过触发生成bfc， 避免同一个bfc内相邻元素box会发生margin重叠</span><br><span class="line">    &#125;</span><br><span class="line">    p &#123;</span><br><span class="line"><span class="css">        <span class="selector-tag">color</span>: <span class="selector-id">#f55</span>;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">background</span>: <span class="selector-id">#fcc</span>;</span></span><br><span class="line">        width: 200px;</span><br><span class="line">        line-height: 100px;</span><br><span class="line"><span class="css">        <span class="selector-tag">text-align</span><span class="selector-pseudo">:center</span>;</span></span><br><span class="line">        margin: 100px;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Haha<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrap&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>Hehe<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="margin重叠"><a href="#margin重叠" class="headerlink" title="margin重叠"></a>margin重叠</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.wrap</span> &#123;</span></span><br><span class="line">        overflow: hidden; // 通过触发生成bfc， 避免同一个bfc内相邻元素box会发生margin重叠,当兄弟盒子的外边距不一样时，将以最大的那个外边距为准。</span><br><span class="line">    &#125;</span><br><span class="line">    p &#123;</span><br><span class="line"><span class="css">        <span class="selector-tag">color</span>: <span class="selector-id">#f55</span>;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">background</span>: <span class="selector-id">#fcc</span>;</span></span><br><span class="line">        width: 200px;</span><br><span class="line">        line-height: 100px;</span><br><span class="line"><span class="css">        <span class="selector-tag">text-align</span><span class="selector-pseudo">:center</span>;</span></span><br><span class="line">        margin: 100px;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Haha<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrap&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>Hehe<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -901,7 +1223,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>209</span>
+              <span>342</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -920,319 +1242,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="页面所呈现的效果就是一个一个盒子堆砌而成"><a href="#页面所呈现的效果就是一个一个盒子堆砌而成" class="headerlink" title="页面所呈现的效果就是一个一个盒子堆砌而成"></a>页面所呈现的效果就是一个一个盒子堆砌而成</h4><h4 id="CSS的盒模型分类"><a href="#CSS的盒模型分类" class="headerlink" title="CSS的盒模型分类"></a>CSS的盒模型分类</h4><h4 id="标准盒模型"><a href="#标准盒模型" class="headerlink" title="标准盒模型"></a>标准盒模型</h4><h5 id="组成部分"><a href="#组成部分" class="headerlink" title="组成部分"></a>组成部分</h5><p>margin + padding + border + content</p>
-<h5 id="设置方式"><a href="#设置方式" class="headerlink" title="设置方式"></a>设置方式</h5><p>box-sizing:conent-box;</p>
-<h4 id="IE盒模型"><a href="#IE盒模型" class="headerlink" title="IE盒模型"></a>IE盒模型</h4><h5 id="组成部分-1"><a href="#组成部分-1" class="headerlink" title="组成部分:"></a>组成部分:</h5><p>margin + padding + border + content</p>
-<h5 id="设置方式-1"><a href="#设置方式-1" class="headerlink" title="设置方式:"></a>设置方式:</h5><p>box-sizing:border-box;</p>
-<p>总结：</p>
-<ol>
-<li>标准盒模型和ie盒模型的区别</li>
-</ol>
-<p>IE 盒子模型的 content 部分包含了 border 和 pading。</p>
+          <h4 id="什么是盒子模型？"><a href="#什么是盒子模型？" class="headerlink" title="什么是盒子模型？"></a>什么是盒子模型？</h4><p>页面所呈现的效果就是一个一个盒子堆砌而成<br>盒模型由margin + padding + border + content组成</p>
+<h4 id="CSS的盒模型分类"><a href="#CSS的盒模型分类" class="headerlink" title="CSS的盒模型分类"></a>CSS的盒模型分类</h4><h6 id="标准盒模型：-content-content"><a href="#标准盒模型：-content-content" class="headerlink" title="标准盒模型： content = content"></a>标准盒模型： content = content</h6><img src="../../../static/css/标准盒模型.webp">
 
-      
-    </div>
+<p>如何设置为标准盒模型？</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">box-sizing</span><span class="selector-pseudo">:content-box</span>;</span><br></pre></td></tr></table></figure>
+<h6 id="IE-盒模型：-content-content-border-padding"><a href="#IE-盒模型：-content-content-border-padding" class="headerlink" title="IE 盒模型： content = content + border + padding"></a>IE 盒模型： content = content + border + padding</h6><img src="../../../static/css/标准盒模型.webp">
 
-    
-    
-    
-      
+<p>如何设置为IE盒模型？</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">box-sizing</span><span class="selector-pseudo">:border-box</span>;</span><br></pre></td></tr></table></figure>
 
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(17)-genarator/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="浅笑整个夏季">
-      <meta itemprop="description" content="何以解忧， 唯有暴富">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅笑整个夏季">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(17)-genarator/" class="post-title-link" itemprop="url">JavaScript深入之genarator</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-23 19:52:00" itemprop="dateCreated datePublished" datetime="2021-08-23T19:52:00+08:00">2021-08-23</time>
-            </span>
-          <!--
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-            </span>
-            -->
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><p>Generator 函数是 ES6 提供的一种异步编程解决方案，语法行为与传统函数完全不同。本章详细介绍 Generator 函数的语法和 API，它的异步编程应用请看《Generator 函数的异步应用》一章。</p>
-<p>Generator 函数有多种理解角度。语法上，首先可以把它理解成，Generator 函数是一个状态机，封装了多个内部状态。</p>
-<p>执行 Generator 函数会返回一个遍历器对象，也就是说，Generator 函数除了状态机，还是一个遍历器对象生成函数。返回的遍历器对象，可以依次遍历 Generator 函数内部的每一个状态。</p>
-<p>形式上，Generator 函数是一个普通函数，但是有两个特征。<br>一是，<code>function</code>关键字与函数名之间有一个星号；<br>二是，函数体内部使用<code>yield</code>表达式，定义不同的内部状态（<code>yield</code>在英语里的意思就是“产出”）。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">helloWorldGenerator</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">yield</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">  <span class="keyword">yield</span> <span class="string">&quot;world&quot;</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;ending&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> hw = helloWorldGenerator();</span><br></pre></td></tr></table></figure>
-
-<p>上面代码定义了一个 Generator 函数<code>helloWorldGenerator</code>，它内部有两个<code>yield</code>表达式（<code>hello</code>和<code>world</code>），即该函数有三个状态：hello，world 和 return 语句（结束执行）。</p>
-<p>然后，Generator 函数的调用方法与普通函数一样，也是在函数名后面加上一对圆括号。不同的是，调用 Generator 函数后，该函数并不执行，返回的也不是函数运行结果，而是一个指向内部状态的指针对象，也就是上一章介绍的遍历器对象（Iterator Object）。</p>
-<p>下一步，必须调用遍历器对象的<code>next</code>方法，使得指针移向下一个状态。也就是说，每次调用<code>next</code>方法，内部指针就从函数头部或上一次停下来的地方开始执行，直到遇到下一个<code>yield</code>表达式（或<code>return</code>语句）为止。换言之，Generator 函数是分段执行的，<code>yield</code>表达式是暂停执行的标记，而<code>next</code>方法可以恢复执行。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">hw.next();</span><br><span class="line"><span class="comment">// &#123; value: &#x27;hello&#x27;, done: false &#125;</span></span><br><span class="line"></span><br><span class="line">hw.next();</span><br><span class="line"><span class="comment">// &#123; value: &#x27;world&#x27;, done: false &#125;</span></span><br><span class="line"></span><br><span class="line">hw.next();</span><br><span class="line"><span class="comment">// &#123; value: &#x27;ending&#x27;, done: true &#125;</span></span><br><span class="line"></span><br><span class="line">hw.next();</span><br><span class="line"><span class="comment">// &#123; value: undefined, done: true &#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>上面代码一共调用了四次<code>next</code>方法。</p>
-<p>第一次调用，Generator 函数开始执行，直到遇到第一个<code>yield</code>表达式为止。<code>next</code>方法返回一个对象，它的<code>value</code>属性就是当前<code>yield</code>表达式的值<code>hello</code>，<code>done</code>属性的值<code>false</code>，表示遍历还没有结束。</p>
-<p>第二次调用，Generator 函数从上次<code>yield</code>表达式停下的地方，一直执行到下一个<code>yield</code>表达式。<code>next</code>方法返回的对象的<code>value</code>属性就是当前<code>yield</code>表达式的值<code>world</code>，<code>done</code>属性的值<code>false</code>，表示遍历还没有结束。</p>
-<p>第三次调用，Generator 函数从上次<code>yield</code>表达式停下的地方，一直执行到<code>return</code>语句（如果没有<code>return</code>语句，就执行到函数结束）。<code>next</code>方法返回的对象的<code>value</code>属性，就是紧跟在<code>return</code>语句后面的表达式的值（如果没有<code>return</code>语句，则<code>value</code>属性的值为<code>undefined</code>），<code>done</code>属性的值<code>true</code>，表示遍历已经结束。</p>
-<p>第四次调用，此时 Generator 函数已经运行完毕，<code>next</code>方法返回对象的<code>value</code>属性为<code>undefined</code>，<code>done</code>属性为<code>true</code>。以后再调用<code>next</code>方法，返回的都是这个值。</p>
-<p>总结一下，调用 Generator 函数，返回一个遍历器对象，代表 Generator 函数的内部指针。以后，每次调用遍历器对象的<code>next</code>方法，就会返回一个有着<code>value</code>和<code>done</code>两个属性的对象。<code>value</code>属性表示当前的内部状态的值，是<code>yield</code>表达式后面那个表达式的值；<code>done</code>属性是一个布尔值，表示是否遍历结束。</p>
-<p>ES6 没有规定，<code>function</code>关键字与函数名之间的星号，写在哪个位置。这导致下面的写法都能通过。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> * <span class="title">foo</span>(<span class="params">x, y</span>) </span>&#123; ··· &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params">x, y</span>) </span>&#123; ··· &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">foo</span>(<span class="params">x, y</span>) </span>&#123; ··· &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span>*<span class="title">foo</span>(<span class="params">x, y</span>) </span>&#123; ··· &#125;</span><br></pre></td></tr></table></figure>
-
-<p>由于 Generator 函数仍然是普通函数，所以一般的写法是上面的第三种，即星号紧跟在<code>function</code>关键字后面。本书也采用这种写法。</p>
-<h6 id="接下来我们深度剖析一下async-await和-genarator之间的关系"><a href="#接下来我们深度剖析一下async-await和-genarator之间的关系" class="headerlink" title="接下来我们深度剖析一下async/await和 genarator之间的关系"></a>接下来我们深度剖析一下async/await和 genarator之间的关系</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="string">&#x27;data&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">a</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> result =  <span class="keyword">await</span> b()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面一段代码是正常的async/await的用法，接下来我们看一下使用babel编译上面代码之后得到了什么</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">asyncGeneratorStep</span>(<span class="params">gen, resolve, reject, _next, _throw, key, arg</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> info = gen[key](arg);</span><br><span class="line">        <span class="keyword">var</span> value = info.value;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">        reject(error);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (info.done) &#123;</span><br><span class="line">        resolve(value);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">Promise</span>.resolve(value).then(_next, _throw);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_asyncToGenerator</span>(<span class="params">fn</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> self = <span class="built_in">this</span>,</span><br><span class="line">            args = <span class="built_in">arguments</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> gen = fn.apply(self, args);</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">function</span> <span class="title">_next</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">                asyncGeneratorStep(gen, resolve, reject, _next, _throw, <span class="string">&quot;next&quot;</span>, value);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">function</span> <span class="title">_throw</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">                asyncGeneratorStep(gen, resolve, reject, _next, _throw, <span class="string">&quot;throw&quot;</span>, err);</span><br><span class="line">            &#125;</span><br><span class="line">            _next(<span class="literal">undefined</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;data&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> _a.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_a</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    _a = _asyncToGenerator(<span class="function"><span class="keyword">function</span>*(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> result = <span class="keyword">yield</span> b();</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> _a.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>由此可见：</p>
-<p>aysnc函数返回一个promise<br>在 async/await内部使用的是 promise的then回调一直触发next函数的调用， 直到遍历器内部done的值为true</p>
-<p>async/await实质上 genarator和promise的语法糖</p>
-<h4 id="为什么使用aysnc-await？"><a href="#为什么使用aysnc-await？" class="headerlink" title="为什么使用aysnc/await？"></a>为什么使用aysnc/await？</h4><p>promise的缺点：</p>
-<ol>
-<li>无法取消promise</li>
-<li>对于promise的链式调用一直会返回promise</li>
-<li>对于catch和then回调中的reject的错误处理</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(16)-super/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="浅笑整个夏季">
-      <meta itemprop="description" content="何以解忧， 唯有暴富">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅笑整个夏季">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(16)-super/" class="post-title-link" itemprop="url">JavaScript深入之super</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-23 19:51:32" itemprop="dateCreated datePublished" datetime="2021-08-23T19:51:32+08:00">2021-08-23</time>
-            </span>
-          <!--
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-            </span>
-            -->
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="super-用于访问和调用一个对象的父对象上的函数"><a href="#super-用于访问和调用一个对象的父对象上的函数" class="headerlink" title="super: 用于访问和调用一个对象的父对象上的函数"></a>super: 用于访问和调用一个对象的父对象上的函数</h4><h5 id="Object-getPrototypeOf-Object-setPrototypeOf-返回的是对象的隐士的原型对象-proto"><a href="#Object-getPrototypeOf-Object-setPrototypeOf-返回的是对象的隐士的原型对象-proto" class="headerlink" title="Object.getPrototypeOf / Object.setPrototypeOf: 返回的是对象的隐士的原型对象 proto"></a>Object.getPrototypeOf / Object.setPrototypeOf: 返回的是对象的隐士的原型对象 <strong>proto</strong></h5><h5 id="Object-create-方法创建一个新对象，使用现有的对象来提供新创建的对象的proto"><a href="#Object-create-方法创建一个新对象，使用现有的对象来提供新创建的对象的proto" class="headerlink" title="Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的proto"></a>Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的<strong>proto</strong></h5><p>接下来我们看看ES6中super的调用</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  ES6代码</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>我们再来看看通过babel编译ES6为Es5的代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * babel编译es6中的 class/ extends/super 为 es5</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_inherits</span>(<span class="params">subClass, superClass</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> superClass !== <span class="string">&quot;function&quot;</span> &amp;&amp; superClass !== <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">&quot;Super expression must either be null or a function&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    subClass.prototype = <span class="built_in">Object</span>.create(superClass &amp;&amp; superClass.prototype, &#123;</span><br><span class="line">        <span class="title">constructor</span>: &#123;</span><br><span class="line">            value: subClass,</span><br><span class="line">            writable: <span class="literal">true</span>,</span><br><span class="line">            configurable: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">if</span> (superClass) _setPrototypeOf(subClass, superClass);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_setPrototypeOf</span>(<span class="params">o, p</span>) </span>&#123;</span><br><span class="line">    _setPrototypeOf = <span class="built_in">Object</span>.setPrototypeOf || <span class="function"><span class="keyword">function</span> <span class="title">_setPrototypeOf</span>(<span class="params">o, p</span>) </span>&#123;</span><br><span class="line">        o.__proto__ = p;</span><br><span class="line">        <span class="keyword">return</span> o;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> _setPrototypeOf(o, p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_createSuper</span>(<span class="params">Derived</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> hasNativeReflectConstruct = _isNativeReflectConstruct();</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">_createSuperInternal</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> Super = _getPrototypeOf(Derived),</span><br><span class="line">            result;</span><br><span class="line">        <span class="built_in">console</span>.log(Super === A) <span class="comment">// true</span></span><br><span class="line">        <span class="keyword">if</span> (hasNativeReflectConstruct) &#123;</span><br><span class="line">            <span class="keyword">var</span> NewTarget = _getPrototypeOf(<span class="built_in">this</span>).constructor;</span><br><span class="line">            result = <span class="built_in">Reflect</span>.construct(Super, <span class="built_in">arguments</span>, NewTarget);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; result = Super.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>); &#125;</span><br><span class="line">        <span class="keyword">return</span> _possibleConstructorReturn(<span class="built_in">this</span>, result);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_possibleConstructorReturn</span>(<span class="params">self, call</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (call &amp;&amp; (<span class="keyword">typeof</span> call === <span class="string">&quot;object&quot;</span> || <span class="keyword">typeof</span> call === <span class="string">&quot;function&quot;</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> call;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> _assertThisInitialized(self);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_assertThisInitialized</span>(<span class="params">self</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (self === <span class="keyword">void</span> <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">ReferenceError</span>(<span class="string">&quot;this hasn&#x27;t been initialised - super() hasn&#x27;t been called&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> self;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_isNativeReflectConstruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">Reflect</span> === <span class="string">&quot;undefined&quot;</span> || !<span class="built_in">Reflect</span>.construct)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">Reflect</span>.construct.sham) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">Proxy</span> === <span class="string">&quot;function&quot;</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123; <span class="built_in">Boolean</span>.prototype.valueOf.call(<span class="built_in">Reflect</span>.construct(<span class="built_in">Boolean</span>, [], <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;)); <span class="keyword">return</span> <span class="literal">true</span>; &#125; <span class="keyword">catch</span> (e) &#123; <span class="keyword">return</span> <span class="literal">false</span>; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_getPrototypeOf</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">    _getPrototypeOf = <span class="built_in">Object</span>.setPrototypeOf ?</span><br><span class="line">        <span class="built_in">Object</span>.getPrototypeOf :</span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">_getPrototypeOf</span>(<span class="params">o</span>) </span>&#123; <span class="keyword">return</span> o.__proto__ || <span class="built_in">Object</span>.getPrototypeOf(o); &#125;;</span><br><span class="line">    <span class="keyword">return</span> _getPrototypeOf(o);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_classCallCheck</span>(<span class="params">instance, Constructor</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!(instance <span class="keyword">instanceof</span> Constructor)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">&quot;Cannot call a class as a function&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> A = <span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="meta">    &quot;use strict&quot;</span>;</span><br><span class="line">    _classCallCheck(<span class="built_in">this</span>, A);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> B = <span class="comment">/*#__PURE__*/</span> <span class="function"><span class="keyword">function</span>(<span class="params">_A</span>) </span>&#123;</span><br><span class="line"><span class="meta">    &quot;use strict&quot;</span>;</span><br><span class="line"></span><br><span class="line">    _inherits(B, _A);</span><br><span class="line">    <span class="keyword">var</span> _super = _createSuper(B);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        _classCallCheck(<span class="built_in">this</span>, B);</span><br><span class="line">        <span class="comment">// 参照JavaScript深入之继承中的寄生组合式继承，这句代码有没有很熟悉</span></span><br><span class="line">        <span class="keyword">return</span> _super.call(<span class="built_in">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> B;</span><br><span class="line">&#125;(A)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> instance = <span class="keyword">new</span> B();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>最后我们自己实现一个Super函数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Reflect的用法 </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">const</span> newTarget = <span class="built_in">Reflect</span>.construct(Test, [<span class="string">&#x27;张利民&#x27;</span>, <span class="number">26</span>]);</span><br><span class="line"><span class="built_in">console</span>.log(</span><br><span class="line">    newTarget.__proto__.constructor === Test,</span><br><span class="line">    newTarget.__proto__ === Test.prototype,</span><br><span class="line">    newTarget <span class="keyword">instanceof</span> Test); <span class="comment">// true, true, true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> newTarget1 = <span class="built_in">Reflect</span>.construct(Test, [<span class="string">&#x27;张利民&#x27;</span>, <span class="number">26</span>], Parent);</span><br><span class="line"><span class="built_in">console</span>.log(</span><br><span class="line">    newTarget1.__proto__.constructor === Parent,</span><br><span class="line">    newTarget1.__proto__ === Parent.prototype,</span><br><span class="line">    newTarget1 <span class="keyword">instanceof</span> Parent); <span class="comment">// true, true, true</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 模拟super函数</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;*&#125;</span> </span>Test </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns </span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mockSuper</span>(<span class="params">Test</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">_createSuper</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> Super = <span class="built_in">Object</span>.getPrototypeOf(Test)</span><br><span class="line">        <span class="keyword">let</span> result = <span class="literal">null</span></span><br><span class="line">        <span class="keyword">const</span> newTarget = <span class="built_in">Object</span>.getPrototypeOf(<span class="built_in">this</span>).constructor</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">Reflect</span> !== <span class="string">&#x27;undefined&#x27;</span>) &#123;</span><br><span class="line">            <span class="comment">// const result = new newTarget(arguments)</span></span><br><span class="line">            result = <span class="built_in">Reflect</span>.construct(Super, <span class="built_in">arguments</span>, newTarget)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangliminabc.github.io/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(15)-new/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="浅笑整个夏季">
-      <meta itemprop="description" content="何以解忧， 唯有暴富">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅笑整个夏季">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B(15)-new/" class="post-title-link" itemprop="url">JavaScript深入之new操作符</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-23 19:51:06" itemprop="dateCreated datePublished" datetime="2021-08-23T19:51:06+08:00">2021-08-23</time>
-            </span>
-          <!--
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-            </span>
-            -->
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="new-操作符"><a href="#new-操作符" class="headerlink" title="new 操作符"></a>new 操作符</h4><p>构造函数实例化通过 new 操作符初始化一个构造函数实例对象，在这个新的对象中为什么可以访问构造函数内的函数和变量？同时实例化之后的对象中的this为什么指向构造函数？</p>
-<h5 id="自定义new函数"><a href="#自定义new函数" class="headerlink" title="自定义new函数"></a>自定义new函数</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line">		<span class="comment">// return &#123; name, age &#125;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Test.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Test.prototype.getAge = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Test.prototype.setName = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Test.prototype.setAge = <span class="function"><span class="keyword">function</span>(<span class="params">age</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// const instance = new Test(&#x27;zhanglimin&#x27;, 26);</span></span><br><span class="line"><span class="keyword">const</span> instance = mockNew(Test, <span class="string">&#x27;zhanglimin&#x27;</span>, <span class="number">26</span>)</span><br><span class="line"><span class="built_in">console</span>.log(instance.__proto__ === Test.prototype); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mockNew</span>(<span class="params">Con, ...args</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> obj = &#123;&#125;</span><br><span class="line">        <span class="comment">// 解释了static类型的方法不能通过this调用的原因</span></span><br><span class="line">    <span class="built_in">Object</span>.setPrototypeOf(obj, Con.prototype)</span><br><span class="line">        <span class="comment">// apply方法调用一个具有给定this值的函数</span></span><br><span class="line">    <span class="keyword">let</span> result = Con.apply(obj, args)</span><br><span class="line">    <span class="keyword">return</span> result <span class="keyword">instanceof</span> <span class="built_in">Object</span> ? result : obj</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>由此可见 new操作符的实质是</p>
-<ol>
-<li>传建一个空对象</li>
-<li>将空对象中原型对象<strong>proto</strong> 指向构造函数的原型(prototype)</li>
-<li>使用call 或者 apply 绑定函数内的this指向</li>
-<li>执行构造函数， 如果构造函数的返回值是对象就返回改值，如果不是就返回创建的空对象</li>
-</ol>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dom.style.width/height</span><br><span class="line">dom.currentStyle.width/height  (ie支持)</span><br><span class="line"><span class="built_in">window</span>.getComputedStyle(dom).width/height;</span><br><span class="line">dom.getBoundingClientRect().width/height;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1253,7 +1273,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1319,19 +1339,19 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">81</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1376,13 +1396,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">101k</span>
+    <span title="站点总字数">108k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:32</span>
+    <span title="站点阅读时长">1:38</span>
 </div>
 
         
